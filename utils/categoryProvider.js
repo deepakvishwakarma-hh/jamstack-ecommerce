@@ -1,13 +1,9 @@
-import inventory from './inventory'
+import { client } from "../utils/lib/client"
 
-async function fetchCategories () {
-  const categories = inventory.reduce((acc, next) => {
-    next.categories.map(category => {
-      if (acc.includes(category)) return
-      acc.push(category)
-    })
-    return acc
-  }, [])
+async function fetchCategories() {
+  const query = '*[_type == "catalog"]{name}';
+  const catalog = await client.fetch(query);
+  const categories = catalog.map(value => value.name)
   return Promise.resolve(categories)
 }
 
