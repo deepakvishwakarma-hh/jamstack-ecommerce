@@ -11,14 +11,13 @@ import QuantityPicker from '../../components/QuantityPicker'
 import generateMainImageUrl from "../../utils/generateProductImageUrl"
 import { SiteContext, ContextProviderComponent } from '../../context/mainContext'
 
-
 const ItemView = (props) => {
 
   const router = useRouter()
   const { product } = props
   const { context: { addToCart } } = props
   const [numberOfitems, updateNumberOfItems] = useState(1)
-  const [subImageIndex, setSubImageIndex] = useState(1)
+  const [subImageIndex, setSubImageIndex] = useState(0)
   const { price, name, briefDetail, hugeDetails, varients } = product
   const image = generateMainImageUrl(props, router.query.index, subImageIndex)
 
