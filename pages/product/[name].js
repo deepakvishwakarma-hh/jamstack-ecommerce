@@ -55,10 +55,10 @@ const ItemView = (props) => {
         <div className='flex-1  flex-col'>
           <div className='sticky top-0'>
             <div className="p10 flex flex-1 justify-center items-center ">
-              <Image src={image} alt="Inventory item" className="max-w-104 max-h-104" />
+              <Image src={image} alt="Inventory item" className="md:max-w-104 max-h-104 " />
             </div>
 
-            <div className="flex flex-2 justify-center items-center bg-gray-100 py-5">
+            <div className="flex flex-2 justify-center flex-wrap items-center bg-gray-100 py-5">
               {varients[router.query.index]?.image.map((item, i) => {
                 return (
                   <div className=' mx-1 cursor-pointer hover:border-black border border-3' key={i} onMouseEnter={() => { setSubImageIndex(i) }}>
