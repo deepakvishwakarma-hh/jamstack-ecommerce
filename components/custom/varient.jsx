@@ -1,5 +1,5 @@
 // varient previewer ,selector
-import { useRouter } from 'next/router'
+import router, { useRouter } from 'next/router'
 import { urlFor } from "../../utils/lib/client"
 
 const Varients = (props) => {
@@ -7,10 +7,8 @@ const Varients = (props) => {
 
     const click = (index) => {
         Router.replace({
-            query: {
-                name: Router.query.name,
-                index
-            }
+            pathname: '/product/[name]',
+            query: { name: router.query.name, index },
         }, undefined, { shallow: true })
     }
 
