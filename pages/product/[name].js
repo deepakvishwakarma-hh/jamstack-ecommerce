@@ -39,7 +39,7 @@ const ItemView = (props) => {
   const image = generateMainImageUrl(props, router.query.index)
 
 
-  console.log(router)
+  console.log(router.query.index)
 
   return (
     <>
