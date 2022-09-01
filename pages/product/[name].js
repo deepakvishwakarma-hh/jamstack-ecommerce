@@ -36,9 +36,10 @@ const ItemView = (props) => {
     updateNumberOfItems(numberOfitems - 1)
   }
 
-
-
   const image = generateMainImageUrl(props, router.query.index)
+
+
+  console.log(router)
 
   return (
     <>
@@ -46,8 +47,10 @@ const ItemView = (props) => {
       <Head>
         <title>Jamstack ECommerce - {name}</title>
         <meta name="description" content={briefDetail} />
-        <meta property="og:title" content={`Jamstack ECommerce - ${name}`} key="title" />
+        <meta property="og:description" content={briefDetail} />
+        <meta property="og:title" content={`FriendShop - ${name}`} key="title" />
         <meta property="og:image" content={`${image}`} />
+        <meta property="og:type" content="website" />
       </Head>
       <div className="
         sm:py-12
