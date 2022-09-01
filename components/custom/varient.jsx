@@ -6,12 +6,12 @@ const Varients = (props) => {
     const Router = useRouter()
 
     const click = (index) => {
+        props.resetSubImageIndex(0)
         Router.replace({
             pathname: '/product/[name]',
             query: { name: router.query.name, index },
         }, undefined, { shallow: true })
     }
-
 
     return (
         <div className="flex flex-wrap">
@@ -23,7 +23,7 @@ const Varients = (props) => {
                     key={index}>
                     <img
                         alt={varient.name}
-                        style={{ width: "100px" }}
+                        style={{ width: "80px" }}
                         src={urlFor(varient.image[0]).url()}
                     />
                 </div>

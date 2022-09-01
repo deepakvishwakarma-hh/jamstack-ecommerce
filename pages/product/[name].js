@@ -1,26 +1,26 @@
 import { useState } from 'react'
 import Head from 'next/head'
-import Button from '../../components/Button'
-import Image from '../../components/Image'
-import QuantityPicker from '../../components/QuantityPicker'
-
-import { client, urlFor } from "../../utils/lib/client"
-
-import CartLink from '../../components/CartLink'
-import { SiteContext, ContextProviderComponent } from '../../context/mainContext'
-import Varients from '../../components/custom/varient'
-
-import BlockContent from "@sanity/block-content-to-react"
 import { useRouter } from 'next/router'
+import Image from '../../components/Image'
+import Button from '../../components/Button'
+import CartLink from '../../components/CartLink'
+import Varients from '../../components/custom/varient'
+import { client, urlFor } from "../../utils/lib/client"
+import BlockContent from "@sanity/block-content-to-react"
+import QuantityPicker from '../../components/QuantityPicker'
 import generateMainImageUrl from "../../utils/generateProductImageUrl"
+import { SiteContext, ContextProviderComponent } from '../../context/mainContext'
+
 
 const ItemView = (props) => {
-  const [numberOfitems, updateNumberOfItems] = useState(1)
-  const { product } = props
-  const { price, name, briefDetail, hugeDetails, varients } = product
-  const { context: { addToCart } } = props
 
   const router = useRouter()
+  const { product } = props
+  const { context: { addToCart } } = props
+  const [numberOfitems, updateNumberOfItems] = useState(1)
+  const [subImageIndex, setSubImageIndex] = useState(1)
+  const { price, name, briefDetail, hugeDetails, varients } = product
+  const image = generateMainImageUrl(props, router.query.index, subImageIndex)
 
   function addItemToCart(product) {
     product["quantity"] = numberOfitems
@@ -35,11 +35,6 @@ const ItemView = (props) => {
     if (numberOfitems === 1) return
     updateNumberOfItems(numberOfitems - 1)
   }
-
-  const image = generateMainImageUrl(props, router.query.index)
-
-
-  console.log(router.query.index)
 
   return (
     <>
@@ -57,20 +52,22 @@ const ItemView = (props) => {
         md:flex-row
         py-4 w-full flex flex-1 flex-col my-0 mx-auto
       ">
-        <div className="w-full md:w-1/2 h-120 flex flex-1 bg-light hover:bg-light-200">
+        <div className='flex-1  flex-col'>
+          <div className='sticky top-0'>
+            <div className="p10 flex flex-1 justify-center items-center ">
+              <Image src={image} alt="Inventory item" className="max-w-104 max-h-104" />
+            </div>
 
-          <div className="py-16 p10 flex flex-1 justify-center items-center">
-            <Image src={image} alt="Inventory item" className="max-h-full" />
+            <div className="flex flex-2 justify-center items-center bg-gray-100 py-5">
+              {varients[router.query.index]?.image.map((item, i) => {
+                return (
+                  <div className=' mx-1 cursor-pointer hover:border-black border border-3' key={i} onMouseEnter={() => { setSubImageIndex(i) }}>
+                    <img src={urlFor(item).url()} alt="Inventory item" className='max-h-20' />
+                  </div>
+                )
+              })}
+            </div>
           </div>
-
-          <div className="py-16  flex flex-2 flex-col justify-center items-center">
-            {varients[0].image.map((item, i) => {
-              return (
-                <Image key={i} src={urlFor(item).url()} alt="Inventory item" style={{ maxWidth: '100px' }} />
-              )
-            })}
-          </div>
-
         </div>
 
         <div className="pt-2 px-0 md:px-10 pb-8 w-full md:w-1/2">
@@ -81,7 +78,7 @@ const ItemView = (props) => {
           <div className='my-5'>
 
             <h3>Varients</h3>
-            <Varients varients={varients} />
+            <Varients varients={varients} resetSubImageIndex={setSubImageIndex} />
           </div>
 
           <h2 className="text-2xl tracking-wide sm:py-8 py-6">${price}</h2>
