@@ -8,16 +8,19 @@ import { client, urlFor } from "../../utils/lib/client"
 
 import CartLink from '../../components/CartLink'
 import { SiteContext, ContextProviderComponent } from '../../context/mainContext'
-
+import Varients from '../../components/custom/varient'
 
 import BlockContent from "@sanity/block-content-to-react"
-
+import { useRouter } from 'next/router'
+import generateMainImageUrl from "../../utils/generateProductImageUrl"
 
 const ItemView = (props) => {
   const [numberOfitems, updateNumberOfItems] = useState(1)
   const { product } = props
   const { price, name, briefDetail, hugeDetails, varients } = product
   const { context: { addToCart } } = props
+
+  const router = useRouter()
 
   function addItemToCart(product) {
     product["quantity"] = numberOfitems
@@ -34,7 +37,8 @@ const ItemView = (props) => {
   }
 
 
-  const image = urlFor(props.product.varients[0].image[0]).url()
+
+  const image = generateMainImageUrl(props, router.query.index)
 
   return (
     <>
@@ -43,6 +47,7 @@ const ItemView = (props) => {
         <title>Jamstack ECommerce - {name}</title>
         <meta name="description" content={briefDetail} />
         <meta property="og:title" content={`Jamstack ECommerce - ${name}`} key="title" />
+        <meta property="og:image" content={`${image}`} />
       </Head>
       <div className="
         sm:py-12
@@ -63,7 +68,6 @@ const ItemView = (props) => {
             })}
           </div>
 
-
         </div>
 
         <div className="pt-2 px-0 md:px-10 pb-8 w-full md:w-1/2">
@@ -74,16 +78,7 @@ const ItemView = (props) => {
           <div className='my-5'>
 
             <h3>Varients</h3>
-            <div className='flex bg-gray-50'>
-
-              {varients.map((item, index) => {
-                return <div key={index} className="m-2"  >
-                  <Image src={urlFor(item.image[0]).url()} alt={item.name} className="w-10" />
-                </div>
-              })}
-
-            </div>
-
+            <Varients varients={varients} />
           </div>
 
           <h2 className="text-2xl tracking-wide sm:py-8 py-6">${price}</h2>
@@ -115,11 +110,13 @@ const ItemView = (props) => {
 
 
 export const getServerSideProps = async (context) => {
+
+
   context.res.setHeader(
     'Cache-Control',
     'public, s-maxage=10, stale-while-revalidate=59'
   )
-  const { name } = context.query;
+  const { name, index } = context.query;
 
   const response = await client.fetch(`*[_type == "product" && slug.current == "${name}"]{
       briefDetail,hugeDetails,name,price,slug,_id,_updatedAt,sizes[]->{name},varients
@@ -128,7 +125,7 @@ export const getServerSideProps = async (context) => {
   const product = response[0] ?? null
 
   return {
-    props: { product }
+    props: { product, index }
   }
 }
 

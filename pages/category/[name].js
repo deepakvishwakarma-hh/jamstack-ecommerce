@@ -26,7 +26,10 @@ const Category = (props) => {
                   return (
                     <ListItem
                       key={index}
-                      link={`/product/${item.slug.current}`}
+                      href={{
+                        pathname: '/product/[name]',
+                        query: { name: item.slug.current, index: 0 },
+                      }}
                       title={item.name}
                       price={item.price}
                       imageSrc={urlFor(item.varients[0].image[0]).url()}

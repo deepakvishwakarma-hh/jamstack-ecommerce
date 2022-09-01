@@ -19,7 +19,7 @@ export default function Layout({ children, categories }) {
             <div className="mb-4 sm:mr-16 max-w-48 sm:max-w-none">
               <Link href="/">
                 <a aria-label="Home">
-                  <img src="/logo.png" alt="logo" width="90" height="28" />
+                  <img src="/logo.svg" alt="logo" width="90" height="28" />
                 </a>
               </Link>
             </div>
@@ -30,7 +30,7 @@ export default function Layout({ children, categories }) {
                     sm:mr-8 sm:mb-0
                     mb-4 text-left text-smaller mr-4
                   ">
-                  Home
+                    Home
                   </p>
                 </a>
               </Link>
@@ -57,7 +57,7 @@ export default function Layout({ children, categories }) {
                     sm:mr-8 sm:mb-0
                     mb-4 text-left text-smaller mr-4 
                   ">
-                  All
+                    All
                   </p>
                 </a>
               </Link>
@@ -83,7 +83,7 @@ export default function Layout({ children, categories }) {
           ">
             <Link href="/admin">
               <a aria-label="Admin panel">
-              <p className="text-sm font-semibold">Admins</p>
+                <p className="text-sm font-semibold">Admins</p>
               </a>
             </Link>
           </div>
