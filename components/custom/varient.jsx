@@ -5,11 +5,11 @@ import { urlFor } from "../../utils/lib/client"
 const Varients = (props) => {
     const Router = useRouter()
 
-    const click = (index) => {
+    const click = (key) => {
         props.resetSubImageIndex(0)
         Router.replace({
             pathname: '/product/[name]',
-            query: { name: router.query.name, index },
+            query: { name: router.query.name, varientKey: key },
         }, undefined, { shallow: true })
     }
 
@@ -19,7 +19,7 @@ const Varients = (props) => {
                 return <div
                     className={`m-2 rounded-md bg-white`}
                     style={{ border: index == Router.query.index ? '3px blue solid' : '3px white solid' }}
-                    onClick={() => { click(index) }}
+                    onClick={() => { click(varient._key) }}
                     key={index}>
                     <img
                         alt={varient.name}

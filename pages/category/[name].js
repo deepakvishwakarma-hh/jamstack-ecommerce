@@ -23,16 +23,20 @@ const Category = (props) => {
             <div className="flex flex-1 flex-wrap flex-row">
               {
                 props.products.map((item, index) => {
+                  const varient = item.varients[0];
                   return (
                     <ListItem
                       key={index}
                       href={{
                         pathname: '/product/[name]',
-                        query: { name: item.slug.current, index: 0 },
+                        query: {
+                          name: item.slug.current,
+                          varientKey: varient._key
+                        },
                       }}
                       title={item.name}
                       price={item.price}
-                      imageSrc={urlFor(item.varients[0].image[0]).url()}
+                      imageSrc={urlFor(varient.image[0]).url()}
                     />
                   )
                 })

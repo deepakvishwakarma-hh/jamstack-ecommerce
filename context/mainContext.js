@@ -94,13 +94,13 @@ class ContextProviderComponent extends React.Component {
     return (
       <SiteContext.Provider value={{
         ...state,
-         addToCart: this.addToCart,
-         clearCart: this.clearCart,
-         removeFromCart: this.removeFromCart,
-         setItemQuantity: this.setItemQuantity
+        addToCart: this.addToCart,
+        clearCart: this.clearCart,
+        removeFromCart: this.removeFromCart,
+        setItemQuantity: this.setItemQuantity
       }}>
-       {this.props.children}
-     </SiteContext.Provider>
+        {this.props.children}
+      </SiteContext.Provider>
     )
   }
 }

@@ -1,19 +1,9 @@
 import Head from 'next/head'
 import { Center, Footer, Tag, Showcase, DisplaySmall, DisplayMedium } from '../components'
-import { titleIfy, slugify } from '../utils/helpers'
-import { fetchInventory } from '../utils/inventoryProvider'
 import CartLink from '../components/CartLink'
-import { client, urlFor } from '../utils/lib/client'
-import Link from 'next/dist/client/link'
-import Image from "next/image"
-
-
-import Catagory from '../components/custom/catagory'
+import { client } from '../utils/lib/client'
 
 const Home = ({ catalog = [] }) => {
-
-  console.log(catalog)
-
   return (
     <>
       <CartLink />
@@ -109,7 +99,6 @@ const Home = ({ catalog = [] }) => {
         />
 
       </div>
-
 
     </>
   )

@@ -1,13 +1,12 @@
 import Link from 'next/link'
+import Head from 'next/head'
+import Image from '../components/Image'
 import { useState, useEffect } from 'react'
+import CartLink from '../components/CartLink'
+import DENOMINATION from '../utils/currencyProvider'
+import QuantityPicker from '../components/QuantityPicker'
 import { FaTimes, FaLongArrowAltRight } from 'react-icons/fa'
 import { SiteContext, ContextProviderComponent } from '../context/mainContext'
-import DENOMINATION from '../utils/currencyProvider'
-import { slugify } from '../utils/helpers'
-import QuantityPicker from '../components/QuantityPicker'
-import Image from '../components/Image'
-import Head from 'next/head'
-import CartLink from '../components/CartLink'
 
 const Cart = ({ context }) => {
   const [renderClientSideComponent, setRenderClientSideComponent] = useState(false)
@@ -60,17 +59,22 @@ const Cart = ({ context }) => {
                       return (
                         <div className="border-b py-10" key={item.id}>
                           <div className="flex items-center hidden md:flex">
-                            <Link href={`/product/${slugify(item.name)}`}>
+                            <Link href={`${item.url}`}>
                               <a aria-label={item.name}>
                                 <Image className="w-32 m-0" src={item.image} alt={item.name} />
                               </a>
                             </Link>
-                            <Link href={`/product/${slugify(item.name)}`}>
+                            <Link href={`${item.url}`}>
                               <a aria-label={item.name}>
                                 <p className="
                                 m-0 pl-10 text-gray-600 w-60
                                 ">
                                   {item.name}
+                                </p>
+                                <p className="
+                                  m-0 pl-10 text-gray-600 w-60
+                                  ">
+                                  <b>size</b> : {item.size}
                                 </p>
                               </a>
                             </Link>
@@ -93,19 +97,24 @@ const Cart = ({ context }) => {
                             </div>
                           </div>
 
-                          <div className="flex items-center flex md:hidden">
-                            <Link href={`/product/${slugify(item.name)}`}>
+                          <div className="flex items-center  md:hidden">
+                            <Link href={`${item.url}`}>
                               <a>
                                 <Image className="w-32 m-0" src={item.image} alt={item.name} />
                               </a>
                             </Link>
                             <div>
-                              <Link href={`/product/${slugify(item.name)}`}>
+                              <Link href={`${item.url}`}>
                                 <a aria-label={item.name}>
                                   <p className="
                                   m-0 pl-6 text-gray-600 text-base
                                   ">
                                     {item.name}
+                                  </p>
+                                  <p className="
+                                  m-0 pl-6 text-gray-600 text-base
+                                  ">
+                                    <b>size</b> : {item.size}
                                   </p>
                                 </a>
                               </Link>
@@ -133,8 +142,8 @@ const Cart = ({ context }) => {
                       )
                     })
                   }
-                </div>  
-            </div>
+                </div>
+              </div>
             )
           }
           <div className="flex flex-1 justify-end py-8">
