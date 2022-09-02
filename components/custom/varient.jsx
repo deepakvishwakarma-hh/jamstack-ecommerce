@@ -18,7 +18,7 @@ const Varients = (props) => {
             {props.varients.map((varient, index) => {
                 return <div
                     className={`m-2 rounded-md bg-white`}
-                    style={{ border: index == Router.query.index ? '3px blue solid' : '3px white solid' }}
+                    style={{ border: varient._key == Router.query.varientKey ? '3px blue solid' : '3px white solid' }}
                     onClick={() => { click(varient._key) }}
                     key={index}>
                     <img
