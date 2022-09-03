@@ -3,7 +3,7 @@ import Layout from '../layouts/layout'
 import AuthBoundry from "../components/custom/authBoundry"
 import fetchCategories from '../utils/categoryProvider'
 
-const prohibitRoutes = ['/auth']
+const prohibitRoutes = ['/anything']
 
 function Ecommerce({ Component, pageProps, categories }) {
   return (
