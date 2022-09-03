@@ -272,7 +272,7 @@
 // export default CheckoutWithContext
 
 
-export default function () {
+export default function Checkout() {
   return (
     <div>
       hey

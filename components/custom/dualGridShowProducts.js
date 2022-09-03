@@ -5,7 +5,7 @@ import { useNextSanityImage } from 'next-sanity-image';
 import DENOMINATION from '../../utils/currencyProvider';
 import useElementSize from "../../utils/hooks/useElementSize"
 import { configuredSanityClient } from '../../utils/lib/client'
-const dualGridShow = ({ item }) => {
+const DualGridShow = ({ item }) => {
     const [squareRef, { width }] = useElementSize()
     const varient = item.varients[0];
     const imageProps = useNextSanityImage(
@@ -38,7 +38,6 @@ const dualGridShow = ({ item }) => {
         </div>
     )
 }
-
-export default dualGridShow
+export default DualGridShow
 
 

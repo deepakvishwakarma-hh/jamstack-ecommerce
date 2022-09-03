@@ -4,7 +4,7 @@ import Link from 'next/dist/client/link';
 import { useNextSanityImage } from 'next-sanity-image';
 import useElementSize from "../../utils/hooks/useElementSize"
 import { configuredSanityClient } from '../../utils/lib/client'
-const dualGridShow = ({ category }) => {
+const DualGridShow = ({ category }) => {
     const [squareRef, { width }] = useElementSize()
     const imageProps = useNextSanityImage(
         configuredSanityClient,
@@ -30,4 +30,4 @@ const dualGridShow = ({ category }) => {
     )
 }
 
-export default dualGridShow
+export default DualGridShow

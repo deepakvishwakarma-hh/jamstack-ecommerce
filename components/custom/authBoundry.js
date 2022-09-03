@@ -1,41 +1,30 @@
 import jwt from 'jsonwebtoken'
-import { useEffect, useState } from "react"
-import { getDoc, doc } from "firebase/firestore"
-import { firestore } from "../../firebase/index"
-
+import { createContext, useEffect, useState } from "react"
+const Context = createContext()
 
 const AuthBoundry = ({ children, set }) => {
 
-    const [isValidUser, setValidUser] = useState('validating')
-
-    const setResponse = (param) => {
-        setValidUser(param)
-        set(param)
-    }
+    const [isValidUser, setValidUser] = useState(false)
 
     useEffect(() => {
-
         const token = localStorage.getItem('token')
-        const decode = token ? jwt.decode(token.toString()) : false
-        if (decode) {
-            console.log(decode)
-            getDoc(doc(firestore, "users", decode?.phoneNumber)).then(() => {
-                setResponse(true)
-
-            }).catch(() => {
-                setResponse(false)
-            })
+        const encrypted = token ? jwt.decode(token?.toString()) : false;
+        if (encrypted) {
+            setValidUser(true)
         } else {
-            setResponse(false)
+            setValidUser(false)
         }
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
     return (
         <>
-            {children}
+            <Context.Provider value={{ isValidUser, setValidUser }}>
+                {children}
+            </Context.Provider>
         </>
     )
 }
 export default AuthBoundry
+export { Context }

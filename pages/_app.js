@@ -1,14 +1,17 @@
 import '../styles/globals.css'
 import Layout from '../layouts/layout'
+import AuthBoundry from "../components/custom/authBoundry"
 import fetchCategories from '../utils/categoryProvider'
 
 const prohibitRoutes = ['/auth']
 
 function Ecommerce({ Component, pageProps, categories }) {
   return (
-    <Layout prohibitRoutes={prohibitRoutes} categories={categories}>
-      <Component {...pageProps} />
-    </Layout>
+    <AuthBoundry>
+      <Layout prohibitRoutes={prohibitRoutes} categories={categories}>
+        <Component {...pageProps} />
+      </Layout>
+    </AuthBoundry>
   )
 }
 
