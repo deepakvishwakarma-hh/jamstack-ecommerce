@@ -14,7 +14,7 @@ function Auth() {
 
 
             {isValidUser ? <User /> :
-                <main className='flex items-center justify-center w-screen h-screen bg-gray-50'>
+                <main className='flex items-center justify-center w-screen py-5 bg-gray-50'>
                     <AuthFrom />
                 </main>}
 
