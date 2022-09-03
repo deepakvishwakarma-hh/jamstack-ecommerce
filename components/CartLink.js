@@ -10,7 +10,7 @@ function CartLink(props) {
   useEffect(() => {
     setRenderClientSideComponent(true)
   }, [])
-  let { context: { numberOfItemsInCart = 0 }} = props
+  let { context: { numberOfItemsInCart = 0 } } = props
   return (
     <div>
       <div className="fixed
@@ -18,13 +18,13 @@ function CartLink(props) {
       top-40 z-10">
         <div className="flex flex-1 justify-end pr-4 relative">
           <Link href="/cart">
-            <a aria-label="Cart">
+            <a aria-label="Cart" className='p-3 bg-white bg-opacity-75  shadow-md rounded '>
               <FaShoppingCart />
             </a>
           </Link>
           {
             renderClientSideComponent && numberOfItemsInCart > Number(0) && (
-              <FaCircle color={primary} size={12} suppressHydrationWarning />
+              <FaCircle color={'red'} size={12} suppressHydrationWarning />
             )
           }
         </div>

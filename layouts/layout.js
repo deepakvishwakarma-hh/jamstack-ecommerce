@@ -3,11 +3,20 @@ import { slugify } from '../utils/helpers'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import { navItemLength } from '../ecommerce.config'
+import { useRouter } from 'next/router'
 
-export default function Layout({ children, categories }) {
+export default function Layout({ children, categories, prohibitRoutes }) {
+
+  const router = useRouter()
+
   if (categories.length > navItemLength) {
     categories = categories.slice(0, navItemLength)
   }
+
+  if (prohibitRoutes.includes(router.asPath)) {
+    return <main className="w-fw">{children}</main>
+  }
+
   return (
     <div>
       <nav>
@@ -76,8 +85,8 @@ export default function Layout({ children, categories }) {
         desktop:px-0
         border-solid
         border-t border-gray-300">
-          <span className="block text-gray-700 text-xs">Copyright © 2021 JAMstack Ecommerce. All rights reserved.</span>
-          <div className="
+          <span className="block text-gray-700 text-xs">Copyright © 2021 Deepak Ecommerce. All rights reserved.</span>
+          {/* <div className="
             sm:justify-end sm:m-0
             flex flex-1 mt-4
           ">
@@ -86,7 +95,7 @@ export default function Layout({ children, categories }) {
                 <p className="text-sm font-semibold">Admins</p>
               </a>
             </Link>
-          </div>
+          </div> */}
         </div>
       </footer>
       <ToastContainer autoClose={3000} />

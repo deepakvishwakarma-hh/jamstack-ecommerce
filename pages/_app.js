@@ -2,9 +2,11 @@ import '../styles/globals.css'
 import Layout from '../layouts/layout'
 import fetchCategories from '../utils/categoryProvider'
 
+const prohibitRoutes = ['/auth']
+
 function Ecommerce({ Component, pageProps, categories }) {
   return (
-    <Layout categories={categories}>
+    <Layout prohibitRoutes={prohibitRoutes} categories={categories}>
       <Component {...pageProps} />
     </Layout>
   )
