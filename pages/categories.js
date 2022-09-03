@@ -1,11 +1,11 @@
 import Head from 'next/head'
 import { client } from "../utils/lib/client"
-import { titleIfy, slugify } from '../utils/helpers'
 import { DisplayMedium } from '../components'
 import CartLink from '../components/CartLink'
+import { titleIfy, slugify } from '../utils/helpers'
+import DualGridShow from '../components/custom/dualGridShowCategories'
 
 function Categories({ catalog = [] }) {
-
   return (
     <>
       <div className="w-full">
@@ -22,8 +22,8 @@ function Categories({ catalog = [] }) {
         </div>
         <div className="flex flex-col items-center">
 
-          <div className="grid gap-4
-          lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+          <div className=" gap-4
+          lg:grid-cols-3 md:grid-cols-2 grid-cols-1 hidden sm:grid">
             {
               catalog.map((category, index) => (
                 <DisplayMedium
@@ -37,13 +37,18 @@ function Categories({ catalog = [] }) {
             }
           </div>
         </div>
+
+        <div className="grid grid-cols-2 gap-1 sm:hidden py-5">
+          {catalog.map((category, i) => <DualGridShow key={i} category={category} />)}
+        </div>
+
       </div>
     </>
   )
 }
 
 export const getStaticProps = async () => {
-  const query = '*[_type == "catalog"]{name, slug, "imageUrl": image.asset->url }';
+  const query = '*[_type == "catalog"]{name, slug, "imageUrl": image.asset->url, image }';
   const catalog = await client.fetch(query);
   return {
     props: { catalog }

@@ -2,11 +2,9 @@ import Head from 'next/head'
 import ListItem from '../../components/ListItem'
 import CartLink from '../../components/CartLink'
 import { client, urlFor } from "../../utils/lib/client"
-import Link from 'next/dist/client/link'
-import DENOMINATION from '../../utils/currencyProvider'
+import DualGridShow from '../../components/custom/dualGridShowProducts'
 
 const Category = (props) => {
-
   return (
     <>
       <CartLink />
@@ -46,36 +44,8 @@ const Category = (props) => {
             </div>
 
             <div className="grid grid-cols-2 gap-1 sm:hidden py-5">
-              {
-                props.products.map((item, index) => {
-                  const varient = item.varients[0];
-                  return (
-                    <div key={index} style={{ display: "grid", grid: 'auto 100px / auto' }}>
-                      <Link
-                        href={{
-                          pathname: '/product/[name]',
-                          query: {
-                            name: item.slug.current,
-                            varientKey: varient._key
-                          },
-                        }}
-                      >
-                        <a aria-label={item.name}>
-                          <img alt={item.name} src={urlFor(varient.image[0]).url()} className="w-full h-full" />
-                        </a>
-                      </Link>
-                      <div className='bg-gray-100 p-1'>
-                        <p className=" text-l font-medium">{item.name}</p>
-                        <p className=" text-gray-700 mb-4">{`${DENOMINATION}${item.price}`}</p>
-                      </div>
-                    </div>
-                  )
-                })
-              }
+              {props.products.map((item, index) => <DualGridShow item={item} key={index} />)}
             </div>
-
-
-
           </div>
         </div>
       </div>
