@@ -74,6 +74,9 @@ export default function Layout({ children, categories, prohibitRoutes }) {
           </div>
         </div>
       </nav>
+
+
+
       <div className="mobile:px-10 px-4 pb-10 flex justify-center">
         <main className="w-fw">{children}</main>
       </div>

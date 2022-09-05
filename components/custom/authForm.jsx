@@ -6,7 +6,6 @@ import Router from "next/router";
 import { RecaptchaVerifier } from "firebase/auth"
 import { signInWithPhoneNumber } from "firebase/auth"
 
-
 const spinner = <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" >
     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
     <path className="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -95,10 +94,10 @@ const AuthForm = () => {
     }
 
     return (
-        <div className='bg-white p-5 rounded-md '>
+        <div className='bg-white p-5 rounded-md w-full md:w-auto'>
             <label>
-                <h3 className="my-1 font-bold">Phone Number</h3>
-                <input onChange={onChangeInputs} name="phone" type="text" value={input.phone} className="border border-gray-300 px-2 rounded-md  w-full py-1"
+                <h3 className="my-1 font-bold text-sm">Phone Number</h3>
+                <input onChange={onChangeInputs} name="phone" type="number" value={input.phone} className="border border-gray-300 px-2 rounded-md w-full py-1"
                     style={{ borderWidth: '2px' }} placeholder="Phone number goes here..."
                 />
                 <p className="text-xs text-gray-500 my-2">Please do not include +91 (country code)</p>
@@ -112,9 +111,9 @@ const AuthForm = () => {
                 </label>
             }
 
-            {acessblity.optInput && <button onClick={verifyOTP} className="flex justify-center w-full p-2 bg-gray-200 font-semibold rounded-md text-gray-500 transition ease-in-out duration-150"> {acessblity.pending ? spinner : "Verify otp"} </button>}
+            {acessblity.optInput && <button onClick={verifyOTP} className="flex justify-center w-full p-2 bg-black font-semibold rounded-md text-gray-50 transition ease-in-out duration-150"> {acessblity.pending ? spinner : "Verify otp"} </button>}
 
-            {!acessblity.optInput && <button onClick={getOtp} className="flex justify-center w-full p-2 bg-gray-200 font-semibold rounded-md text-gray-500 transition ease-in-out duration-150"> {acessblity.pending ? spinner : "Send otp"} </button>}
+            {!acessblity.optInput && <button onClick={getOtp} className="flex justify-center w-full p-2 bg-black font-semibold rounded-md text-gray-50 transition ease-in-out duration-150"> {acessblity.pending ? spinner : "Send OTP"} </button>}
 
             <div className="fixed bottom-0 right-0" id={"recapcha-container"}></div>
         </div>
