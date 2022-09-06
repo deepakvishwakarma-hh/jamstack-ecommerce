@@ -1,71 +1,69 @@
-import Link from 'next/link'
 import Head from 'next/head'
-import Image from '../components/Image'
-import { useState, useEffect, useContext } from 'react'
+import makePayment from '../utils/payment'
 import CartLink from '../components/CartLink'
 import DENOMINATION from '../utils/currencyProvider'
-import { FaLongArrowAltRight } from 'react-icons/fa'
-import { SiteContext, ContextProviderComponent } from '../context/mainContext'
-import makePayment from '../utils/payment'
+import { useState, useEffect, useContext } from 'react'
+import { addressInitialState } from "../ecommerce.config"
 import { Context } from '../components/custom/authBoundry'
-import InvalidUserAleart from '../components/custom/invalidUserAleart'
 import Address from '../components/formComponents/Address'
-import { Jwt } from 'jsonwebtoken'
+import Product from '../components/custom/cheakout-products'
+import InvalidUserAleart from '../components/custom/invalid-user-aleart'
+import { SiteContext, ContextProviderComponent } from '../context/mainContext'
+import { useRouter } from 'next/router'
+// testinf purpose prefill data 
+const initialState = {
+    name: 'rahuk', mobile: '1111111111', pincode: '111111', minAddress: 'sfsfsdfsdfsf dfdsf df df', maxAdress: 'sdfsfsfsds sdfg sdfd', landmark: 'fdsfdsf sdf dsfsd ', place: 'dfsdfsd ',
+    state: 'madhya pradesh'
+}
 
-import crypto from "crypto"
+const Cheakout = ({ context }) => {
 
-
-const Cart = ({ context }) => {
-
-    const [previewInvalidUserAleart, setPreviewInvalidUserAleart] = useState(false)
-
-
-
-    const initialState = {
-        name: 'rahuk', mobile: '1111111111', pincode: '111111', minAddress: 'sfsfsdfsdfsf dfdsf df df', maxAdress: 'sdfsfsfsds sdfg sdfd', landmark: 'fdsfdsf sdf dsfsd ', place: 'dfsdfsd ',
-        state: 'madhya pradesh'
-    }
-
-    const [address, setAddress] = useState(initialState);
-
-
+    // state [statefull component]
     const { isValidUser, user } = useContext(Context)
-
-
+    const [address, setAddress] = useState(addressInitialState);
+    const [previewInvalidUserAleart, setPreviewInvalidUserAleart] = useState(false)
     const [renderClientSideComponent, setRenderClientSideComponent] = useState(false)
-    useEffect(() => {
-        setRenderClientSideComponent(true)
-    }, [])
-    const {
-        numberOfItemsInCart, cart, total, clearCart
-    } = context
+
+    // setting up router
+    const router = useRouter()
+
+    // destructuring....
+    const { numberOfItemsInCart, cart, total, clearCart } = context
     const cartEmpty = numberOfItemsInCart === Number(0)
+    // to render non-serverside
+    useEffect(() => {
+        if (!isValidUser) setPreviewInvalidUserAleart(true);
+        if (cartEmpty) router.replace('/cart')
+        setRenderClientSideComponent(true)
+    }, [isValidUser, cartEmpty, router])
 
-
-
+    // process payment [validation , so on]
     function processPayment() {
-
+        // product [like-schema]
         const products = cart.map(({ size, id, productId }) => {
-            return {
-                size,
-                productVarientKey: id,
-                productId
-            }
+            return { size, productVarientKey: id, productId }
         })
 
+        // getting empty inputs of address form [as arrey]
         let emptyInputs = Object.keys(address).filter((n) => address[n] === '')
 
+        // validating user 
         if (isValidUser) {
+            // validating [non-empty input]
             if (emptyInputs.length !== 0) {
                 return alert('please fill all inputs')
             } else {
+                // perform make payment
                 makePayment(total, user.phoneNumber, address, products, clearCart)
             }
         } else {
+            // show login section [as aleart]
             setPreviewInvalidUserAleart(true)
         }
     }
 
+
+    // forcefully render client side 
     if (!renderClientSideComponent) return null
 
     return (
@@ -74,73 +72,45 @@ const Cart = ({ context }) => {
             <CartLink />
             <div className="flex flex-col items-center pb-10">
                 <Head>
-                    <title>Jamstack ECommerce - Cart</title>
+                    <title>Jamstack ECommerce - Address & Payment</title>
                     <meta name="description" content={`Jamstack ECommerce - Shopping cart`} />
                     <meta property="og:title" content="Jamstack ECommerce - Cart" key="title" />
                 </Head>
-                <div className="
-          flex flex-col w-full
-          c_large:w-c_large
-        ">
-                    <div className="pt-10 pb-8">
-                        <h1 className="text-5xl font-light">Your Order</h1>
+                <main className=" flex flex-col w-full c_large:w-c_large">
+                    <div className='block md:flex'>
+                        <Address {...{ address, setAddress }} />
+                        <div className="flex flex-col flex-1 md:pl-3">
+                            <h3 className="text-3xl py-5 pb-10">Products</h3>
+                            {cart.map((item) => <Product item={item} key={item.id} />)}
+                        </div>
                     </div>
-                    {
-                        cartEmpty ? (
-                            <h3>No items in cart.</h3>
-                        ) : (
-                            <div className="flex flex-col">
-                                <div>
-                                    {
-                                        cart.map((item) => {
-                                            return (
-                                                <div className="border-b py-2" key={item.id}>
-                                                    <div className=" items-center flex">
-                                                        <Image className="w-10" src={item.image} alt={item.name} />
-                                                        <p className="m-0 pl-10 text-gray-600 ">
-                                                            {item.name}
-                                                        </p>
-                                                        <div className="flex flex-1 justify-end">
-                                                            <p className="m-0 pl-10 text-gray-900 tracking-wider">
-                                                                {DENOMINATION + item.price} * {item.quantity}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                </div>
-                            </div>
-                        )
-                    }
 
-                    <Address {...{ address, setAddress }} />
-
-
-                    <div className="flex flex-1 justify-end py-8">
+                    <div className="flex flex-1 justify-end py-2">
                         <p className="text-sm pr-10">Total</p>
                         <p className="font-semibold tracking-wide">{DENOMINATION + total}</p>
                     </div>
                     {!cartEmpty && (
-                        <div onClick={processPayment} className="cursor-pointer flex items-center">
-                            <p className="text-gray-600 text-sm mr-2">Proceed to Payment</p>
-                            <FaLongArrowAltRight className="text-gray-600" />
+                        <div className="bg-blue-500 hover:bg-blue-700 text-white font-normal w-full py-3 px-4 rounded mt-5 text-sm flex items-center cursor-pointer" onClick={processPayment}>
+                            <img src="/razorpay-icon.svg" alt="icon" />
+                            <div className="flex flex-col">
+                                <p className="text-md mx-2 text-white">Proceed to Payment</p>
+                                <p className="text-xs mx-2 leading-3 text-yellow-200 tracking-wide">Razorpay</p>
+                            </div>
                         </div>
                     )}
-                </div>
+                </main>
             </div>
         </>
     )
 }
 
+
+// context setup;
 function CartWithContext(props) {
     return (
         <ContextProviderComponent>
             <SiteContext.Consumer>
-                {
-                    context => <Cart {...props} context={context} />
-                }
+                {context => <Cheakout {...props} context={context} />}
             </SiteContext.Consumer>
         </ContextProviderComponent>
     )
