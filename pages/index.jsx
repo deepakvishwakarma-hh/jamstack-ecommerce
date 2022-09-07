@@ -7,16 +7,14 @@ const Home = ({ catalog = [] }) => {
     <>
       <div className="w-full">
         <Head>
-          <title>Jamstack ECommerce</title>
-          <meta name="description" content="Jamstack ECommerce Next provides a way to quickly get up and running with a fully configurable ECommerce site using Next.js." />
-          <meta property="og:title" content="Jamstack ECommerce" key="title" />
+          <title>Squareshop</title>
+          <meta name="description" content="Squareshop ,The best local ecommerse website" />
+          <meta property="og:title" content="Squareshop" key="title" />
+          <meta property="og:description" content="Squareshop ,The best local ecommerse website" />
+          <meta property="og:image" content="/layout-logo.svg" />
+          <meta property="og:type" content="website" />
         </Head>
 
-        {/* <div className="my-8 flex flex-col lg:flex-row justify-between">
-          {catalog.map((item, index) => {
-            return <Catagory key={index} name={item.name} imageUrl={item.imageUrl} link={item.slug.current} />
-          })}
-        </div> */}
         <div className="bg-blue-300
         p-6 pb-10 smpb-6
         flex lg:flex-row flex-col">
