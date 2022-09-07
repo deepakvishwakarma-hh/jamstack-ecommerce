@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import makePayment from '../utils/razor-payment'
-import CartLink from '../components/CartLink'
 import DENOMINATION from '../utils/currencyProvider'
 import { useState, useEffect, useContext } from 'react'
 import { addressInitialState } from "../ecommerce.config"
@@ -63,7 +62,6 @@ const Cheakout = ({ context }) => {
     return (
         <>
             {previewInvalidUserAleart && <InvalidUserAleart close={() => { setPreviewInvalidUserAleart(false) }} />}
-            <CartLink />
             <div className="flex flex-col items-center pb-10">
                 <Head>
                     <title>Jamstack ECommerce - Address & Payment</title>

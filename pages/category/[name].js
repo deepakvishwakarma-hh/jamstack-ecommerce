@@ -1,13 +1,11 @@
 import Head from 'next/head'
 import ListItem from '../../components/ListItem'
-import CartLink from '../../components/CartLink'
 import { client, urlFor } from "../../utils/lib/client"
 import DualGridShow from '../../components/custom/dualGridShowProducts'
 
 const Category = (props) => {
   return (
     <>
-      <CartLink />
       <Head>
         <title>Jamstack ECommerce </title>
         <meta name="description" content={`Jamstack ECommerce `} />

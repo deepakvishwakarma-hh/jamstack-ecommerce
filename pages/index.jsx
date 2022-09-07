@@ -1,12 +1,10 @@
 import Head from 'next/head'
 import { Center, Footer, Tag, Showcase, DisplaySmall, DisplayMedium } from '../components'
-import CartLink from '../components/CartLink'
 import { client } from '../utils/lib/client'
 
 const Home = ({ catalog = [] }) => {
   return (
     <>
-      <CartLink />
       <div className="w-full">
         <Head>
           <title>Jamstack ECommerce</title>

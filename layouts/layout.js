@@ -4,10 +4,22 @@ import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import { navItemLength } from '../ecommerce.config'
 import { useRouter } from 'next/router'
+import Image from 'next/image'
+import { FiShoppingCart, FiUser, FiSearch, FiGrid, FiMenu, FiX } from "react-icons/fi";
+import { useState } from 'react'
+
 
 export default function Layout({ children, categories, prohibitRoutes }) {
 
+  const [isMenuVisible, setMenuVisiblity] = useState(false)
+
+  function onMenuClick() {
+    setMenuVisiblity(prev => !prev)
+  }
+
+
   const router = useRouter()
+
 
   if (categories.length > navItemLength) {
     categories = categories.slice(0, navItemLength)
@@ -19,30 +31,45 @@ export default function Layout({ children, categories, prohibitRoutes }) {
 
   return (
     <div>
-      <nav>
+
+      <div style={{ display: isMenuVisible ? 'block' : "none" }} className='bg-white top-0 left-0 fixed z-40 w-screen h-screen pt-20 transition-all overscroll-contain'>
+        <div className=' flex-1 items-center flex flex-col h-full'>
+
+          <Link passHref href={`/categories`}>
+            <p className="text-center text-md py-3  w-full font-bold">My Account</p>
+          </Link>
+
+          <Link passHref href={`/categories`}>
+            <p className="text-center text-md py-3  w-full font-bold">Categories</p>
+          </Link>
+
+          <Link passHref href={`/categories`}>
+            <p className="text-center text-md py-3  w-full font-bold"> Contact Us</p>
+          </Link>
+
+          <Link passHref href={`/categories`}>
+            <p className="text-center text-md py-3  w-full font-extrabold"> Refund Policies</p>
+          </Link>
+
+          <p className="text-center text-xs py-3  w-full text-gray-400"> Copyright © 2021 Deepak Ecommerce. All rights reserved</p>
+
+
+        </div>
+      </div>
+
+      <nav className='fixed w-screen  bg-white z-50 shadow-sm'>
         <div className="flex justify-center">
-          <div className="
-            mobile:px-12 sm:flex-row sm:pt-12 sm:pb-6 desktop:px-0
-            px-4 pt-8 flex flex-col w-fw
-          ">
-            <div className="mb-4 sm:mr-16 max-w-48 sm:max-w-none">
+          <div className=" mobile:px-12 flex-row  desktop:px-0 px-4 flex w-fw lg:h-20 h-14">
+
+            <div className=" flex items-center justify-center">
               <Link href="/">
                 <a aria-label="Home">
-                  <img src="/logo.svg" alt="logo" width="90" height="28" />
+                  <Image src="/logo.svg" loader={() => "/logo.svg"} alt="logo" width="70" height="40" />
                 </a>
               </Link>
             </div>
-            <div className="flex flex-wrap mt-1">
-              <Link href="/">
-                <a aria-label="Home">
-                  <p className="
-                    sm:mr-8 sm:mb-0
-                    mb-4 text-left text-smaller mr-4
-                  ">
-                    Home
-                  </p>
-                </a>
-              </Link>
+            <div className=' flex-1 items-center px-5 hidden lg:flex'>
+
               {
                 categories.map((category, index) => (
                   <Link
@@ -50,44 +77,74 @@ export default function Layout({ children, categories, prohibitRoutes }) {
                     key={index}
                   >
                     <a aria-label={category}>
-                      <p className="
-                          sm:mr-8 sm:mb-0
-                          mb-4 text-left text-smaller mr-4
-                        ">
-                        {category.charAt(0).toUpperCase() + category.slice(1)}
+                      <p className="sm:mr-8 sm:mb-0 mb-4  text-smaller mr-4" >
+                        {category}
                       </p>
                     </a>
                   </Link>
                 ))
               }
-              <Link href="/categories">
-                <a aria-label="All categories">
-                  <p className="
-                    sm:mr-8 sm:mb-0
-                    mb-4 text-left text-smaller mr-4 
-                  ">
-                    All
-                  </p>
+
+              <Link href={`/categories`}>
+                <a aria-label={'home'}>
+                  <p className="sm:mr-8 sm:mb-0 mb-4 text-left text-smaller mr-4 text-blue-500">Categories</p>
                 </a>
               </Link>
+
             </div>
+
+            <div className=' flex-1 items-center justify-end h-full flex '>
+
+              <Link href="/search">
+                <div className=" flex items-center justify-center justify-self-end  h-full p-3 text-gray-600  cursor-pointer">
+                  <a aria-label="Home">
+                    <FiSearch size={22} />
+                  </a>
+                </div>
+              </Link>
+
+              <Link href="/cart">
+                <div className=" flex items-center justify-center justify-self-end  h-full p-3 text-gray-600  cursor-pointer">
+                  <a aria-label="Home">
+                    <FiShoppingCart size={22} />
+                  </a>
+                </div>
+              </Link>
+
+
+              <Link href="/auth">
+                <div className=" items-center justify-center justify-self-end  h-full p-3 text-gray-600  cursor-pointer hidden lg:flex">
+                  <a aria-label="Home">
+                    <FiUser size={22} />
+                  </a>
+                </div>
+              </Link>
+
+              {!isMenuVisible &&
+                <div onClick={onMenuClick} className=" items-center justify-center justify-self-end  h-full p-3 text-gray-600  cursor-pointer flex lg:hidden">
+                  <a aria-label="Home">
+                    <FiMenu size={22} />
+                  </a>
+                </div>}
+
+              {isMenuVisible &&
+                <div onClick={onMenuClick} className=" items-center justify-center justify-self-end  h-full p-3 text-gray-600  cursor-pointer flex lg:hidden">
+                  <a aria-label="Home">
+                    <FiX size={22} />
+                  </a>
+                </div>}
+
+            </div>
+
           </div>
         </div>
-      </nav>
-
-
+      </nav >
 
       <div className="mobile:px-10 px-4 pb-10 flex justify-center">
-        <main className="w-fw">{children}</main>
+        <main className="w-fw pt-20">{children}</main>
       </div>
       <footer className="flex justify-center">
-        <div className="
-        sm:flex-row sm:items-center
-        flex-col
-        flex w-fw px-12 py-8
-        desktop:px-0
-        border-solid
-        border-t border-gray-300">
+        <div className=" sm:flex-row sm:items-center flex-col flex w-fw px-12 py-8 desktop:px-0 border-solid border-t border-gray-300">
           <span className="block text-gray-700 text-xs">Copyright © 2021 Deepak Ecommerce. All rights reserved.</span>
           {/* <div className="
             sm:justify-end sm:m-0
@@ -102,6 +159,6 @@ export default function Layout({ children, categories, prohibitRoutes }) {
         </div>
       </footer>
       <ToastContainer autoClose={3000} />
-    </div>
+    </div >
   )
 }

@@ -2,7 +2,6 @@ import Link from 'next/link'
 import Head from 'next/head'
 import Image from '../components/Image'
 import { useState, useEffect } from 'react'
-import CartLink from '../components/CartLink'
 import DENOMINATION from '../utils/currencyProvider'
 import QuantityPicker from '../components/QuantityPicker'
 import { FaTimes, FaLongArrowAltRight } from 'react-icons/fa'
@@ -33,7 +32,6 @@ const Cart = ({ context }) => {
 
   return (
     <>
-      <CartLink />
       <div className="flex flex-col items-center pb-10">
         <Head>
           <title>Jamstack ECommerce - Cart</title>

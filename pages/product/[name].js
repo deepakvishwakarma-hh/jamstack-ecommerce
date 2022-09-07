@@ -3,7 +3,6 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Image from '../../components/Image'
 import Button from '../../components/Button'
-import CartLink from '../../components/CartLink'
 import Varients from '../../components/custom/varient'
 import { client, urlFor } from "../../utils/lib/client"
 import BlockContent from "@sanity/block-content-to-react"
@@ -56,7 +55,6 @@ const ItemView = (props) => {
 
   return (
     <>
-      <CartLink />
       <Head>
         <title>Jamstack ECommerce - {name}</title>
         <meta name="description" content={briefDetail} />

@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { client } from "../utils/lib/client"
 import { DisplayMedium } from '../components'
-import CartLink from '../components/CartLink'
 import { titleIfy, slugify } from '../utils/helpers'
 import DualGridShow from '../components/custom/dualGridShowCategories'
 
@@ -9,7 +8,6 @@ function Categories({ catalog = [] }) {
   return (
     <>
       <div className="w-full">
-        <CartLink />
         <Head>
           <title>Jamstack ECommerce - All Categories</title>
           <meta name="description" content={`Jamstack ECommerce - All categories`} />
