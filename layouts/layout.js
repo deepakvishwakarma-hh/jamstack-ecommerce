@@ -61,11 +61,9 @@ export default function Layout({ children, categories, prohibitRoutes }) {
         <div className="flex justify-center">
           <div className=" mobile:px-12 flex-row  desktop:px-0 px-4 flex w-fw lg:h-20 h-14">
 
-            <div className=" flex items-center justify-center">
+            <div className="flex items-center justify-center">
               <Link href="/">
-                <a aria-label="Home">
-                  <Image src="/logo.svg" loader={() => "/logo.svg"} alt="logo" width="70" height="40" />
-                </a>
+                <Image src="/layout-logo.svg" loader={() => "/layout-logo.svg"} alt="logo" width="160px" height="50px" />
               </Link>
             </div>
             <div className=' flex-1 items-center px-5 hidden lg:flex'>
