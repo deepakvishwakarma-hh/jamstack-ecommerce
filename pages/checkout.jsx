@@ -32,7 +32,6 @@ const Cheakout = ({ context }) => {
     const cartEmpty = numberOfItemsInCart === Number(0)
     // to render non-serverside
     useEffect(() => {
-        if (!isValidUser) setPreviewInvalidUserAleart(true);
         if (cartEmpty) router.replace('/cart')
         setRenderClientSideComponent(true)
     }, [isValidUser, cartEmpty, router])
