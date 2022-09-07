@@ -40,9 +40,6 @@ const makePayment = async (amount, phoneNumber, address, products, clearCart) =>
         description: phoneNumber,
         key: 'rzp_test_e9n8awEfMheh3f',
         handler: function (response) {
-
-            console.log(response)
-
             if (response.status_code === 200) {
                 const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = response;
 

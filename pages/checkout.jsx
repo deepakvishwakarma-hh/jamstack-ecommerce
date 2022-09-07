@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import makePayment from '../utils/payment'
 import CartLink from '../components/CartLink'
 import DENOMINATION from '../utils/currencyProvider'
@@ -9,12 +10,6 @@ import Address from '../components/formComponents/Address'
 import Product from '../components/custom/cheakout-products'
 import InvalidUserAleart from '../components/custom/invalid-user-aleart'
 import { SiteContext, ContextProviderComponent } from '../context/mainContext'
-import { useRouter } from 'next/router'
-// testinf purpose prefill data 
-const initialState = {
-    name: 'rahuk', mobile: '1111111111', pincode: '111111', minAddress: 'sfsfsdfsdfsf dfdsf df df', maxAdress: 'sdfsfsfsds sdfg sdfd', landmark: 'fdsfdsf sdf dsfsd ', place: 'dfsdfsd ',
-    state: 'madhya pradesh'
-}
 
 const Cheakout = ({ context }) => {
 
@@ -34,7 +29,8 @@ const Cheakout = ({ context }) => {
     useEffect(() => {
         if (cartEmpty) router.replace('/cart')
         setRenderClientSideComponent(true)
-    }, [isValidUser, cartEmpty, router])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     // process payment [validation , so on]
     function processPayment() {
@@ -60,7 +56,6 @@ const Cheakout = ({ context }) => {
             setPreviewInvalidUserAleart(true)
         }
     }
-
 
     // forcefully render client side 
     if (!renderClientSideComponent) return null
