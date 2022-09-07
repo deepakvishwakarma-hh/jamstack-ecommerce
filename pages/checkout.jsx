@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import makePayment from '../utils/payment'
+import makePayment from '../utils/razor-payment'
 import CartLink from '../components/CartLink'
 import DENOMINATION from '../utils/currencyProvider'
 import { useState, useEffect, useContext } from 'react'
