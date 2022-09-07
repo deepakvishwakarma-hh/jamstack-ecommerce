@@ -20,7 +20,6 @@ const AuthBoundry = ({ children, set }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-
     return (
         <>
             <Context.Provider value={{ isValidUser, setValidUser, user }}>

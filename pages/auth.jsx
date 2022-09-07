@@ -13,10 +13,10 @@ function Auth() {
             {isValidUser ?
                 <User /> :
                 <main className='flex items-center justify-center w-full py-5 bg-gray-50'><AuthFrom /></main>}
-
         </div>
     )
 }
+
 
 export default Auth
 
