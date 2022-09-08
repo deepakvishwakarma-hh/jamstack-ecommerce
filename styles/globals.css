@@ -29,3 +29,25 @@
 .Toastify__progress-bar--default {
   background: #89bdf9 !important;
 }
+
+
+
+
+/* .target::-webkit-scrollbar {
+  width: 5px !important;
+} */
+
+/* Track */
+.target::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.target::-webkit-scrollbar-thumb {
+  background: red;
+}
+
+/* Handle on hover */
+.target::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

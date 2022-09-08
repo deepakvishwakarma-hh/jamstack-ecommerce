@@ -9,6 +9,7 @@ import BlockContent from "@sanity/block-content-to-react"
 import getVarientByKey from '../../utils/getVarientByKey'
 import QuantityPicker from '../../components/QuantityPicker'
 import { SiteContext, ContextProviderComponent } from '../../context/mainContext'
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 const ItemView = (props) => {
 
@@ -20,6 +21,7 @@ const ItemView = (props) => {
   const [size, setSize] = useState(sizes[0].name)
   const [subImageIndex, setSubImageIndex] = useState(0)
   const [numberOfitems, updateNumberOfItems] = useState(1)
+  const [ui, setUi] = useState({ showDiscription: false })
   const currentVarient = getVarientByKey(router.query.varientKey, varients)
   const image = urlFor(currentVarient.image[subImageIndex]).url();
 
@@ -64,9 +66,8 @@ const ItemView = (props) => {
         <meta property="og:type" content="website" />
       </Head>
       <div className="sm:py-12 md:flex-row py-4 w-full flex flex-1 flex-col my-0 mx-auto">
-        <div className='flex-1 flex-col'>
+        <div className='flex-1 flex-col hidden md:block'>
           <div className='sticky top-0'>
-
             <div className="p10 flex flex-1 justify-center items-center ">
               <Image src={image} alt="Inventory item" className="md:max-w-104 max-h-104 " />
             </div>
@@ -90,26 +91,53 @@ const ItemView = (props) => {
           </div>
         </div>
 
-        <div className="pt-2 px-0 md:px-10 pb-8 w-full md:w-1/2">
 
-          <h1 className=" sm:mt-0 mt-2 text-5xl font-light leading-large">{name}</h1>
+        <div className='flex-1 flex-col block md:hidden'>
+          <div className='sticky top-0'>
+            <div className="p10 flex flex-1 items-center overflow-scroll target">
+              {currentVarient?.image.map((item, i) => {
+                return (
+                  <img
+                    key={i}
+                    src={urlFor(item).url()}
+                    alt="Inventory item"
+                    className='md:max-w-104 max-h-104 ' />
+                )
+              })}
 
-          <div className='my-5'>
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-2 px-0 md:px-10 pb-8 w-full md:w -1/2">
+
+          <h1 className="sm:mt-0 mt-2 md:text-5xl text-lg font-bold md:font-light leading-large">{name}</h1>
+
+          <div className='md:py-2'>
+            <button onClick={() => { setUi(prev => { return { ...prev, showDiscription: !prev.showDiscription } }) }} className=' w-full text-left flex items-center'>Discription {!ui.showDiscription ? <FiChevronDown /> : <FiChevronUp />}</button>
+            {ui.showDiscription && <div>
+              <BlockContent blocks={hugeDetails}></BlockContent>
+            </div>}
+          </div>
+
+
+          <div className='my-2'>
             <h3>Varients</h3>
             <Varients varients={varients} resetSubImageIndex={setSubImageIndex} />
           </div>
 
-          <h2 className="text-2xl tracking-wide sm:py-8 py-6">${price}</h2>
 
           <h3>Sizes</h3>
 
-          <select onChange={onSizeChange} className='block mb-5 w-20 bg-gray-200 px-3 py-2'  >
-            {sizes.map(({ name }, i) => <option key={i} value={name}>{name}</option>)}
-          </select>
+          <div className='bg-gray-100 p-2  w-full md:w-40 '>
+            <select onChange={onSizeChange} className='block py-1 w-full border-none outline-none bg-transparent'  >
+              {sizes.map(({ name }, i) => <option key={i} value={name}>{name}</option>)}
+            </select>
+          </div>
 
-          <p className="text-gray-600 leading-7 mb-5">{briefDetail}</p>
 
-          <BlockContent blocks={hugeDetails}></BlockContent>
+          <h2 className="text-2xl tracking-wide mt-2 ">₹{price}</h2>
+
 
           <div className="my-6">
             <QuantityPicker

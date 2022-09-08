@@ -20,7 +20,6 @@ export default function Layout({ children, categories, prohibitRoutes }) {
 
   const router = useRouter()
 
-
   if (categories.length > navItemLength) {
     categories = categories.slice(0, navItemLength)
   }
@@ -139,7 +138,7 @@ export default function Layout({ children, categories, prohibitRoutes }) {
       </nav >
 
       <div className="mobile:px-10 px-4 pb-10 flex justify-center">
-        <main className="w-fw pt-20">{children}</main>
+        <main className="w-fw pt-12">{children}</main>
       </div>
       <footer className="flex justify-center">
         <div className=" sm:flex-row sm:items-center flex-col flex w-fw px-12 py-8 desktop:px-0 border-solid border-t border-gray-300">

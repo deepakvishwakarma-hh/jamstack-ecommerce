@@ -14,7 +14,7 @@ const Varients = (props) => {
     }
 
     return (
-        <div className="flex flex-wrap">
+        <div className="flex md:flex-wrap overflow-scroll md:overflow-auto">
             {props.varients.map((varient, index) => {
                 return <div
                     className={`m-2 rounded-md bg-white`}
@@ -23,7 +23,7 @@ const Varients = (props) => {
                     key={index}>
                     <img
                         alt={varient.name}
-                        style={{ width: "80px" }}
+                        className="w-14"
                         src={urlFor(varient.image[0]).url()}
                     />
                 </div>
