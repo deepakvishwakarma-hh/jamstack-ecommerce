@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { client, urlFor } from "../../utils/lib/client"
+import { client } from "../../utils/lib/client"
 import DualGridShow from '../../components/custom/DualGridShowProducts'
 
 const Category = (props) => {
