@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { client } from "../utils/lib/client"
-import DualGridShow from '../components/custom/dualGridShowCategories'
+import Category from '../components/custom/Categories'
 function Categories({ catalog = [] }) {
   return (
     <>
@@ -15,7 +15,7 @@ function Categories({ catalog = [] }) {
           <p className='text-center md:text-left text-xs capitalize text-gray-500'>product categories</p>
         </div>
         <div className="grid xl:grid-cols-6 lg:grid-cols-6 md:grid-cols-4 gap-1 grid-cols-2 py-3">
-          {catalog.map((category, i) => <DualGridShow key={i} category={category} />)}
+          {catalog.map((category, i) => <Category key={i} category={category} />)}
         </div>
 
       </div>

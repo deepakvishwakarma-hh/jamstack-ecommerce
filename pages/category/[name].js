@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { client } from "../../utils/lib/client"
-import DualGridShow from '../../components/custom/DualGridShowProducts'
+import Product from '../../components/custom/Product'
 
 const Category = (props) => {
   return (
@@ -19,7 +19,7 @@ const Category = (props) => {
 
           <div>
             <div className="grid xl:grid-cols-6 lg:grid-cols-6 md:grid-cols-4 gap-1 grid-cols-2 py-3">
-              {props.products.map((item, index) => <DualGridShow item={item} key={index} />)}
+              {props.products.map((item, index) => <Product item={item} key={index} />)}
             </div>
           </div>
         </div>
@@ -50,3 +50,5 @@ export const getServerSideProps = async (context) => {
 }
 
 export default Category
+
+
