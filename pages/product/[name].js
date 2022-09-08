@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useState } from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -65,7 +66,9 @@ const ItemView = (props) => {
         <meta property="og:image" content={`${image}`} />
         <meta property="og:type" content="website" />
       </Head>
-      <div className="sm:py-12 md:flex-row py-4 w-full flex flex-1 flex-col my-0 mx-auto">
+
+      <main className="sm:py-12 md:flex-row py-4 w-full flex flex-1 flex-col my-0 mx-auto">
+
         <div className='flex-1 flex-col hidden md:block'>
           <div className='sticky top-0'>
             <div className="p10 flex flex-1 justify-center items-center ">
@@ -73,71 +76,60 @@ const ItemView = (props) => {
             </div>
 
             <div className="flex flex-2 justify-center flex-wrap items-center bg-gray-100 py-5">
-
-              {currentVarient?.image.map((item, i) => {
-                return (
-                  <div
-                    key={i}
-                    className='mx-1 cursor-pointer hover:border-black border border-3'
-                    onMouseEnter={() => { setSubImageIndex(i) }}>
-                    <img
-                      src={urlFor(item).url()}
-                      alt="Inventory item"
-                      className='max-h-20' />
-                  </div>
-                )
-              })}
+              {currentVarient?.image.map((item, i) => (
+                <div key={i}
+                  onMouseEnter={() => { setSubImageIndex(i) }}
+                  className='mx-1 cursor-pointer hover:border-black border border-3'>
+                  <img
+                    src={urlFor(item).url()}
+                    alt="Inventory item"
+                    className='max-h-20' />
+                </div>
+              ))}
             </div>
           </div>
         </div>
-
 
         <div className='flex-1 flex-col block md:hidden'>
           <div className='sticky top-0'>
             <div className="p10 flex flex-1 items-center overflow-scroll target">
-              {currentVarient?.image.map((item, i) => {
-                return (
-                  <img
-                    key={i}
-                    src={urlFor(item).url()}
-                    alt="Inventory item"
-                    className='md:max-w-104 max-h-104 ' />
-                )
-              })}
-
+              {currentVarient?.image.map((item, i) => (
+                <img
+                  key={i}
+                  src={urlFor(item).url()}
+                  alt="Inventory item"
+                  className='md:max-w-104 max-h-104 ' />
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="pt-2 px-0 md:px-10 pb-8 w-full md:w -1/2">
+        <div className="pt-2 px-0 md:px-10 pb-8 w-full md:w-1/2 ">
 
-          <h1 className="sm:mt-0 mt-2 md:text-5xl text-lg font-bold md:font-light leading-large">{name}</h1>
+          <h1 className="sm:mt-0 mt-2 md:text-5xl text-xl font-bold md:font-light leading-large">{name}</h1>
 
-          <div className='md:py-2'>
-            <button onClick={() => { setUi(prev => { return { ...prev, showDiscription: !prev.showDiscription } }) }} className=' w-full text-left flex items-center'>Discription {!ui.showDiscription ? <FiChevronDown /> : <FiChevronUp />}</button>
+          <div>
+            <button onClick={() => { setUi(prev => { return { ...prev, showDiscription: !prev.showDiscription } }) }} className=' font-medium w-full py-2 text-left flex items-center focus:border-none focus:outline-none'>Discription {!ui.showDiscription ? <FiChevronDown className='ml-2' /> : <FiChevronUp className='ml-2' />}</button>
             {ui.showDiscription && <div>
               <BlockContent blocks={hugeDetails}></BlockContent>
             </div>}
           </div>
 
-
-          <div className='my-2'>
-            <h3>Varients</h3>
+          <div>
+            <h3 className='py-2 font-medium'>Varients</h3>
             <Varients varients={varients} resetSubImageIndex={setSubImageIndex} />
           </div>
 
-
-          <h3>Sizes</h3>
-
-          <div className='bg-gray-100 p-2  w-full md:w-40 '>
-            <select onChange={onSizeChange} className='block py-1 w-full border-none outline-none bg-transparent'  >
-              {sizes.map(({ name }, i) => <option key={i} value={name}>{name}</option>)}
-            </select>
+          <div>
+            <h3 className='py-2 font-medium'>Sizes</h3>
+            <div className=' p-2  w-full md:w-40 bg-gray-100 rounded'>
+              <select onChange={onSizeChange} className='block py-1 w-full border-none outline-none bg-transparent'  >
+                {sizes.map(({ name }, i) => <option key={i} value={name}>{name}</option>)}
+              </select>
+            </div>
           </div>
 
-
           <h2 className="text-2xl tracking-wide mt-2 ">₹{price}</h2>
-
 
           <div className="my-6">
             <QuantityPicker
@@ -146,13 +138,14 @@ const ItemView = (props) => {
               numberOfitems={numberOfitems}
             />
           </div>
+
           <Button
             full
             title="Add to Cart"
             onClick={() => addItemToCart(payload_for_addtocart)}
           />
         </div>
-      </div>
+      </main>
     </>
   )
 }
