@@ -8,10 +8,10 @@ import Image from 'next/image'
 import { FiShoppingCart, FiUser, FiSearch, FiGrid, FiMenu, FiX } from "react-icons/fi";
 import { useState } from 'react'
 
-
 export default function Layout({ children, categories, prohibitRoutes }) {
 
   const [isMenuVisible, setMenuVisiblity] = useState(false)
+
 
   function onMenuClick() {
     setMenuVisiblity(prev => !prev)
@@ -19,6 +19,8 @@ export default function Layout({ children, categories, prohibitRoutes }) {
 
 
   const router = useRouter()
+
+  console.log(router.pathname)
 
   if (categories.length > navItemLength) {
     categories = categories.slice(0, navItemLength)
@@ -28,25 +30,37 @@ export default function Layout({ children, categories, prohibitRoutes }) {
     return <main className="w-fw">{children}</main>
   }
 
+
+  function activeClass(route) {
+    return route == router.pathname ? { textDecoration: 'underline' } : {}
+  }
+
   return (
     <div>
 
       <div style={{ display: isMenuVisible ? 'block' : "none" }} className='bg-white top-0 left-0 fixed z-40 w-screen h-screen pt-20 transition-all overscroll-contain'>
         <div className=' flex-1 items-center flex flex-col h-full'>
 
-          <Link passHref href={`/categories`}>
-            <p className="text-center text-md py-3  w-full font-bold">My Account</p>
+          <Link passHref href={`/`}>
+            <p style={activeClass('/')} className="text-center text-md py-3  w-full font-bold">Home</p>
+          </Link>
+
+          <Link passHref href={`/contact-us`}>
+            <p style={activeClass('/contact-us')} className="text-center text-md py-3  w-full font-bold"> Contact </p>
+          </Link>
+
+          <Link passHref href={`/auth`}>
+            <p style={activeClass('/auth')} className="text-center text-md py-3  w-full font-bold"> Account</p>
           </Link>
 
           <Link passHref href={`/categories`}>
-            <p className="text-center text-md py-3  w-full font-bold">Categories</p>
+            <p style={activeClass('/categories')} className="text-center text-md py-3  w-full font-bold">Categories</p>
           </Link>
 
-          <Link passHref href={`/categories`}>
-            <p className="text-center text-md py-3  w-full font-bold"> Contact Us</p>
-          </Link>
 
-          <Link passHref href={`/categories`}>
+
+
+          <Link passHref href={`/refund-policy`}>
             <p className="text-center text-md py-3  w-full font-extrabold"> Refund Policies</p>
           </Link>
 
