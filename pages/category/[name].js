@@ -1,7 +1,6 @@
 import Head from 'next/head'
-import ListItem from '../../components/ListItem'
 import { client, urlFor } from "../../utils/lib/client"
-import DualGridShow from '../../components/custom/dualGridShowProducts'
+import DualGridShow from '../../components/custom/DualGridShowProducts'
 
 const Category = (props) => {
   return (
@@ -13,35 +12,13 @@ const Category = (props) => {
       </Head>
       <div className="flex flex-col items-center">
         <div className="max-w-fw flex flex-col w-full">
-          <div className="pt-4 sm:pt-10 pb-8">
-            <h1 className="text-5xl font-light capitalize">{props.catalog[0].name}</h1>
+          <div className=" pt-4 sm:pt-10 pb-5">
+            <h1 className="text-center text-xl font-bold uppercase md:text-left tracking-wider text-gray-700">{props.catalog[0].name}</h1>
+            <p className='text-center md:text-left text-xs capitalize text-gray-500'>product category</p>
           </div>
 
           <div>
-            <div className=" flex-1 flex-wrap flex-row hidden sm:flex ">
-              {
-                props.products.map((item, index) => {
-                  const varient = item.varients[0];
-                  return (
-                    <ListItem
-                      key={index}
-                      href={{
-                        pathname: '/product/[name]',
-                        query: {
-                          name: item.slug.current,
-                          varientKey: varient._key
-                        },
-                      }}
-                      title={item.name}
-                      price={item.price}
-                      imageSrc={urlFor(varient.image[0]).url()}
-                    />
-                  )
-                })
-              }
-            </div>
-
-            <div className="grid grid-cols-2 gap-1 sm:hidden py-5">
+            <div className="grid xl:grid-cols-6 lg:grid-cols-6 md:grid-cols-4 gap-1 grid-cols-2 py-3">
               {props.products.map((item, index) => <DualGridShow item={item} key={index} />)}
             </div>
           </div>

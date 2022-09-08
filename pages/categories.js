@@ -1,9 +1,6 @@
 import Head from 'next/head'
 import { client } from "../utils/lib/client"
-import { DisplayMedium } from '../components'
-import { titleIfy, slugify } from '../utils/helpers'
 import DualGridShow from '../components/custom/dualGridShowCategories'
-
 function Categories({ catalog = [] }) {
   return (
     <>
@@ -13,30 +10,11 @@ function Categories({ catalog = [] }) {
           <meta name="description" content={`Jamstack ECommerce - All categories`} />
           <meta property="og:title" content="Jamstack ECommerce - All Categories" key="title" />
         </Head>
-        <div className="
-          pt-4 sm:pt-10 pb-8
-        ">
-          <h1 className="text-5xl font-light">All categories</h1>
+        <div className=" pt-4 sm:pt-10 pb-5">
+          <h1 className="text-center text-xl font-bold uppercase md:text-left tracking-wider text-gray-700">categories</h1>
+          <p className='text-center md:text-left text-xs capitalize text-gray-500'>product categories</p>
         </div>
-        <div className="flex flex-col items-center">
-
-          <div className=" gap-4
-          lg:grid-cols-3 md:grid-cols-2 grid-cols-1 hidden sm:grid">
-            {
-              catalog.map((category, index) => (
-                <DisplayMedium
-                  key={index}
-                  imageSrc={category.imageUrl}
-                  subtitle={`${category.name} items`}
-                  title={titleIfy(category.name)}
-                  link={`/category/${slugify(category.name)}`}
-                />
-              ))
-            }
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 gap-1 sm:hidden py-5">
+        <div className="grid xl:grid-cols-6 lg:grid-cols-6 md:grid-cols-4 gap-1 grid-cols-2 py-3">
           {catalog.map((category, i) => <DualGridShow key={i} category={category} />)}
         </div>
 

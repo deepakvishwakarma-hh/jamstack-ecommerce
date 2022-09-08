@@ -13,29 +13,29 @@ const DualGridShow = ({ item }) => {
         varient.image[0]
     );
     return (
-        <div className='bg-gray-100' ref={squareRef}
-            style={{ display: "grid", grid: 'auto 100px / auto' }}>
-            <Link href={{
-                pathname: '/product/[name]',
-                query: {
-                    name: item.slug.current,
-                    varientKey: varient._key
-                },
-            }}>
-                <a aria-label={item.name}>
-                    <Image  {...imageProps}
-                        layout="intrinsic"
-                        alt={item.name}
-                        loader={imageProps.loader}
-                        height={width ?? '200px'}
-                        width={width ?? '200px'} />
-                </a>
-            </Link>
-            <div className='p-1'>
-                <p className=" text-l font-medium">{item.name}</p>
-                <p className=" text-gray-700 mb-4">{`${DENOMINATION}${item.price}`}</p>
+        <Link href={{
+            pathname: '/product/[name]',
+            query: {
+                name: item.slug.current,
+                varientKey: varient._key
+            },
+        }}>
+            <div ref={squareRef} className="rounded overflow-hidden"
+                style={{ display: "grid", grid: 'auto auto / auto' }}>
+
+                <Image  {...imageProps}
+                    layout="intrinsic"
+                    alt={item.name}
+                    loader={imageProps.loader}
+                    height={width ?? '200px'}
+                    width={width ?? '200px'} />
+                <div className='p-1'>
+                    <p className=" font-bold capitalize text-sm">{item.name}</p>
+                    <p className=" text-gray-700 mb-4">{`${DENOMINATION}${item.price}`}</p>
+                </div>
             </div>
-        </div>
+        </Link>
+
     )
 }
 export default DualGridShow
