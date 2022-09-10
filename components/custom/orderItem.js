@@ -38,7 +38,12 @@ const Orderitem = ({ id }) => {
         }
         const data = await fetch("/api/cancel-order", RequestInfo).then((t) => t.json());
 
-        alert(data)
+        if (data) {
+            alert('successfully cancelled')
+        } else {
+            alert('product cancelation is unsucessfull')
+        }
+
     }
 
     return (
