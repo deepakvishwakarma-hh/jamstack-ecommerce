@@ -8,7 +8,7 @@ export default async function handler(req, res) {
         await deleteDoc(deleteDocRef)
             .then(async () => {
                 await updateDoc(userDocRef, {
-                    orders: arrayRemove(`${user}`)
+                    orders: arrayRemove(id)
                 }).then(() => {
                     res.status(200).json(true);
                 }).catch(() => {
