@@ -2,12 +2,13 @@
 import Router from "next/router"
 import { Context } from "./authBoundry"
 import { firestore } from "../../firebase"
-import { useState, useEffect, useContext } from "react"
+import { useState, useEffect, useContext, useTransition } from "react"
 import { doc, onSnapshot } from "firebase/firestore"
 
 const User = () => {
     const { user } = useContext(Context)
     const [userData, setUserData] = useState(undefined)
+
 
     useEffect(() => {
         let isActive = true;

@@ -17,7 +17,6 @@ export default function Layout({ children, categories, prohibitRoutes }) {
     setMenuVisiblity(prev => !prev)
   }
 
-
   const router = useRouter()
 
   console.log(router.pathname)
@@ -49,15 +48,13 @@ export default function Layout({ children, categories, prohibitRoutes }) {
             <p style={activeClass('/contact-us')} className="text-center text-md py-3  w-full font-bold"> Contact </p>
           </Link>
 
-          <Link passHref href={`/auth`}>
-            <p style={activeClass('/auth')} className="text-center text-md py-3  w-full font-bold"> Account</p>
+          <Link passHref href={`/user`}>
+            <p style={activeClass('/user')} className="text-center text-md py-3  w-full font-bold"> Account</p>
           </Link>
 
           <Link passHref href={`/categories`}>
             <p style={activeClass('/categories')} className="text-center text-md py-3  w-full font-bold">Categories</p>
           </Link>
-
-
 
 
           <Link passHref href={`/refund-policy`}>
@@ -152,7 +149,7 @@ export default function Layout({ children, categories, prohibitRoutes }) {
       </nav >
 
       <div className="mobile:px-10 px-4 pb-10 flex justify-center">
-        <main className="w-fw pt-12">{children}</main>
+        <main className="w-fw mt-16 md:mt-24" >{children}</main>
       </div>
       <footer className="flex justify-center">
         <div className=" sm:flex-row sm:items-center flex-col flex w-fw px-12 py-8 desktop:px-0 border-solid border-t border-gray-300">

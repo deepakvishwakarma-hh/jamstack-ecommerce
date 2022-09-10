@@ -1,14 +1,20 @@
 import jwt from 'jsonwebtoken'
 import { createContext, useEffect, useState } from "react"
+import { useRouter } from 'next/router'
 const Context = createContext()
 
-const AuthBoundry = ({ children, set }) => {
+const AuthBoundry = ({ children, protectedRoutes }) => {
+
+    const router = useRouter()
 
     const [isValidUser, setValidUser] = useState(false)
 
     const [user, setUser] = useState(undefined)
 
     useEffect(() => {
+
+
+
         const token = localStorage.getItem('token')
         const encrypted = token ? jwt.decode(token?.toString()) : false;
         if (encrypted) {
@@ -16,9 +22,15 @@ const AuthBoundry = ({ children, set }) => {
             setUser(encrypted)
         } else {
             setValidUser(false)
+
+
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [router])
+
+    // if (protectedRoutes.includes(router.pathname)) {
+    //     router?.replace('/auth')
+    // }
 
     return (
         <>

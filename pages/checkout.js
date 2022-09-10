@@ -31,11 +31,13 @@ const Cheakout = ({ context }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    console.log(cart)
+
     // process payment [validation , so on]
     function processPayment() {
         // product [like-schema]
-        const products = cart.map(({ size, id, productId }) => {
-            return { size, productVarientKey: id, productId }
+        const products = cart.map(({ size, id, productId, quantity }) => {
+            return { size, productVarientKey: id, productId, quantity }
         })
 
         // getting empty inputs of address form [as arrey]

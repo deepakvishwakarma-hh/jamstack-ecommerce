@@ -31,4 +31,3 @@ export default async function handler(req, res) {
     }
 }
 
-// require('fs').writeFileSync('payment1.json', JSON.stringify(req.body, null, 4))
