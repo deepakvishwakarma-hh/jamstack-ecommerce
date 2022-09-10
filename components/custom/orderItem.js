@@ -1,18 +1,15 @@
 import React from "react";
+import { Context } from "./authBoundry";
 import { urlFor } from "../../utils/lib/client"
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
-import { Context } from "./authBoundry";
 
 const Orderitem = ({ id }) => {
 
     const context = React.useContext(Context)
-
     const [isOpen, setOpen] = React.useState(false)
-    function onClick() {
-        setOpen(!isOpen)
-    }
-
     const [orders, setOrders] = React.useState(null)
+
+    function onClick() { setOpen(!isOpen) }
 
     React.useEffect(() => {
         async function get() {
@@ -68,6 +65,8 @@ const Orderitem = ({ id }) => {
                         </div>
                     </div>
                 })}
+
+
 
                 <button onClick={onCancelOrder} className="block bg-red-200 w-full p-2 rounded-md font-medium md:w-40 text-red-900">Cancel Order</button>
 
