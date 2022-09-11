@@ -1,15 +1,22 @@
 import '../styles/globals.css'
+import { SWRConfig } from 'swr'
 import Layout from '../layouts/layout'
-import AuthBoundry from "../components/custom/authBoundry"
 import fetchCategories from '../utils/categoryProvider'
+import fetchJson from "../utils/lib/fetchJson"
 
 function Ecommerce({ Component, pageProps, categories }) {
   return (
-    <AuthBoundry protectedRoutes={['/user']}>
+    <SWRConfig
+      value={{
+        fetcher: fetchJson,
+        onError: (err) => {
+          console.error(err)
+        },
+      }}>
       <Layout prohibitRoutes={['/anything']} categories={categories}>
         <Component {...pageProps} />
       </Layout>
-    </AuthBoundry>
+    </SWRConfig>
   )
 }
 

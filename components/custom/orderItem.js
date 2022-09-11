@@ -1,11 +1,9 @@
 import React from "react";
-import { Context } from "./authBoundry";
 import { urlFor } from "../../utils/lib/client"
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
-const Orderitem = ({ id }) => {
+const Orderitem = ({ id, phoneNumber }) => {
 
-    const context = React.useContext(Context)
     const [isOpen, setOpen] = React.useState(false)
     const [orders, setOrders] = React.useState(null)
 
@@ -31,7 +29,7 @@ const Orderitem = ({ id }) => {
     async function onCancelOrder() {
         const RequestInfo = {
             method: "POST",
-            body: JSON.stringify({ id, user: context?.user?.phoneNumber })
+            body: JSON.stringify({ id, user: phoneNumber })
         }
         const data = await fetch("/api/cancel-order", RequestInfo).then((t) => t.json());
 

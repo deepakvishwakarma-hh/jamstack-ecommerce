@@ -1,25 +1,21 @@
 import Link from 'next/link'
+import Image from 'next/image'
+import { useState } from 'react'
+import { useRouter } from 'next/router'
 import { slugify } from '../utils/helpers'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import { navItemLength } from '../ecommerce.config'
-import { useRouter } from 'next/router'
-import Image from 'next/image'
 import { FiShoppingCart, FiUser, FiSearch, FiGrid, FiMenu, FiX } from "react-icons/fi";
-import { useState } from 'react'
 
-export default function Layout({ children, categories, prohibitRoutes }) {
+export default function Layout({ children, categories = [], prohibitRoutes }) {
 
+  const router = useRouter()
   const [isMenuVisible, setMenuVisiblity] = useState(false)
-
 
   function onMenuClick() {
     setMenuVisiblity(prev => !prev)
   }
-
-  const router = useRouter()
-
-  console.log(router.pathname)
 
   if (categories.length > navItemLength) {
     categories = categories.slice(0, navItemLength)
@@ -28,7 +24,6 @@ export default function Layout({ children, categories, prohibitRoutes }) {
   if (prohibitRoutes.includes(router.asPath)) {
     return <main className="w-fw">{children}</main>
   }
-
 
   function activeClass(route) {
     return route == router.pathname ? { textDecoration: 'underline' } : {}
@@ -68,6 +63,7 @@ export default function Layout({ children, categories, prohibitRoutes }) {
       </div>
 
       <nav className='fixed w-screen  bg-white z-50 shadow-sm'>
+
         <div className="flex justify-center">
           <div className=" mobile:px-12 flex-row  desktop:px-0 px-4 flex w-fw lg:h-20 h-14">
 
@@ -120,7 +116,7 @@ export default function Layout({ children, categories, prohibitRoutes }) {
               </Link>
 
 
-              <Link href="/auth">
+              <Link href="/user">
                 <div className=" items-center justify-center justify-self-end  h-full p-3 text-gray-600  cursor-pointer hidden lg:flex">
                   <a aria-label="Home">
                     <FiUser size={22} />
@@ -141,17 +137,22 @@ export default function Layout({ children, categories, prohibitRoutes }) {
                     <FiX size={22} />
                   </a>
                 </div>}
-
             </div>
-
           </div>
         </div>
       </nav >
 
+
+
       <div className="mobile:px-10 px-4 pb-10 flex justify-center">
-        <main className="w-fw mt-16 md:mt-24" >{children}</main>
+        <main className="w-fw mt-16 md:mt-24" >
+
+
+          {children}
+        </main>
       </div>
       <footer className="flex justify-center">
+
         <div className=" sm:flex-row sm:items-center flex-col flex w-fw px-12 py-8 desktop:px-0 border-solid border-t border-gray-300">
           <span className="block text-gray-700 text-xs">Copyright © 2021 Deepak Ecommerce. All rights reserved.</span>
           {/* <div className="

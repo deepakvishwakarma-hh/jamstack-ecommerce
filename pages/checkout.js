@@ -1,21 +1,22 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
+import { useState, useEffect } from 'react'
+import useUser from '../utils/lib/userUser'
 import makePayment from '../utils/razor-payment'
 import DENOMINATION from '../utils/currencyProvider'
-import { useState, useEffect, useContext } from 'react'
 import { addressInitialState } from "../ecommerce.config"
-import { Context } from '../components/custom/authBoundry'
 import Address from '../components/formComponents/Address'
 import Product from '../components/custom/cheakout-products'
-import InvalidUserAleart from '../components/custom/invalid-user-aleart'
 import { SiteContext, ContextProviderComponent } from '../context/mainContext'
 
 const Cheakout = ({ context }) => {
 
+    const { user } = useUser({
+        redirectTo: '/auth'
+    })
+
     // state [statefull component]
-    const { isValidUser, user } = useContext(Context)
     const [address, setAddress] = useState(addressInitialState);
-    const [previewInvalidUserAleart, setPreviewInvalidUserAleart] = useState(false)
     const [renderClientSideComponent, setRenderClientSideComponent] = useState(false)
 
     // setting up router
@@ -31,7 +32,6 @@ const Cheakout = ({ context }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    console.log(cart)
 
     // process payment [validation , so on]
     function processPayment() {
@@ -43,18 +43,12 @@ const Cheakout = ({ context }) => {
         // getting empty inputs of address form [as arrey]
         let emptyInputs = Object.keys(address).filter((n) => address[n] === '')
 
-        // validating user 
-        if (isValidUser) {
-            // validating [non-empty input]
-            if (emptyInputs.length !== 0) {
-                return alert('please fill all inputs')
-            } else {
-                // perform make payment
-                makePayment(total, user.phoneNumber, address, products, clearCart)
-            }
+        // validating [non-empty input]
+        if (emptyInputs.length !== 0) {
+            return alert('please fill all inputs')
         } else {
-            // show login section [as aleart]
-            setPreviewInvalidUserAleart(true)
+            // perform make payment
+            makePayment(total, user.phoneNumber, address, products, clearCart)
         }
     }
 
@@ -63,7 +57,6 @@ const Cheakout = ({ context }) => {
 
     return (
         <>
-            {previewInvalidUserAleart && <InvalidUserAleart close={() => { setPreviewInvalidUserAleart(false) }} />}
             <div className="flex flex-col items-center pb-10">
                 <Head>
                     <title>Jamstack ECommerce - Address & Payment</title>
@@ -110,5 +103,5 @@ function CartWithContext(props) {
     )
 }
 
-
 export default CartWithContext
+
