@@ -12,7 +12,7 @@ import { SiteContext, ContextProviderComponent } from '../context/mainContext'
 const Cheakout = ({ context }) => {
 
     const { user } = useUser({
-        redirectTo: '/auth'
+        redirectTo: '/auth?redirect=/checkout'
     })
 
     // state [statefull component]

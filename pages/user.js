@@ -30,7 +30,7 @@ const Userpage = ({ user }) => {
             });
         }
 
-        getUserData(user.phoneNumber)
+        if (user) getUserData(user.phoneNumber)
 
         return () => { isActive = false };
 
@@ -45,7 +45,7 @@ const Userpage = ({ user }) => {
         <main>
             <h1 className="text-5xl py-5 font-light">Profile</h1>
             <div>
-                <p><b>Contact</b> : {user.phoneNumber}</p>
+                <p><b>Contact</b> : {user?.phoneNumber}</p>
                 <button onClick={logout} className="px-5 py-1 my-2 bg-red-300 rounded-md text-red-800 capitalize">logout</button>
             </div>
             <hr className="my-5" />
@@ -57,10 +57,11 @@ const Userpage = ({ user }) => {
                             <FiRotateCw color="initial" size={20} />
                         </div></div>}
 
-                    {!orders && <div className="flex items-center justify-center w-full p-5  bg-white">
-                        <div>unavailable</div></div>}
+                    {orders == false && <div className="flex items-center justify-center w-full p-5  bg-white">
+                        <div>unavailable</div>
+                    </div>}
 
-                    {orders && orders.map((id) => <Orderitem phoneNumber={user.phoneNumber} key={id} id={id} />)}
+                    {orders && orders.map((id) => <Orderitem phoneNumber={user?.phoneNumber} key={id} id={id} />)}
 
                 </div>
             </div>
@@ -70,19 +71,14 @@ const Userpage = ({ user }) => {
 
 export default Userpage
 
-
 export const getServerSideProps = withSessionSsr(
     async function getServerSideProps({ req, res }) {
         const user = req.session.user;
         if (user === undefined) {
-            res.setHeader('location', '/auth')
-            res.statusCode = 302
+            res.setHeader("location", "/auth")
+            res.statusCode = 301
             res.end()
-            return {
-                props: {
-                    notFound: true,
-                },
-            }
+            return { props: { user: false } };
         }
 
         return {

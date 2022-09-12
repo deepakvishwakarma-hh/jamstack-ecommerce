@@ -1,12 +1,14 @@
 import React from 'react'
 import Head from "next/head"
+import { useRouter } from 'next/router'
 import useUser from '../utils/lib/userUser'
 import AuthFrom from "../components/custom/authForm"
-
 function Auth() {
 
+    const { query } = useRouter()
+
     const { mutateUser } = useUser({
-        redirectTo: '/user',
+        redirectTo: query.redirect ?? '/user',
         redirectIfFound: true,
     })
 

@@ -6,7 +6,7 @@ import { slugify } from '../utils/helpers'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import { navItemLength } from '../ecommerce.config'
-import { FiShoppingCart, FiUser, FiSearch, FiGrid, FiMenu, FiX } from "react-icons/fi";
+import { FiShoppingCart, FiUser, FiSearch, FiMenu, FiX } from "react-icons/fi";
 
 export default function Layout({ children, categories = [], prohibitRoutes }) {
 
@@ -29,6 +29,9 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
     return route == router.pathname ? { textDecoration: 'underline' } : {}
   }
 
+
+
+
   return (
     <div>
 
@@ -43,9 +46,9 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
             <p style={activeClass('/contact-us')} className="text-center text-md py-3  w-full font-bold"> Contact </p>
           </Link>
 
-          <Link passHref href={`/user`}>
-            <p style={activeClass('/user')} className="text-center text-md py-3  w-full font-bold"> Account</p>
-          </Link>
+          {/* <Link passHref href={`/user`}> */}
+          <p onClick={() => { router.push('/user') }} style={activeClass('/user')} className="text-center text-md py-3  w-full font-bold"> Account</p>
+          {/* </Link> */}
 
           <Link passHref href={`/categories`}>
             <p style={activeClass('/categories')} className="text-center text-md py-3  w-full font-bold">Categories</p>
@@ -116,7 +119,7 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
               </Link>
 
 
-              <Link href="/user">
+              <Link href="/auth">
                 <div className=" items-center justify-center justify-self-end  h-full p-3 text-gray-600  cursor-pointer hidden lg:flex">
                   <a aria-label="Home">
                     <FiUser size={22} />

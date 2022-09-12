@@ -2,12 +2,13 @@ import Link from 'next/link'
 import Head from 'next/head'
 import Image from '../components/Image'
 import { useState, useEffect } from 'react'
+import useUser from "../utils/lib/userUser"
 import DENOMINATION from '../utils/currencyProvider'
 import QuantityPicker from '../components/QuantityPicker'
 import { FaTimes, FaLongArrowAltRight } from 'react-icons/fa'
 import { SiteContext, ContextProviderComponent } from '../context/mainContext'
-
 const Cart = ({ context }) => {
+  const { user } = useUser()
   const [renderClientSideComponent, setRenderClientSideComponent] = useState(false)
   useEffect(() => {
     setRenderClientSideComponent(true)
@@ -151,7 +152,7 @@ const Cart = ({ context }) => {
           {!cartEmpty && (
             <Link href="/checkout" className="flex flex-1 justify-end">
               <a aria-label="Check out">
-                <div className="cursor-pointer flex items-center">
+                <div className="cursor-pointer flex items-center bg-gray-200 py-3 px-3 rounded">
                   <p className="text-gray-600 text-sm mr-2">Proceed to check out</p>
                   <FaLongArrowAltRight className="text-gray-600" />
                 </div>

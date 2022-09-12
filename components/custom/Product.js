@@ -28,7 +28,8 @@ const DualGridShow = ({ item }) => {
                     alt={item.name}
                     loader={imageProps.loader}
                     height={width ?? '200px'}
-                    width={width ?? '200px'} />
+                    width={width ?? '200px'}
+                    className="max-h-24" />
                 <div className='p-1'>
                     <p className=" font-bold capitalize text-sm">{item.name}</p>
                     <p className=" text-gray-700 mb-4">{`${DENOMINATION}${item.price}`}</p>
