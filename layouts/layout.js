@@ -29,7 +29,9 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
     return route == router.pathname ? { textDecoration: 'underline' } : {}
   }
 
-
+  function setMenuDiseble() {
+    setMenuVisiblity(false)
+  }
 
 
   return (
@@ -39,24 +41,24 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
         <div className=' flex-1 items-center flex flex-col h-full'>
 
           <Link passHref href={`/`}>
-            <p style={activeClass('/')} className="text-center text-md py-3  w-full font-bold">Home</p>
+            <p onClick={setMenuDiseble} style={activeClass('/')} className="text-center text-md py-3  w-full font-bold">Home</p>
           </Link>
 
           <Link passHref href={`/contact-us`}>
-            <p style={activeClass('/contact-us')} className="text-center text-md py-3  w-full font-bold"> Contact </p>
+            <p onClick={setMenuDiseble} style={activeClass('/contact-us')} className="text-center text-md py-3  w-full font-bold"> Contact </p>
           </Link>
 
           {/* <Link passHref href={`/user`}> */}
-          <p onClick={() => { router.push('/user') }} style={activeClass('/user')} className="text-center text-md py-3  w-full font-bold"> Account</p>
+          <p onClick={() => { router.push('/user'); setMenuDiseble() }} style={activeClass('/user')} className="text-center text-md py-3  w-full font-bold"> Account</p>
           {/* </Link> */}
 
           <Link passHref href={`/categories`}>
-            <p style={activeClass('/categories')} className="text-center text-md py-3  w-full font-bold">Categories</p>
+            <p onClick={setMenuDiseble} style={activeClass('/categories')} className="text-center text-md py-3  w-full font-bold">Categories</p>
           </Link>
 
 
           <Link passHref href={`/refund-policy`}>
-            <p className="text-center text-md py-3  w-full font-extrabold"> Refund Policies</p>
+            <p onClick={setMenuDiseble} className="text-center text-md py-3  w-full font-extrabold"> Refund Policies</p>
           </Link>
 
           <p className="text-center text-xs py-3  w-full text-gray-400"> Copyright © 2021 Deepak Ecommerce. All rights reserved</p>

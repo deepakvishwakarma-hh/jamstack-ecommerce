@@ -1,11 +1,14 @@
 import React from "react";
-import { urlFor } from "../../utils/lib/client"
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { useNextSanityImage } from "next-sanity-image";
+import { configuredSanityClient } from "../../utils/lib/client";
+
+import Image from "next/image";
 
 const Orderitem = ({ id, phoneNumber }) => {
 
     const [isOpen, setOpen] = React.useState(false)
-    const [orders, setOrders] = React.useState(null)
+    const [order, setOrder] = React.useState(null)
 
     function onClick() { setOpen(!isOpen) }
 
@@ -16,63 +19,70 @@ const Orderitem = ({ id, phoneNumber }) => {
                 body: JSON.stringify({ id })
             }
             const data = await fetch("/api/delivery-details", RequestInfo).then((t) => t.json());
-            setOrders(data)
+            setOrder(data)
         }
 
         get()
     }, [id])
 
-    const Icon = isOpen ? <FiChevronUp /> : <FiChevronDown />
-
-    const orderedPlacedDate = new Date(id).toLocaleDateString();
 
     async function onCancelOrder() {
-        const RequestInfo = {
-            method: "POST",
-            body: JSON.stringify({ id, user: phoneNumber })
-        }
-        const data = await fetch("/api/cancel-order", RequestInfo).then((t) => t.json());
+        const confirm_permission = confirm('Do you really want to cancel order')
+        if (confirm_permission) {
+            const RequestInfo = {
+                method: "POST",
+                body: JSON.stringify({ id, user: phoneNumber })
+            }
+            const data = await fetch("/api/cancel-order", RequestInfo).then((t) => t.json());
 
-        if (data) {
-            alert('successfully cancelled')
-        } else {
-            alert('product cancelation is unsucessfull')
+            if (data) {
+                alert('successfully cancelled')
+            } else {
+                alert('product cancelation is unsucessfull')
+            }
         }
-
     }
 
+
     return (
-        <div className="rounded-md overflow-hidden mb-2 py-2" key={id}>
-            <div onClick={onClick} className="flex bg-gray-100 py-3 px-5 justify-between items-center">
-                <h5>{id}</h5>
-                <i>{Icon}</i>
+        <div className="rounded-md overflow-hidden my-2  bg-gray-100">
+
+            <div onClick={onClick} className={`flex py-3 px-5 justify-between items-center rounded ${isOpen ? `bg-gray-200` : null}`}>
+                <h5 className="text-sm"><b>Order_id </b>: {id}</h5>
+                <i>{isOpen ? <FiChevronUp /> : <FiChevronDown />}</i>
             </div>
-            {isOpen && <div className="px-5">
+            {isOpen &&
+                <div className="px-5">
+                    <h3 className=" my-2 text-sm"> <b>Ordered by user</b> : {new Date(id).toLocaleDateString()}</h3>
+                    <h3 className=" my-2 text-sm"> <b>Payment</b> : Pre-paid</h3>
 
-                <h3 className="capitalize my-5"> <b>order placed at</b> : {orderedPlacedDate}</h3>
+                    <hr className="mb-5" />
+                    {order !== null && order?.map((product, index) => <Product product={product} key={index} />)}
 
-                {orders !== null && orders?.map((order, index) => {
-                    return <div className="flex mb-5" key={index}>
-
-                        <img src={urlFor(order.image[0])} width={"100px"} height={"100px"} alt={order.name} />
-
-                        <div className="pl-5 ">
-                            <h2 className="capitalize font-bold">{order.name}</h2>
-                            <span className="block"> <i>Quantity</i> : {order.quantity}</span>
-                            <span className="block"> <i>Size</i> : {order.size}</span>
-                        </div>
-                    </div>
-                })}
-
-
-
-                <button onClick={onCancelOrder} className="block bg-red-200 w-full p-2 rounded-md font-medium md:w-40 text-red-900">Cancel Order</button>
-
-            </div>
+                    <button onClick={onCancelOrder} className="block bg-red-500 w-full p-2 rounded-md font-medium md:w-40 text-white mb-4">Cancel Order</button>
+                </div>
             }
         </div>
     )
 }
 export default Orderitem
+
+const Product = ({ product }) => {
+    const imageProps = useNextSanityImage(
+        configuredSanityClient,
+        product.image[0]
+    );
+
+    return (
+        <div className="flex mb-5">
+            <Image {...imageProps} alt={product.name} layout="intrinsic" loader={imageProps.loader} width="100px" height={'100px'} />
+            <div className="pl-5 ">
+                <h2 className="capitalize font-bold">{product.name}</h2>
+                <span className="block"> <i>Quantity</i> : {product.quantity}</span>
+                <span className="block"> <i>Size</i> : {product.size}</span>
+            </div>
+        </div>
+    )
+}
 
 
