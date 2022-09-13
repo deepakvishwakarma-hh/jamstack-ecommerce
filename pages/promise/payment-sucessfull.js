@@ -7,7 +7,7 @@ const PaymentSuccessfull = () => {
         router.replace('/user')
     }
     return (
-        <div className="bg-green-500 w-screen h-screen fixed top-0 left-0 flex items-center justify-center">
+        <div className=" z-50 bg-green-500 w-screen h-screen fixed top-0 left-0 flex items-center justify-center">
             <div className=" bg-white p-10 rounded-sm">
                 <h1 className="font-bold text-lg text-center">Order Placed, Payment Successfull 👍 </h1>
                 <p className="text-gray-400 text-sm text-center" >You can see delivery now user section</p>
