@@ -33,7 +33,6 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
     setMenuVisiblity(false)
   }
 
-
   return (
     <div>
 
@@ -48,9 +47,9 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
             <p onClick={setMenuDiseble} style={activeClass('/contact-us')} className="text-center text-md py-3  w-full font-bold"> Contact </p>
           </Link>
 
-          {/* <Link passHref href={`/user`}> */}
-          <p onClick={() => { router.push('/user'); setMenuDiseble() }} style={activeClass('/user')} className="text-center text-md py-3  w-full font-bold"> Account</p>
-          {/* </Link> */}
+          <Link passHref href={`/user`}>
+            <p onClick={() => { setMenuDiseble() }} style={activeClass('/user')} className="text-center text-md py-3  w-full font-bold"> Account</p>
+          </Link>
 
           <Link passHref href={`/categories`}>
             <p onClick={setMenuDiseble} style={activeClass('/categories')} className="text-center text-md py-3  w-full font-bold">Categories</p>
@@ -104,13 +103,7 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
 
             <div className=' flex-1 items-center justify-end h-full flex '>
 
-              <Link href="/search">
-                <div className=" flex items-center justify-center justify-self-end  h-full p-3 text-gray-600  cursor-pointer">
-                  <a aria-label="Home">
-                    <FiSearch size={22} />
-                  </a>
-                </div>
-              </Link>
+
 
               <Link href="/cart">
                 <div className=" flex items-center justify-center justify-self-end  h-full p-3 text-gray-600  cursor-pointer">
