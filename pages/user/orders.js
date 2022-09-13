@@ -4,9 +4,12 @@ import { FiRotateCw } from "react-icons/fi";
 import { doc, onSnapshot } from "firebase/firestore"
 import Orderitem from "../../components/custom/orderItem"
 import { withSessionSsr } from "../../utils/lib/withSession";
+import LoginAlert from "../../components/custom/login-alert"
 
 const Orderpage = ({ user }) => {
+
     const [orders, setOrders] = React.useState(null)
+
     React.useEffect(() => {
         let isActive = true;
         async function getUserData(phoneNumber) {
@@ -26,6 +29,11 @@ const Orderpage = ({ user }) => {
         return () => { isActive = false };
 
     }, [user])
+
+
+    if (!user?.loggedIn) {
+        return <LoginAlert />
+    }
 
     return (
         <div>
@@ -56,7 +64,7 @@ export const getServerSideProps = withSessionSsr(
             res.setHeader("location", "/auth")
             res.statusCode = 301
             res.end()
-            return { props: { user: false } };
+            return { props: { loggedIn: false } };
         }
 
         return {

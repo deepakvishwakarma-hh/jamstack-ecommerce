@@ -4,6 +4,7 @@ import { MdCall } from "react-icons/md";
 import useUser from "../../utils/lib/userUser";
 import fetchJson from "../../utils/lib/fetchJson";
 import { withSessionSsr } from "../../utils/lib/withSession";
+import LoginAlert from "../../components/custom/login-alert"
 import { BiChevronRight, BiLogOutCircle } from "react-icons/bi";
 
 const Userpage = ({ user }) => {
@@ -16,6 +17,10 @@ const Userpage = ({ user }) => {
             mutateUser(await fetchJson('/api/user/logout', { method: 'POST' }), false)
             router.replace('/auth')
         }
+    }
+
+    if (!user?.loggedIn) {
+        return <LoginAlert />
     }
 
     return (
@@ -51,7 +56,7 @@ export const getServerSideProps = withSessionSsr(
             res.setHeader("location", "/auth")
             res.statusCode = 301
             res.end()
-            return { props: { user: false } };
+            return { props: { user: { loggedIn: false } } };
         }
         return {
             props: {
