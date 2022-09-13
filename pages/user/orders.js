@@ -1,39 +1,34 @@
 import React from "react";
 import { firestore } from "../../firebase"
 import { FiRotateCw } from "react-icons/fi";
+import useUser from "../../utils/lib/userUser";
 import { doc, onSnapshot } from "firebase/firestore"
 import Orderitem from "../../components/custom/orderItem"
-import { withSessionSsr } from "../../utils/lib/withSession";
-import LoginAlert from "../../components/custom/login-alert"
 
-const Orderpage = ({ user }) => {
-
+const Orderpage = () => {
+    const { user } = useUser({ redirectTo: '/auth?redirect=/user/orders' })
     const [orders, setOrders] = React.useState(null)
-
     React.useEffect(() => {
         let isActive = true;
-        async function getUserData(phoneNumber) {
-            await onSnapshot(doc(firestore, "users", phoneNumber), (doc) => {
-                if (isActive) {
-                    if (doc.data().orders?.length) {
-                        setOrders(doc.data().orders)
-                    } else {
-                        setOrders(false)
+        function getUserData(phoneNumber) {
+            try {
+                onSnapshot(doc(firestore, "users", phoneNumber), (doc) => {
+                    if (isActive) {
+                        if (doc.data().orders?.length) {
+                            setOrders(doc.data().orders)
+                        } else {
+                            setOrders(false)
+                        }
                     }
-                }
-            });
+                });
+            } catch (err) {
+                console.log(err)
+            }
         }
 
         if (user) getUserData(user.phoneNumber)
-
         return () => { isActive = false };
-
     }, [user])
-
-
-    if (!user?.loggedIn) {
-        return <LoginAlert />
-    }
 
     return (
         <div>
@@ -57,20 +52,3 @@ const Orderpage = ({ user }) => {
 
 export default Orderpage
 
-export const getServerSideProps = withSessionSsr(
-    async function getServerSideProps({ req, res }) {
-        const user = req.session.user;
-        if (user === undefined) {
-            res.setHeader("location", "/auth")
-            res.statusCode = 301
-            res.end()
-            return { props: { loggedIn: false } };
-        }
-
-        return {
-            props: {
-                user: req.session.user,
-            },
-        };
-    },
-);

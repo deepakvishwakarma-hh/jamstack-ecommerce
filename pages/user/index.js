@@ -3,13 +3,14 @@ import { useRouter } from "next/router";
 import { MdCall } from "react-icons/md";
 import useUser from "../../utils/lib/userUser";
 import fetchJson from "../../utils/lib/fetchJson";
-import { withSessionSsr } from "../../utils/lib/withSession";
-import LoginAlert from "../../components/custom/login-alert"
 import { BiChevronRight, BiLogOutCircle } from "react-icons/bi";
 
-const Userpage = ({ user }) => {
+const Userpage = () => {
 
-    const router = useRouter(), { mutateUser } = useUser()
+    const router = useRouter()
+    const { user, mutateUser } = useUser({
+        redirectTo: '/auth?redirect=/user',
+    })
 
     async function logoutHandler() {
         const confirm_permission = confirm('Do you really want to logout')
@@ -17,10 +18,6 @@ const Userpage = ({ user }) => {
             mutateUser(await fetchJson('/api/user/logout', { method: 'POST' }), false)
             router.replace('/auth')
         }
-    }
-
-    if (!user?.loggedIn) {
-        return <LoginAlert />
     }
 
     return (
@@ -43,27 +40,11 @@ const Userpage = ({ user }) => {
                     <h1 className="text-md font-medium text-white">Logout  </h1>
                     <BiLogOutCircle size={20} />
                 </div>
-
             </div>
         </main>
     )
 }
 
-export const getServerSideProps = withSessionSsr(
-    async function getServerSideProps({ req, res }) {
-        const user = req.session.user;
-        if (user === undefined) {
-            res.setHeader("location", "/auth")
-            res.statusCode = 301
-            res.end()
-            return { props: { user: { loggedIn: false } } };
-        }
-        return {
-            props: {
-                user: req.session.user,
-            },
-        };
-    },
-);
+
 
 export default Userpage
