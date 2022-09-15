@@ -17,7 +17,7 @@ const Varients = (props) => {
         <div className="flex md:flex-wrap overflow-scroll md:overflow-auto">
             {props.varients.map((varient, index) => {
                 return <div
-                    className={`m-2 rounded-md bg-white`}
+                    className={`mr-2 mb-2 rounded bg-white`}
                     style={{ border: varient._key == Router.query.varientKey ? '3px blue solid' : '3px white solid' }}
                     onClick={() => { click(varient._key) }}
                     key={index}>

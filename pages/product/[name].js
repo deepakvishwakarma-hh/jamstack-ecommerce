@@ -106,19 +106,30 @@ const ItemView = (props) => {
 
         <div className="pt-2 px-0 md:px-10 pb-8 w-full md:w-1/2 ">
 
-          <h1 className="sm:mt-0 mt-2 md:text-5xl text-xl font-bold md:font-light leading-large">{name}</h1>
+          <h1 className="sm:mt-0 mt-2 md:text-5xl text-xl font-bold md:font-light leading-large md:pb-5">{name}</h1>
+
+          <hr />
 
           <div>
-            <button onClick={() => { setUi(prev => { return { ...prev, showDiscription: !prev.showDiscription } }) }} className=' font-medium w-full py-2 text-left flex items-center focus:border-none focus:outline-none'>Discription {!ui.showDiscription ? <FiChevronDown className='ml-2' /> : <FiChevronUp className='ml-2' />}</button>
-            {ui.showDiscription && <div>
+            <button onClick={() => { setUi(prev => { return { ...prev, showDiscription: !prev.showDiscription } }) }}
+              className=' w-full py-2 font-medium text-left flex items-center focus:border-none focus:outline-none'>Discription
+              {!ui.showDiscription
+                ? <FiChevronDown className='ml-2' />
+                : <FiChevronUp className='ml-2' />}
+            </button>
+            {ui.showDiscription && <div className='pb-5'>
               <BlockContent blocks={hugeDetails}></BlockContent>
             </div>}
           </div>
+
+          <hr />
 
           <div>
             <h3 className='py-2 font-medium'>Varients</h3>
             <Varients varients={varients} resetSubImageIndex={setSubImageIndex} />
           </div>
+
+          <hr className='mt-2' />
 
           <div>
             <h3 className='py-2 font-medium'>Sizes</h3>
@@ -129,21 +140,26 @@ const ItemView = (props) => {
             </div>
           </div>
 
-          <h2 className="text-2xl tracking-wide mt-2 ">₹{price}</h2>
+          <hr className='mt-4' />
+
+          <div className='py-2'>
+            <h2 className="text-2xl tracking-wide  ">₹{price} </h2>
+            <sub className='text-blue-500 font-medium'>Product price</sub>
+          </div>
+
+          <hr className='mt-2' />
 
           <div className="my-6">
             <QuantityPicker
               increment={increment}
               decrement={decrement}
-              numberOfitems={numberOfitems}
-            />
+              numberOfitems={numberOfitems} />
           </div>
 
           <Button
             full
             title="Add to Cart"
-            onClick={() => addItemToCart(payload_for_addtocart)}
-          />
+            onClick={() => addItemToCart(payload_for_addtocart)} />
         </div>
       </main>
     </>
