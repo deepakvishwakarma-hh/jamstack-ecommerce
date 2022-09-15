@@ -9,11 +9,11 @@ import { client, urlFor } from "../../utils/lib/client"
 import BlockContent from "@sanity/block-content-to-react"
 import getVarientByKey from '../../utils/getVarientByKey'
 import QuantityPicker from '../../components/QuantityPicker'
-import { SiteContext, ContextProviderComponent } from '../../context/mainContext'
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import RouteUnAvailalble from '../../components/custom/route-unavailable'
+import { SiteContext, ContextProviderComponent } from '../../context/mainContext'
 
 const ItemView = (props) => {
-
   const router = useRouter()
   const { product } = props
   const { product: { price, name, briefDetail, hugeDetails, varients, sizes, _id },
@@ -150,6 +150,23 @@ const ItemView = (props) => {
   )
 }
 
+const Productpage = (props) => {
+  return props.product == null
+    ? <RouteUnAvailalble />
+    : <ItemView {...props} />
+}
+
+function ItemViewWithContext(props) {
+  return (
+    <ContextProviderComponent>
+      <SiteContext.Consumer>
+        {context => <Productpage {...props} context={context} />}
+      </SiteContext.Consumer>
+    </ContextProviderComponent>
+  )
+}
+
+export default ItemViewWithContext
 
 export const getServerSideProps = async (context) => {
 
@@ -169,18 +186,3 @@ export const getServerSideProps = async (context) => {
     props: { product }
   }
 }
-
-
-function ItemViewWithContext(props) {
-  return (
-    <ContextProviderComponent>
-      <SiteContext.Consumer>
-        {
-          context => <ItemView {...props} context={context} />
-        }
-      </SiteContext.Consumer>
-    </ContextProviderComponent>
-  )
-}
-
-export default ItemViewWithContext
