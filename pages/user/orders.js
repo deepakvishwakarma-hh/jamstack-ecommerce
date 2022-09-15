@@ -32,7 +32,7 @@ const Orderpage = () => {
 
     return (
         <div>
-            <h1 className="text-xl py-1 font-bold text-center">Orders</h1>
+            <h1 className="text-5xl font-light pt-10 pb-8">My Orders</h1>
             <div className="mt-5">
                 {orders == null && <div className="flex items-center justify-center w-full p-5  bg-white">
                     <div className="animate-spin ">

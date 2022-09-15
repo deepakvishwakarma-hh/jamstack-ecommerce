@@ -7,7 +7,7 @@ import Image from "next/image";
 
 const Orderitem = ({ id, phoneNumber }) => {
 
-    const [isOpen, setOpen] = React.useState(false)
+    const [isOpen, setOpen] = React.useState(true)
     const [order, setOrder] = React.useState(null)
 
     function onClick() { setOpen(!isOpen) }
