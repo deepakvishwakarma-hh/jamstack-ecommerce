@@ -10,14 +10,13 @@ function Categories({ catalog = [] }) {
           <meta name="description" content={`Jamstack ECommerce - All categories`} />
           <meta property="og:title" content="Jamstack ECommerce - All Categories" key="title" />
         </Head>
-        <div className=" pt-4 sm:pt-10 pb-5">
-          <h1 className="text-center text-xl font-bold uppercase md:text-left tracking-wider text-gray-700">categories</h1>
+        <div className=" py-10 md:py-5 ">
+          <h1 className="text-center text-xl font-bold capitalize md:text-left tracking-wider text-gray-700">categories</h1>
           <p className='text-center md:text-left text-xs capitalize text-gray-500'>product categories</p>
         </div>
         <div className="grid xl:grid-cols-6 lg:grid-cols-6 md:grid-cols-4 gap-1 grid-cols-2 py-3">
           {catalog.map((category, i) => <Category key={i} category={category} />)}
         </div>
-
       </div>
     </>
   )

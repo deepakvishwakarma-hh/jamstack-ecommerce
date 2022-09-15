@@ -14,8 +14,8 @@ const Category = (props) => {
       </Head>
       <div className="flex flex-col items-center">
         <div className="max-w-fw flex flex-col w-full">
-          <div className=" pt-4 sm:pt-10 pb-5">
-            <h1 className="text-center text-xl font-bold uppercase md:text-left tracking-wider text-gray-700">{props.catalog[0].name}</h1>
+          <div className="py-10 md:py-5 ">
+            <h1 className="text-center text-xl font-bold capitalize md:text-left tracking-wider text-gray-700">{props.catalog[0].name}</h1>
             <p className='text-center md:text-left text-xs capitalize text-gray-500'>product category</p>
           </div>
           <div>
