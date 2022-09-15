@@ -2,17 +2,14 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { slugify } from '../utils/helpers'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import { navItemLength } from '../ecommerce.config'
-import { FiShoppingCart, FiUser, FiSearch, FiMenu, FiX } from "react-icons/fi";
+import { FiShoppingCart, FiUser, FiMenu, FiX } from "react-icons/fi";
 
 export default function Layout({ children, categories = [], prohibitRoutes }) {
-
   const router = useRouter()
   const [isMenuVisible, setMenuVisiblity] = useState(false)
-
   function onMenuClick() {
     setMenuVisiblity(prev => !prev)
   }
@@ -21,6 +18,7 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
     categories = categories.slice(0, navItemLength)
   }
 
+  // do not try
   if (prohibitRoutes.includes(router.asPath)) {
     return <main className="w-fw">{children}</main>
   }
@@ -43,25 +41,23 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
             <p onClick={setMenuDiseble} style={activeClass('/')} className="text-center text-md py-3  w-full font-bold">Home</p>
           </Link>
 
-          <Link passHref href={`/contact-us`}>
-            <p onClick={setMenuDiseble} style={activeClass('/contact-us')} className="text-center text-md py-3  w-full font-bold"> Contact </p>
-          </Link>
-
           <Link passHref href={`/user`}>
             <p onClick={() => { setMenuDiseble() }} style={activeClass('/user')} className="text-center text-md py-3  w-full font-bold"> Account</p>
+          </Link>
+
+          <Link passHref href={`/user/orders`}>
+            <p onClick={setMenuDiseble} style={activeClass('/user/orders')} className="text-center text-md py-3  w-full font-bold"> My Orders </p>
           </Link>
 
           <Link passHref href={`/categories`}>
             <p onClick={setMenuDiseble} style={activeClass('/categories')} className="text-center text-md py-3  w-full font-bold">Categories</p>
           </Link>
-
-
+          {/* 
           <Link passHref href={`/refund-policy`}>
             <p onClick={setMenuDiseble} className="text-center text-md py-3  w-full font-extrabold"> Refund Policies</p>
-          </Link>
+          </Link> */}
 
           <p className="text-center text-xs py-3  w-full text-gray-400"> Copyright © 2021 Deepak Ecommerce. All rights reserved</p>
-
 
         </div>
       </div>
@@ -81,7 +77,7 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
               {
                 categories.map((category, index) => (
                   <Link
-                    href={`/category/${slugify(category)}`}
+                    href={`/category/${category}`}
                     key={index}
                   >
                     <a aria-label={category}>
@@ -103,8 +99,6 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
 
             <div className=' flex-1 items-center justify-end h-full flex '>
 
-
-
               <Link href="/cart">
                 <div className=" flex items-center justify-center justify-self-end  h-full p-3 text-gray-600  cursor-pointer">
                   <a aria-label="Home">
@@ -112,7 +106,6 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
                   </a>
                 </div>
               </Link>
-
 
               <Link href="/auth">
                 <div className=" items-center justify-center justify-self-end  h-full p-3 text-gray-600  cursor-pointer hidden lg:flex">
@@ -138,9 +131,7 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
             </div>
           </div>
         </div>
-      </nav >
-
-
+      </nav>
 
       <div className="mobile:px-10 px-4 pb-10 flex justify-center">
         <main className="w-fw mt-16 md:mt-24" >
