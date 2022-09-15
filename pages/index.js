@@ -42,7 +42,6 @@ const Home = ({ catalog = [] }) => {
           </div>
         </div>
 
-
         <div className="
         lg:my-8 lg:grid-cols-2
         grid-cols-1
@@ -93,7 +92,6 @@ const Home = ({ catalog = [] }) => {
           subtitle={"google"}
           link={"/"}
         />
-
       </div>
 
     </>

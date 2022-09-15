@@ -5,7 +5,9 @@ import { useRouter } from 'next/router'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
 import { navItemLength } from '../ecommerce.config'
-import { FiShoppingCart, FiUser, FiMenu, FiX } from "react-icons/fi";
+import { FiShoppingCart, FiUser, FiMenu, FiX, FiHome, FiLayers, FiTruck } from "react-icons/fi";
+
+
 
 export default function Layout({ children, categories = [], prohibitRoutes }) {
   const router = useRouter()
@@ -52,10 +54,6 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
           <Link passHref href={`/categories`}>
             <p onClick={setMenuDiseble} style={activeClass('/categories')} className="text-center text-md py-3  w-full font-bold">Categories</p>
           </Link>
-          {/* 
-          <Link passHref href={`/refund-policy`}>
-            <p onClick={setMenuDiseble} className="text-center text-md py-3  w-full font-extrabold"> Refund Policies</p>
-          </Link> */}
 
           <p className="text-center text-xs py-3  w-full text-gray-400"> Copyright © 2021 Deepak Ecommerce. All rights reserved</p>
 
@@ -72,26 +70,23 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
                 <Image src="/layout-logo.svg" loader={() => "/layout-logo.svg"} alt="logo" width="160px" height="50px" />
               </Link>
             </div>
-            <div className=' flex-1 items-center px-5 hidden lg:flex'>
+            <div className=' flex-1 items-center px-5 hidden lg:flex  ml-10'>
 
-              {
-                categories.map((category, index) => (
-                  <Link
-                    href={`/category/${category}`}
-                    key={index}
-                  >
-                    <a aria-label={category}>
-                      <p className="sm:mr-8 sm:mb-0 mb-4  text-smaller mr-4" >
-                        {category}
-                      </p>
-                    </a>
-                  </Link>
-                ))
-              }
+              <Link href={`/`}>
+                <a aria-label={'home'}>
+                  <p style={activeClass('/')} className="sm:mr-8 sm:mb-0 mb-4 text-left text-smaller mr-4 font-bold flex text-gray-700"><FiHome size={20} className="mr-2" />Home</p>
+                </a>
+              </Link>
 
               <Link href={`/categories`}>
                 <a aria-label={'home'}>
-                  <p className="sm:mr-8 sm:mb-0 mb-4 text-left text-smaller mr-4 text-blue-500">Categories</p>
+                  <p style={activeClass('/categories')} className="sm:mr-8 sm:mb-0 mb-4 text-left text-smaller mr-4 font-bold flex text-gray-700"><FiLayers size={20} className="mr-2" /> Categories</p>
+                </a>
+              </Link>
+
+              <Link href={`/user/orders`}>
+                <a aria-label={'home'}>
+                  <p style={activeClass('/user/orders')} className="sm:mr-8 sm:mb-0 mb-4 text-left text-smaller mr-4 font-bold flex text-gray-700"><FiTruck size={20} className="mr-2" />My Orders</p>
                 </a>
               </Link>
 

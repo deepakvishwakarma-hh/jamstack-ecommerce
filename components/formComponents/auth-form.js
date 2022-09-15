@@ -3,7 +3,7 @@ import { authentication } from "../../firebase"
 import { RecaptchaVerifier } from "firebase/auth"
 import fetchJson from "../../utils/lib/fetchJson";
 import { signInWithPhoneNumber } from "firebase/auth"
-
+import { FiChevronsRight } from "react-icons/fi";
 const spinner = <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" >
     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
     <path className="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -93,22 +93,23 @@ const AuthForm = ({ mutateUser }) => {
     }
 
     return (
-        <div className='bg-white p-5 rounded-md w-full md:w-auto'>
+        <div className='bg-white md:p-20 py-20 px-10 rounded-md w-full md:w-auto bg-opacity-90' >
             <label>
                 <h3 className="my-1 font-bold text-sm">Phone Number</h3>
-                <input onChange={onChangeInputs} name="phone" type="number" value={input.phone} className="border border-gray-300 px-2 rounded-md w-full py-1" style={{ borderWidth: '2px' }} placeholder="Phone number goes here..." />
+                <input readOnly={acessblity.optInput} pattern="[0-9]" minLength={10} maxLength={10} onChange={onChangeInputs} name="phone" type="number" value={input.phone} className="border border-gray-300 px-2 rounded-md w-full py-1" style={{ borderWidth: '2px' }} placeholder="Phone Number" />
                 <p className="text-xs text-gray-500 my-2">Please do not include +91 (country code)</p>
             </label>
             {acessblity.optInput
                 && <label>
-                    <h3 className="font-bold">OTP</h3>
-                    <input className="border border-gray-300 px-2 rounded-md mb-2 w-full py-1" onChange={onChangeInputs} name="otp" placeholder="OTP goes here..." style={{ borderWidth: '2px' }} type="text" value={input.otp} />
+                    <h3 className="my-1 font-bold text-sm">OTP <sub className="text-gray">(One Time Password)</sub></h3>
+                    <input minLength={10} maxLength={6} className="border border-gray-300 px-2 rounded-md mb-2 w-full py-1" onChange={onChangeInputs} name="otp" placeholder="OTP goes here..." style={{ borderWidth: '2px' }} type="text" value={input.otp} />
+
                 </label>
             }
 
-            {acessblity.optInput && <button onClick={verifyOTP} className="flex justify-center w-full p-2 bg-black font-semibold rounded-md text-gray-50 transition ease-in-out duration-150"> {acessblity.pending ? spinner : "Verify otp"} </button>}
+            {acessblity.optInput && <button onClick={verifyOTP} className="flex justify-center w-full p-2 bg-black font-normal rounded-md text-gray-50 text-sm"> {acessblity.pending ? spinner : "Verify OTP"} </button>}
 
-            {!acessblity.optInput && <button onClick={getOtp} className="flex justify-center w-full p-2 bg-black font-semibold rounded-md text-gray-50 transition ease-in-out duration-150"> {acessblity.pending ? spinner : "Send OTP"} </button>}
+            {!acessblity.optInput && <button onClick={getOtp} className="flex justify-center w-full p-2 bg-black font-normal rounded-md text-gray-50 text-sm"> {acessblity.pending ? spinner : <FiChevronsRight />} </button>}
 
             <div className="fixed bottom-0 right-0" id={"recapcha-container"}></div>
         </div>
