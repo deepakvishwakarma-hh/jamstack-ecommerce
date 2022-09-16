@@ -56,7 +56,7 @@ const makePayment = async (amount, phoneNumber, address, products, clearCart) =>
             description: DocId,
             amount: data.amount,
             currency: data.currency,
-            name: 'Squareshop ecommerse',
+            name: 'Mp-cart e-commerse',
             key: 'rzp_test_e9n8awEfMheh3f',
             handler: function (res) {
                 // calling successfull [conditinally]
