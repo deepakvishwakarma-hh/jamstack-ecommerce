@@ -1,4 +1,3 @@
-import { toast } from 'react-toastify'
 import React from 'react'
 const STORAGE_KEY = 'NEXT_ECOMMERCE_STARTER_'
 
@@ -61,9 +60,6 @@ class ContextProviderComponent extends React.Component {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify({
       cart, numberOfItemsInCart: cart.length, total: calculateTotal(cart)
     }))
-    toast("Successfully added item to cart!", {
-      position: toast.POSITION.TOP_LEFT
-    })
     this.forceUpdate()
   }
 

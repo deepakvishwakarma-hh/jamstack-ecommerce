@@ -2,12 +2,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import 'react-toastify/dist/ReactToastify.css'
-import { ToastContainer } from 'react-toastify'
 import { navItemLength } from '../ecommerce.config'
 import { FiShoppingCart, FiUser, FiMenu, FiX, FiHome, FiLayers, FiTruck } from "react-icons/fi";
-
-
 
 export default function Layout({ children, categories = [], prohibitRoutes }) {
   const router = useRouter()
@@ -151,7 +147,6 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
           </div> */}
         </div>
       </footer>
-      <ToastContainer autoClose={3000} />
     </div >
   )
 }
