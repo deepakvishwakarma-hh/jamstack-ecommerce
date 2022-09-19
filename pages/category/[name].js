@@ -5,10 +5,11 @@ import RouteUnAvailalble from '../../components/custom/route-unavailable'
 
 const Category = (props) => {
   if (props.catalog.length == 0) return <RouteUnAvailalble />
+  const title = `Squareshop - ${props.catalog[0].name}`
   return (
     <>
       <Head>
-        <title>Jamstack ECommerce </title>
+        <title>{title}</title>
         <meta name="description" content={`Jamstack ECommerce `} />
         <meta property="og:title" content={`Jamstack ECommerce `} key="title" />
       </Head>
