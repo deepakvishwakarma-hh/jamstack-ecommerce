@@ -13,6 +13,7 @@ import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import RouteUnAvailalble from '../../components/custom/route-unavailable'
 import { SiteContext, ContextProviderComponent } from '../../context/mainContext'
 
+
 const ItemView = (props) => {
   const router = useRouter()
   const { product } = props
@@ -53,6 +54,10 @@ const ItemView = (props) => {
     size, // for both
     id: currentVarient._key, // for cart product id , for delivery varient key
     productId: _id, // for delivery as product I
+  }
+
+  function onWhatsappQueryHandler() {
+    window.open(`https://wa.me/918461833731?text=${"https://squareshop.vercel.app" + router.asPath}`)
   }
 
 
@@ -160,6 +165,13 @@ const ItemView = (props) => {
             full
             title="Add to Cart"
             onClick={() => addItemToCart(payload_for_addtocart)} />
+
+          <button onClick={onWhatsappQueryHandler} className='text-sm w-full bg-transparent font-bold  py-2 px-12  my-1 flex  items-center bg-green-500 rounded md:w-auto justify-center'>
+            <Image className="mx-2" width="27px" height="27px" src="/WhatsApp.svg" alt="WhatsApp logo" /> <div className='text-left'>
+              <h3 className='text-white tracking-wider font-bold'>WhatsApp Us</h3>
+              <p className='text-white text-xs font-thin tracking-wide'>Send product link, ask query.</p>
+            </div>
+          </button>
         </div>
       </main>
     </>
