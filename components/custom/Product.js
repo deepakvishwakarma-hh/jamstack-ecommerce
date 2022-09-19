@@ -30,7 +30,7 @@ const DualGridShow = ({ item }) => {
                     className="max-h-24 bg-blue-50" />
                 <div className='p-1'>
                     <p className=" font-bold capitalize text-sm">{item.name}</p>
-                    <p className=" text-gray-700 mb-4">{`${DENOMINATION}${item.price}`}</p>
+                    <p className=" text-green-500 mb-4">{`${DENOMINATION}${item.price}`}</p>
                 </div>
             </div>
         </Link>

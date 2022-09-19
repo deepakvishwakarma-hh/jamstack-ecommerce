@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { client } from "../../utils/lib/client"
-import Product from '../../components/custom/Product'
+import Product from '../../components/custom/product'
 import RouteUnAvailalble from '../../components/custom/route-unavailable'
 
 const Category = (props) => {
