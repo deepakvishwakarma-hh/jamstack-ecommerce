@@ -149,7 +149,7 @@ const ProductDataPreviewer = ({ product }) => {
 
             <div className='py-2'>
 
-                <Link href={`/${product.productId}`} passHref >
+                <Link href={`/admin/${product.productId}`} passHref >
                     <a target="_blank" className='text-blue-500 bg-white p-1 rounded text-sm mx-2' rel="noopener noreferrer">
                         Preview in Delivery 🚚
                     </a>
