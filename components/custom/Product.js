@@ -20,16 +20,14 @@ const DualGridShow = ({ item }) => {
                 varientKey: varient._key
             },
         }}>
-            <div ref={squareRef} className="rounded overflow-hidden"
-                style={{ display: "grid", grid: 'auto auto / auto' }}>
-
+            <div ref={squareRef} className="rounded overflow-hidden " style={{ display: "grid", grid: 'auto auto / auto' }}>
                 <Image  {...imageProps}
                     layout="intrinsic"
                     alt={item.name}
-                    loader={imageProps.loader}
+                    loader={imageProps?.loader}
                     height={width ?? '200px'}
                     width={width ?? '200px'}
-                    className="max-h-24" />
+                    className="max-h-24 bg-blue-50" />
                 <div className='p-1'>
                     <p className=" font-bold capitalize text-sm">{item.name}</p>
                     <p className=" text-gray-700 mb-4">{`${DENOMINATION}${item.price}`}</p>
