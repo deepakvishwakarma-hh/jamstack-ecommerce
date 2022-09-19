@@ -14,7 +14,7 @@ function Ecommerce({ Component, pageProps, categories }) {
         },
       }}>
       <>
-        <NextNProgress />
+        <NextNProgress options={{ showSpinner: false }} />
         <Layout prohibitRoutes={['/anything']} categories={categories}>
           <Component {...pageProps} />
         </Layout>
