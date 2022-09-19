@@ -35,6 +35,8 @@ const Orderitem = ({ id, phoneNumber }) => {
             }
             const data = await fetch("/api/cancel-order", RequestInfo).then((t) => t.json());
 
+            console.log(data)
+
             if (data) {
                 alert('successfully cancelled')
             } else {
