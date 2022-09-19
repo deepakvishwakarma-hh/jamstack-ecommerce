@@ -14,7 +14,7 @@ function Ecommerce({ Component, pageProps, categories }) {
         },
       }}>
       <>
-        <NextNProgress options={{ showSpinner: false }} />
+        <NextNProgress options={{ showSpinner: false }} color="#2668EB" />
         <Layout prohibitRoutes={['/anything']} categories={categories}>
           <Component {...pageProps} />
         </Layout>
