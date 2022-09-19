@@ -3,7 +3,7 @@ import { SWRConfig } from 'swr'
 import Layout from '../layouts/layout'
 import fetchCategories from '../utils/categoryProvider'
 import fetchJson from "../utils/lib/fetchJson"
-
+import NextNProgress from "nextjs-progressbar";
 function Ecommerce({ Component, pageProps, categories }) {
   return (
     <SWRConfig
@@ -13,9 +13,12 @@ function Ecommerce({ Component, pageProps, categories }) {
           console.error(err)
         },
       }}>
-      <Layout prohibitRoutes={['/anything']} categories={categories}>
-        <Component {...pageProps} />
-      </Layout>
+      <>
+        <NextNProgress />
+        <Layout prohibitRoutes={['/anything']} categories={categories}>
+          <Component {...pageProps} />
+        </Layout>
+      </>
     </SWRConfig>
   )
 }
