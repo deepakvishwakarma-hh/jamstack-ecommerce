@@ -50,7 +50,7 @@ export default function Delivery({ id }) {
                         <h2 className='font-medium bg-black text-white px-2 py-2'>Products </h2>
                         {document.products.map((product, index) => {
                             return (
-                                <ProductDataPreviewer product={product} key={index} />
+                                <ProductDataPreviewer product={product} id={id} key={index} />
                             )
                         })}
                     </div>
@@ -91,7 +91,7 @@ const ObjectPreviewer = ({ object }) => {
 
 
 
-const ProductDataPreviewer = ({ product }) => {
+const ProductDataPreviewer = ({ product, id }) => {
 
     const [state, setState] = useState({
         product: false,
@@ -149,7 +149,7 @@ const ProductDataPreviewer = ({ product }) => {
 
             <div className='py-2'>
 
-                <Link href={`/admin/${product.productId}`} passHref >
+                <Link href={`/admin/${id}`} passHref >
                     <a target="_blank" className='text-blue-500 bg-white p-1 rounded text-sm mx-2' rel="noopener noreferrer">
                         Preview in Delivery 🚚
                     </a>
