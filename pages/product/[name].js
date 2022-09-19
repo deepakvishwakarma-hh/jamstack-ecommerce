@@ -60,37 +60,30 @@ const ItemView = (props) => {
     window.open(`https://wa.me/918461833731?text=${"https://squareshop.vercel.app" + router.asPath}`)
   }
 
+  const title = `${name.trim()} - ${currentVarient.name.trim()} | Squareshop`;
 
   return (
     <>
       <Head>
-        <title>Jamstack ECommerce - {name}</title>
+        <title>{title}</title>
+        <meta property="og:type" content="website" />
         <meta name="description" content={briefDetail} />
+        <meta property="og:image" content={`${image}`} />
         <meta property="og:description" content={briefDetail} />
         <meta property="og:title" content={`FriendShop - ${name}`} key="title" />
-        <meta property="og:image" content={`${image}`} />
-        <meta property="og:type" content="website" />
       </Head>
 
       <main className="sm:py-12 md:flex-row py-4 w-full flex flex-1 flex-col my-0 mx-auto">
-
         <div className='flex-1 flex-col hidden md:block'>
           <div className='sticky top-0'>
             <div className="p10 flex flex-1 justify-center items-center ">
               <Image src={image} alt="Inventory item" className="md:max-w-104 max-h-104 " />
             </div>
-
             <div className="flex flex-2 justify-center flex-wrap items-center bg-gray-100 py-5">
               {currentVarient?.image.map((item, i) => (
-                <div key={i}
-                  onMouseEnter={() => { setSubImageIndex(i) }}
-                  className='mx-1 cursor-pointer hover:border-black border border-3'>
-                  <img
-                    src={urlFor(item).url()}
-                    alt="Inventory item"
-                    className='max-h-20' />
-                </div>
-              ))}
+                <div key={i} onMouseEnter={() => { setSubImageIndex(i) }} className='mx-1 cursor-pointer hover:border-black border border-3'>
+                  <img src={urlFor(item).url()} alt="Inventory item" className='max-h-20' />
+                </div>))}
             </div>
           </div>
         </div>
@@ -98,13 +91,7 @@ const ItemView = (props) => {
         <div className='flex-1 flex-col block md:hidden'>
           <div className='sticky top-0'>
             <div className="p10 flex flex-1 items-center overflow-scroll target">
-              {currentVarient?.image.map((item, i) => (
-                <img
-                  key={i}
-                  src={urlFor(item).url()}
-                  alt="Inventory item"
-                  className='md:max-w-104 max-h-104 ' />
-              ))}
+              {currentVarient?.image.map((item, i) => <img key={i} src={urlFor(item).url()} alt="Inventory item" className='md:max-w-104 max-h-104' />)}
             </div>
           </div>
         </div>
