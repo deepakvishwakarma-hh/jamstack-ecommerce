@@ -44,6 +44,7 @@ export const getServerSideProps = async (context) => {
   const products = await client.fetch(queryProducts);
   return {
     props: { products, catalog }
+
   }
 }
 
