@@ -1,6 +1,6 @@
 // varient previewer ,selector
 import router, { useRouter } from 'next/router'
-import { urlFor } from "../../utils/lib/client"
+import { urlFor } from "../utils/lib/client"
 
 const Varients = (props) => {
     const Router = useRouter()

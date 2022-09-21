@@ -3,8 +3,8 @@ import React from 'react'
 import Image from 'next/dist/client/image'
 import Link from 'next/dist/client/link';
 import { useNextSanityImage } from 'next-sanity-image';
-import useElementSize from "../../utils/hooks/useElementSize"
-import { configuredSanityClient } from '../../utils/lib/client'
+import useElementSize from "../utils/hooks/useElementSize"
+import { configuredSanityClient } from '../utils/lib/client'
 
 const Categories = ({ category }) => {
     const [squareRef, { width }] = useElementSize()

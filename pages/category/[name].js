@@ -1,10 +1,9 @@
 import Head from 'next/head'
 import { client } from "../../utils/lib/client"
-import Product from '../../components/custom/product-blocks'
-import RouteUnAvailalble from '../../components/custom/route-unavailable'
+import { Product, RouteUnavailable } from "../../components"
 
 const Category = (props) => {
-  if (props.catalog.length == 0) return <RouteUnAvailalble />
+  if (props.catalog.length == 0) return <RouteUnavailable />
   const title = `Squareshop - ${props.catalog[0].name}`
   return (
     <>

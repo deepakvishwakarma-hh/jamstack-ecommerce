@@ -120,8 +120,6 @@ const DeliveryDetails = () => {
                     )
                 })}
 
-
-
             </div>
 
 

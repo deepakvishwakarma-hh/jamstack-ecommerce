@@ -2,9 +2,9 @@ import React from 'react'
 import Link from 'next/dist/client/link';
 import Image from 'next/dist/client/image'
 import { useNextSanityImage } from 'next-sanity-image';
-import DENOMINATION from '../../utils/currencyProvider';
-import useElementSize from "../../utils/hooks/useElementSize"
-import { configuredSanityClient } from '../../utils/lib/client'
+import DENOMINATION from '../utils/currencyProvider';
+import useElementSize from "../utils/hooks/useElementSize"
+import { configuredSanityClient } from '../utils/lib/client'
 const DualGridShow = ({ item }) => {
     const varient = item.varients[0];
     const [squareRef, { width }] = useElementSize()

@@ -5,8 +5,7 @@ import useUser from '../utils/lib/userUser'
 import makePayment from '../utils/razor-payment'
 import DENOMINATION from '../utils/currencyProvider'
 import { addressInitialState } from "../ecommerce.config"
-import Address from '../components/formComponents/Address'
-import Product from '../components/custom/cheakout-products'
+import { Address, CheackoutProduct } from '../components'
 import { SiteContext, ContextProviderComponent } from '../context/mainContext'
 
 const Cheakout = ({ context }) => {
@@ -14,6 +13,8 @@ const Cheakout = ({ context }) => {
     const { user } = useUser({
         redirectTo: '/auth?redirect=/checkout'
     })
+
+    console.log(user)
 
     // state [statefull component]
     const [address, setAddress] = useState(addressInitialState);
@@ -68,7 +69,7 @@ const Cheakout = ({ context }) => {
                         <Address {...{ address, setAddress }} />
                         <div className="flex flex-col flex-1 md:pl-3">
                             <h3 className="text-3xl py-5 pb-10">Products</h3>
-                            {cart.map((item) => <Product item={item} key={item.id} />)}
+                            {cart.map((item) => <CheackoutProduct item={item} key={item.id} />)}
                         </div>
                     </div>
 

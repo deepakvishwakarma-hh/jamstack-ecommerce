@@ -1,7 +1,7 @@
 import React from "react";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { useNextSanityImage } from "next-sanity-image";
-import { configuredSanityClient } from "../../utils/lib/client";
+import { configuredSanityClient } from "../utils/lib/client";
 
 import Image from "next/image";
 

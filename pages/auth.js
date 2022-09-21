@@ -1,7 +1,7 @@
 import Head from "next/head"
 import { useRouter } from 'next/router'
 import useUser from '../utils/lib/userUser'
-import Authentication from "../components/formComponents/auth-form"
+import { AuthenticationForm } from "../components"
 
 function Auth() {
     const { query } = useRouter()
@@ -17,7 +17,7 @@ function Auth() {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
             <main className='flex items-center justify-center w-full py-5 bg-contain bg-no-repeat bg-center ' style={{ backgroundImage: 'url("/undraw_login_re_4vu2.svg")' }}>
-                <Authentication mutateUser={mutateUser} />
+                <AuthenticationForm mutateUser={mutateUser} />
             </main>
         </div>
     )

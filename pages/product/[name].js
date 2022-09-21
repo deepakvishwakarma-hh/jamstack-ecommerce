@@ -1,18 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from 'react'
 import Head from 'next/head'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
-import Image from '../../components/Image'
-import Button from '../../components/Button'
-import Varients from '../../components/custom/varient'
 import { client, urlFor } from "../../utils/lib/client"
 import BlockContent from "@sanity/block-content-to-react"
 import getVarientByKey from '../../utils/getVarientByKey'
-import QuantityPicker from '../../components/QuantityPicker'
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
-import RouteUnAvailalble from '../../components/custom/route-unavailable'
 import { SiteContext, ContextProviderComponent } from '../../context/mainContext'
-
+import { Image, Button, Varients, QuantityPicker, RouteUnavailable } from '../../components'
 
 const ItemView = (props) => {
   const router = useRouter()
@@ -167,7 +162,7 @@ const ItemView = (props) => {
 
 const Productpage = (props) => {
   return props.product == null
-    ? <RouteUnAvailalble />
+    ? <RouteUnavailable />
     : <ItemView {...props} />
 }
 

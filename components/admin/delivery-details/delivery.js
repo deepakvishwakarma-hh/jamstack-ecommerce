@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { client, urlFor } from ".././../../utils/lib/client"
 
 
+import ObjectPreviewer from "../object-previewer"
+
 
 export default function Delivery({ id }) {
     const [document, setDoc] = React.useState(null)
@@ -18,6 +20,8 @@ export default function Delivery({ id }) {
             setDoc(doc.data())
         })
     }, [id])
+
+    console.log(document)
 
     const signBorderStyles = { borderWidth: '2px', borderStyle: 'solid', borderLeftColor: document == undefined ? 'red' : document == null ? 'blue' : 'green' }
 
@@ -64,29 +68,7 @@ export default function Delivery({ id }) {
 }
 
 
-const ObjectPreviewer = ({ object }) => {
 
-    const keys = Object.keys(object) // as arrey
-
-    return (
-        <div className=' flex flex-col'>
-
-            {keys.map((key) => {
-                console.log(typeof object[key] === "object") // "object"
-                return (
-                    <div key={key} className="flex lsd p-1"  >
-                        <span className='font-medium capitalize flex-1 font-mono text-sm pl-2'>{key} →</span>
-                        {typeof object[key] === "object"
-                            ? <ObjectPreviewer object={object[key]} />
-                            : <span className='flex-1'>{JSON.stringify(object[key])}</span>}
-
-                    </div>
-                )
-            })}
-
-        </div>
-    )
-}
 
 
 

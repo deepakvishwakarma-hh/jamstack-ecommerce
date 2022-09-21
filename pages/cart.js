@@ -1,14 +1,12 @@
 import Link from 'next/link'
 import Head from 'next/head'
-import Image from '../components/Image'
 import { useState, useEffect } from 'react'
-import useUser from "../utils/lib/userUser"
 import DENOMINATION from '../utils/currencyProvider'
-import QuantityPicker from '../components/QuantityPicker'
+import { Image, QuantityPicker } from '../components'
 import { FaTimes, FaLongArrowAltRight } from 'react-icons/fa'
 import { SiteContext, ContextProviderComponent } from '../context/mainContext'
+
 const Cart = ({ context }) => {
-  const { user } = useUser()
   const [renderClientSideComponent, setRenderClientSideComponent] = useState(false)
   useEffect(() => {
     setRenderClientSideComponent(true)

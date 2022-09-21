@@ -1,10 +1,10 @@
 //Asyncronnouse
-import Jwt from "jsonwebtoken";
 import Router from "next/router";
 import { firestore } from "../firebase"
 import { doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore"
 
 const makePayment = async (amount, phoneNumber, address, products, clearCart) => {
+
     const res = await initializeRazorpay();
 
     if (!res) {
@@ -41,14 +41,11 @@ const makePayment = async (amount, phoneNumber, address, products, clearCart) =>
     // Document Id generation;
     const DocId = + new Date()
 
-    // extracting user from jwt token
-    const token = localStorage.getItem('token')
-
     // store delivery-prodct
     await setDoc(doc(firestore, "delivery", `${DocId}`), {
         address: address,
         products: products,
-        user: Jwt.decode(token?.toString())
+        user: { phoneNumber: phoneNumber }// we need to change to cokkies
     }).then(() => {
         const paymentObject = new window.Razorpay({
             order_id: data.id,

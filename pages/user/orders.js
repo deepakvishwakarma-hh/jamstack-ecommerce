@@ -1,9 +1,9 @@
 import React from "react";
 import { firestore } from "../../firebase"
 import { FiRotateCw } from "react-icons/fi";
+import { Orderitem } from "../../components";
 import useUser from "../../utils/lib/userUser";
 import { doc, onSnapshot } from "firebase/firestore"
-import Orderitem from "../../components/custom/orderItem"
 
 const Orderpage = () => {
     const { user } = useUser({ redirectTo: '/auth?redirect=/user/orders' })

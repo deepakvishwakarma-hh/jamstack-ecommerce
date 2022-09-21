@@ -1,6 +1,6 @@
 import React from 'react'
 import { states, addressInitialState } from '../../ecommerce.config'
-class AddInventory extends React.Component {
+class Address extends React.Component {
 
   clearForm = () => {
     this.props.setAddress(() => (addressInitialState))
@@ -99,4 +99,4 @@ class AddInventory extends React.Component {
   }
 }
 
-export default AddInventory
+export default Address

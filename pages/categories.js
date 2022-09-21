@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { client } from "../utils/lib/client"
-import Category from '../components/custom/Categories'
+import { Categories as Category } from '../components'
 function Categories({ catalog = [] }) {
   return (
     <>
