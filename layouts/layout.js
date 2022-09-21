@@ -125,9 +125,7 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
       </nav>
 
       <div className="mobile:px-10 px-4 pb-10 flex justify-center">
-        <main className="w-fw mt-16 md:mt-24" >
-
-
+        <main className="lg:w-fw mt-16 md:mt-24 w-full " >
           {children}
         </main>
       </div>
