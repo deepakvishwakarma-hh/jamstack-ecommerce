@@ -16,7 +16,7 @@ const Categories = ({ category }) => {
         <Link href={`/category/${category.slug.current}`}>
             <div ref={squareRef} className="rounded overflow-hidden"
                 style={{ display: "grid", grid: 'auto auto / auto' }}>
-                <Image  {...imageProps} alt={category.name} layout="intrinsic" loader={imageProps.loader} height={width ?? '200px'} width={width ?? '200px'} />
+                <Image  {...imageProps} alt={category.name} layout="intrinsic" loader={imageProps?.loader} height={width ?? '200px'} width={width ?? '200px'} />
                 <div className='p-1'>
                     <p className="text-center text-md capitalize text-l font-medium text-gray-700  ">{category.name}</p>
                 </div>

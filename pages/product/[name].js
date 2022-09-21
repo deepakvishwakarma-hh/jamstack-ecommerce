@@ -9,16 +9,26 @@ import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { SiteContext, ContextProviderComponent } from '../../context/mainContext'
 import { Image, Button, Varients, QuantityPicker, RouteUnavailable } from '../../components'
 
+import dynamic from 'next/dynamic'
+
+const DynamicComponentWithNoSSR = dynamic(
+  () => import('../../components/related-products'),
+  { ssr: false }
+)
+
 const ItemView = (props) => {
+
+  console.log(props)
+
   const router = useRouter()
   const { product } = props
-  const { product: { price, name, briefDetail, hugeDetails, varients, sizes, _id },
+  const { product: { price, name, briefDetail, hugeDetails, varients, sizes, _id, brand },
     context: { addToCart } } = props;
 
   const [size, setSize] = useState(sizes[0].name)
   const [subImageIndex, setSubImageIndex] = useState(0)
   const [numberOfitems, updateNumberOfItems] = useState(1)
-  const [ui, setUi] = useState({ showDiscription: false })
+  const [ui, setUi] = useState({ showDiscription: true })
   const currentVarient = getVarientByKey(router.query.varientKey, varients)
   const image = urlFor(currentVarient.image[subImageIndex]).url();
 
@@ -57,6 +67,7 @@ const ItemView = (props) => {
 
   const title = `${name.trim()} - ${currentVarient.name.trim()} | Squareshop`;
 
+
   return (
     <>
       <Head>
@@ -69,9 +80,10 @@ const ItemView = (props) => {
       </Head>
 
       <main className="sm:py-12 md:flex-row py-4 w-full flex flex-1 flex-col my-0 mx-auto">
+
         <div className='flex-1 flex-col hidden md:block'>
           <div className='sticky top-0'>
-            <div className="p10 flex flex-1 justify-center items-center ">
+            <div id="image" className="p10 flex flex-1 justify-center items-center ">
               <Image src={image} alt="Inventory item" className="md:max-w-104 max-h-104 " />
             </div>
             <div className="flex flex-2 justify-center flex-wrap items-center bg-gray-100 py-5">
@@ -83,70 +95,61 @@ const ItemView = (props) => {
           </div>
         </div>
 
-        <div className='flex-1 flex-col block md:hidden'>
-          <div className='sticky top-0'>
-            <div className="p10 flex flex-1 items-center overflow-scroll target">
-              {currentVarient?.image.map((item, i) => <img key={i} src={urlFor(item).url()} alt="Inventory item" className='md:max-w-104 max-h-104' />)}
-            </div>
-          </div>
-        </div>
+        <section id='mobile-product-image' className="p10 flex items-center overflow-scroll target md:hidden">
+          {currentVarient?.image.map((item, i) => <img key={i} src={urlFor(item).url()} alt={item._key} className='md:max-w-104 max-h-104' />)}
+        </section>
 
-        <div className="pt-2 px-0 md:px-10 pb-8 w-full md:w-1/2 ">
+        <section className="pt-2 px-0 md:px-10 pb-8 w-full md:w-1/2">
 
-          <h1 className="sm:mt-0 mt-2 md:text-5xl text-xl font-bold md:font-light leading-large md:pb-5">{name}</h1>
+          <section className='mb-1'>
+            <h1 className=' pt-2 text-2xl font-bold  md:text-5xl md:font-light md:pb-3' >{name}</h1>
+            <h5 className=' text-sm font-bold text-gray-500'> {brand}</h5>
+            <p className=' pt-1 text-xs  text-gray-500'>{briefDetail}</p>
+          </section>
 
-          <hr />
+          <section className='py-2'>
+            <h3 className='py-2 font-bold'> ※ Varients</h3>
+            <Varients varients={varients} resetSubImageIndex={setSubImageIndex} />
+          </section>
 
-          <div>
+          <section className='py-2'>
             <button onClick={() => { setUi(prev => { return { ...prev, showDiscription: !prev.showDiscription } }) }}
-              className=' w-full py-2 font-medium text-left flex items-center focus:border-none focus:outline-none'>Discription
+              className=' w-full py-3  text-left flex items-center  focus:border-none focus:outline-none font-medium'>
+              <h3 className='font-bold'> ※ Discription</h3>
+
               {!ui.showDiscription
                 ? <FiChevronDown className='ml-2' />
                 : <FiChevronUp className='ml-2' />}
             </button>
-            {ui.showDiscription && <div className='pb-5'>
-              <BlockContent blocks={hugeDetails}></BlockContent>
+
+            {ui.showDiscription && <div className='pb-2 pl-2' style={{ borderLeft: '2px black solid' }}>
+              <BlockContent className="text-xs md:text-sm" blocks={hugeDetails}></BlockContent>
             </div>}
-          </div>
+          </section>
 
-          <hr />
-
-          <div>
-            <h3 className='py-2 font-medium'>Varients</h3>
-            <Varients varients={varients} resetSubImageIndex={setSubImageIndex} />
-          </div>
-
-          <hr className='mt-2' />
-
-          <div>
-            <h3 className='py-2 font-medium'>Sizes</h3>
+          <section className='py-2'>
+            <h3 className='py-2 font-bold'> ※ Sizes</h3>
+            <sub className='text-gray-500 font-medium'>Select your size.</sub>
             <div className=' p-2  w-full md:w-40 bg-gray-100 rounded'>
               <select onChange={onSizeChange} className='block py-1 w-full border-none outline-none bg-transparent'  >
                 {sizes.map(({ name }, i) => <option key={i} value={name}>{name}</option>)}
               </select>
             </div>
-          </div>
+          </section>
 
-          <hr className='mt-4' />
+          <section className='py-5'>
+            <h2 className="text-2xl tracking-wide">₹{price} </h2>
+            <sub className='text-gray-500 font-medium'>Includes all services and taxes.</sub>
+          </section>
 
-          <div className='py-2'>
-            <h2 className="text-2xl tracking-wide  ">₹{price} </h2>
-            <sub className='text-blue-500 font-medium'>Product price</sub>
-          </div>
-
-          <hr className='mt-2' />
-
-          <div className="my-6">
+          <section className="py-2">
             <QuantityPicker
               increment={increment}
               decrement={decrement}
               numberOfitems={numberOfitems} />
-          </div>
+          </section>
 
-          <Button
-            full
-            title="Add to Cart"
-            onClick={() => addItemToCart(payload_for_addtocart)} />
+          <Button full title="Add to Cart" onClick={() => addItemToCart(payload_for_addtocart)} />
 
           <button onClick={onWhatsappQueryHandler} className='text-sm w-full bg-transparent font-bold  py-2 px-12  my-1 flex  items-center bg-green-500 rounded md:w-auto justify-center'>
             <Image className="mx-2" width="27px" height="27px" src="/WhatsApp.svg" alt="WhatsApp logo" /> <div className='text-left'>
@@ -154,8 +157,9 @@ const ItemView = (props) => {
               <p className='text-white text-xs font-thin tracking-wide'>Send product link, ask query.</p>
             </div>
           </button>
-        </div>
+        </section>
       </main>
+      <DynamicComponentWithNoSSR catalogRef={product.catalog._ref} />
     </>
   )
 }
@@ -187,10 +191,14 @@ export const getServerSideProps = async (context) => {
   const { name } = context.query;
 
   const response = await client.fetch(`*[_type == "product" && slug.current == "${name}"]{
-      briefDetail,hugeDetails,name,price,slug,_id,_updatedAt,sizes[]->{name},varients
+      briefDetail,hugeDetails,name,price,slug,_id,_updatedAt,sizes[]->{name},varients,brand,catalog
   }`);
 
   const product = response[0] ?? null
+
+
+
+
 
   return {
     props: { product }
