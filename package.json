@@ -30,9 +30,9 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@fullhuman/postcss-purgecss": "^5.0.0",
     "@next/bundle-analyzer": "^12.3.0",
     "cross-env": "^7.0.3",
-    "cssnano": "^5.1.13",
     "eslint": "8.23.0",
     "eslint-config-next": "12.2.5"
   }
