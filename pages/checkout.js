@@ -7,14 +7,14 @@ import DENOMINATION from '../utils/currencyProvider'
 import { addressInitialState } from "../ecommerce.config"
 import { Address, CheackoutProduct } from '../components'
 import { SiteContext, ContextProviderComponent } from '../context/mainContext'
+import { withSessionSsr } from "../utils/lib/withSession"
 
-const Cheakout = ({ context }) => {
+
+const Cheakout = ({ userSSR, context }) => {
 
     const { user } = useUser({
         redirectTo: '/auth?redirect=/checkout'
     })
-
-    console.log(user)
 
     // state [statefull component]
     const [address, setAddress] = useState(addressInitialState);
@@ -105,4 +105,24 @@ function CartWithContext(props) {
 }
 
 export default CartWithContext
+
+
+
+export const getServerSideProps = withSessionSsr(async function ({ req, res }) {
+    const user = req.session.user;
+    if (user === undefined) {
+        res.setHeader("location", "/auth");
+        res.statusCode = 302;
+        res.end();
+        return {
+            props: {
+                userSSR: { isLoggedIn: false },
+            },
+        };
+    }
+
+    return {
+        props: { userSSR: req.session },
+    };
+})
 

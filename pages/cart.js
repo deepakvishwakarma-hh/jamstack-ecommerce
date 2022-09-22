@@ -1,12 +1,17 @@
 import Link from 'next/link'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
+import useUser from "../utils/lib/userUser"
 import DENOMINATION from '../utils/currencyProvider'
 import { Image, QuantityPicker } from '../components'
 import { FaTimes, FaLongArrowAltRight } from 'react-icons/fa'
 import { SiteContext, ContextProviderComponent } from '../context/mainContext'
 
 const Cart = ({ context }) => {
+  const { user } = useUser()
+  const router = useRouter()
+
   const [renderClientSideComponent, setRenderClientSideComponent] = useState(false)
   useEffect(() => {
     setRenderClientSideComponent(true)
@@ -25,6 +30,10 @@ const Cart = ({ context }) => {
     if (item.quantity === 1) return
     item.quantity = item.quantity - 1
     setItemQuantity(item)
+  }
+
+  function cheakoutBtnHandler() {
+    return router.push(user.isLoggedIn ? 'checkout' : '/auth?redirect=/checkout')
   }
 
   if (!renderClientSideComponent) return null
@@ -148,15 +157,13 @@ const Cart = ({ context }) => {
             <p className="font-semibold tracking-wide">{DENOMINATION + total}</p>
           </div>
           {!cartEmpty && (
-            <Link href="/checkout" className="flex flex-1 justify-end">
-              <a aria-label="Check out">
-                <div className="cursor-pointer flex items-center bg-gray-200 py-3 px-3 rounded">
-                  <p className="text-gray-600 text-sm mr-2">Proceed to check out</p>
-                  <FaLongArrowAltRight className="text-gray-600" />
-                </div>
-              </a>
-            </Link>
+            <div onClick={cheakoutBtnHandler} className="cursor-pointer flex items-center bg-gray-200 py-3 px-3 rounded">
+              <p className="text-gray-600 text-sm mr-2">Proceed to check out</p>
+              <FaLongArrowAltRight className="text-gray-600" />
+            </div>
           )}
+
+
         </div>
       </div>
     </>

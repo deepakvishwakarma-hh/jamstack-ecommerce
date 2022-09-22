@@ -2,12 +2,15 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import useUser from "../utils/lib/userUser"
 import { navItemLength } from '../ecommerce.config'
 import { FiShoppingCart, FiUser, FiMenu, FiX, FiHome, FiLayers, FiTruck } from "react-icons/fi";
 
 export default function Layout({ children, categories = [], prohibitRoutes }) {
+  const { user } = useUser()
   const router = useRouter()
   const [isMenuVisible, setMenuVisiblity] = useState(false)
+
   function onMenuClick() {
     setMenuVisiblity(prev => !prev)
   }
@@ -16,7 +19,7 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
     categories = categories.slice(0, navItemLength)
   }
 
-  // do not try
+  // do not try : not tested yet
   if (prohibitRoutes.includes(router.asPath)) {
     return <main className="w-fw">{children}</main>
   }
@@ -39,11 +42,11 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
             <p onClick={setMenuDiseble} style={activeClass('/')} className="text-center text-md py-3  w-full font-bold">Home</p>
           </Link>
 
-          <Link passHref href={`/user`}>
+          <Link passHref href={user?.isLoggedIn ? '/user' : '/auth?redirect=/user'}>
             <p onClick={() => { setMenuDiseble() }} style={activeClass('/user')} className="text-center text-md py-3  w-full font-bold"> Account</p>
           </Link>
 
-          <Link passHref href={`/user/orders`}>
+          <Link passHref href={user?.isLoggedIn ? '/user/orders' : '/auth?redirect=/user/orders'}>
             <p onClick={setMenuDiseble} style={activeClass('/user/orders')} className="text-center text-md py-3  w-full font-bold"> My Orders </p>
           </Link>
 
@@ -80,7 +83,7 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
                 </a>
               </Link>
 
-              <Link href={`/user/orders`}>
+              <Link href={user?.isLoggedIn ? '/user/orders' : '/auth?redirect=/user/orders'}>
                 <a aria-label={'home'}>
                   <p style={activeClass('/user/orders')} className="sm:mr-8 sm:mb-0 mb-4 text-left text-smaller mr-4 font-bold flex text-gray-700"><FiTruck size={20} className="mr-2" />My Orders</p>
                 </a>
@@ -98,7 +101,7 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
                 </div>
               </Link>
 
-              <Link href="/auth">
+              <Link href={user?.isLoggedIn ? '/user' : '/auth?redirect=/user'}>
                 <div className=" items-center justify-center justify-self-end  h-full p-3 text-gray-600  cursor-pointer hidden lg:flex">
                   <a aria-label="Home">
                     <FiUser size={22} />
