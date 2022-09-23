@@ -30,9 +30,11 @@ const Userpage = ({ SSR }) => {
                 <h5 className=" font-bold capitalize text-xs text-gray-500 flex items-center"> <MdCall size={13} className="mr-2 text-blue-500" /> {SSR.user.phoneNumber}</h5>
             </div>)}
 
-            <div className="mt-10 flex flex-col">
+
+            <div className="mt-10 flex flex-col mx-auto" style={{ maxWidth: '600px' }}>
+
                 <Link href="/user/orders" passHref>
-                    <div className="bg-gray-100 py-2 rounded  flex justify-between items-center px-4 my-1">
+                    <div className="bg-gray-100 py-2 rounded  flex justify-between items-center px-4 my-1 ">
                         <h1 className="text-md font-bold" >Orders</h1>
                         <BiChevronRight size={20} />
                     </div>
