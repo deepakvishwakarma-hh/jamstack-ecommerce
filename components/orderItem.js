@@ -5,9 +5,10 @@ import { configuredSanityClient } from "../utils/lib/client";
 
 import Image from "next/image";
 
+
 const Orderitem = ({ id, phoneNumber }) => {
 
-    const [isOpen, setOpen] = React.useState(true)
+    const [isOpen, setOpen] = React.useState(false)
     const [order, setOrder] = React.useState(null)
 
     function onClick() { setOpen(!isOpen) }
@@ -34,9 +35,6 @@ const Orderitem = ({ id, phoneNumber }) => {
                 body: JSON.stringify({ id, user: phoneNumber })
             }
             const data = await fetch("/api/cancel-order", RequestInfo).then((t) => t.json());
-
-            console.log(data)
-
             if (data) {
                 alert('successfully cancelled')
             } else {
@@ -45,12 +43,16 @@ const Orderitem = ({ id, phoneNumber }) => {
         }
     }
 
+    function onWhatsappQueryHandler() {
+        window.open(`https://wa.me/918461833731?text=${"Track My Order: " + id}`)
+    }
+
 
     return (
-        <div className="rounded-md overflow-hidden my-2  bg-gray-100">
+        <div className="rounded-md overflow-hidden my-2  bg-gray-100 ">
 
-            <div onClick={onClick} className={`flex py-3 px-5 justify-between items-center rounded ${isOpen ? `bg-gray-200` : null}`}>
-                <h5 className="text-sm"><b>Order_id </b>: {id}</h5>
+            <div onClick={onClick} className={`flex py-3 px-5 justify-between items-center rounded ${isOpen ? `bg-gray-200` : null} `}>
+                <h3 className="text-sm"><b>Order_id </b>: {id}</h3>
                 <i>{isOpen ? <FiChevronUp /> : <FiChevronDown />}</i>
             </div>
             {isOpen &&
@@ -59,9 +61,19 @@ const Orderitem = ({ id, phoneNumber }) => {
                     <h3 className=" my-2 text-sm"> <b>Payment</b> : Pre-paid</h3>
 
                     <hr className="mb-5" />
+
+
                     {order !== null && order?.map((product, index) => <Product product={product} key={index} />)}
 
-                    <button onClick={onCancelOrder} className="block bg-red-500 w-full p-2 rounded-md font-medium md:w-40 text-white mb-4">Cancel Order</button>
+                    <div className="flex md:flex-row flex-col">
+                        <button onClick={onCancelOrder} className=" mx-2 block bg-red-500 w-full p-2 rounded-md font-medium md:w-40 text-white mb-4">Cancel Order</button>
+
+                        <button onClick={onWhatsappQueryHandler} className=" mx-2  bg-green-500 w-full p-2 rounded-md font-medium md:w-40 text-white mb-4 flex items-center justify-center">
+                            <Image width="27px" height="27px" src="/WhatsApp.svg" alt="WhatsApp logo" loader={() => "/WhatsApp.svg"} />
+                            <span className="pl-2">Track Order</span>
+                        </button>
+                    </div>
+
                 </div>
             }
         </div>

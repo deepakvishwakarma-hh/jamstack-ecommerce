@@ -2,12 +2,13 @@ import React from "react";
 import { firestore } from "../../firebase"
 import { FiRotateCw } from "react-icons/fi";
 import { Orderitem } from "../../components";
-import { doc, onSnapshot } from "firebase/firestore"
+import { doc, getDoc, onSnapshot } from "firebase/firestore"
 import { withSessionSsr } from "../../utils/lib/withSession"
 
 const Orderpage = ({ SSR }) => {
-    console.log(SSR)
-    const [orders, setOrders] = React.useState(null)
+
+    const [orders, setOrders] = React.useState(SSR.doc.orders)
+
     React.useEffect(() => {
         let isActive = true;
         function getUserData(phoneNumber) {
@@ -58,6 +59,8 @@ export default Orderpage
 
 export const getServerSideProps = withSessionSsr(async function ({ req, res }) {
     const user = req.session.user;
+
+
     if (user === undefined) {
         res.setHeader("location", "/auth");
         res.statusCode = 302;
@@ -68,7 +71,14 @@ export const getServerSideProps = withSessionSsr(async function ({ req, res }) {
             },
         };
     }
+
+    let userData
+
+    await getDoc(doc(firestore, 'users', req.session.user.phoneNumber)).then((userDoc) => {
+        userData = userDoc.data()
+    })
+
     return {
-        props: { SSR: { ...req.session } },
+        props: { SSR: { ...req.session, doc: userData } },
     };
 })
