@@ -62,3 +62,14 @@ html {
 
 
 .lsd:nth-child(even) {background: rgba(204, 204, 204, 0.445)}
+
+
+.mediabg {
+ background-color: whitesmoke ;
+}
+ 
+@media only screen and (max-width: 767px) {
+  .mediabg {
+    background-color: white ;
+    }
+}

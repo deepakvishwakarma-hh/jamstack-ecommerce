@@ -99,7 +99,7 @@ const AuthForm = ({ mutateUser }) => {
     }
 
     return (
-        <div className='md:flex md:bg-blue-200 bg-white  md:p-20 py-10 pt-20 px-10 md:rounded-md  md:w-auto w-full  bg-opacity-90 '>
+        <div className='md:flex bg-white md:p-20 py-10 pt-20 px-10 md:rounded-md  md:w-auto  w-full  bg-opacity-90 '>
 
             <div className="md:flex-1 md:flex flex-col justify-center">
                 <h2 className="text-2xl font-bold">Hey, <br /> Login Now.</h2>
