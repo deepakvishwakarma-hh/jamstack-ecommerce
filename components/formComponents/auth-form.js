@@ -1,15 +1,20 @@
 import { useState } from "react"
+import { useRouter } from "next/router";
 import { authentication } from "../../firebase"
 import { RecaptchaVerifier } from "firebase/auth"
 import fetchJson from "../../utils/lib/fetchJson";
 import { signInWithPhoneNumber } from "firebase/auth"
-import { FiChevronsRight } from "react-icons/fi";
+
 const spinner = <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" >
     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
     <path className="opacity-75" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
 </svg >
 
+import Image from "next/image";
+
 const AuthForm = ({ mutateUser }) => {
+
+    const Router = useRouter()
 
     // states
     const [input, setInput] = useState({ phone: '', otp: '' })
@@ -47,7 +52,10 @@ const AuthForm = ({ mutateUser }) => {
                     // stop [ loading effect on btn]
                     stopPending()
                 })
-                .catch((err) => { alert(err) })
+                .catch((err) => {
+                    alert(err);
+                    Router.reload()
+                })
         } else {
             alert('Please put valid phone number!')
         }
@@ -77,15 +85,13 @@ const AuthForm = ({ mutateUser }) => {
                                 })
                             )
                         } catch (error) {
-                            if (error) {
-                                alert(error)
-                            } else {
-                                console.error('An unexpected error happened:', error)
-                            }
+                            alert(error)
+                            Router.reload()
                         }
                     }
                 }).catch((err) => {
                     alert(err)
+                    Router.reload()
                 })
         } else {
             alert('OTP must be 6 number long!')
@@ -93,25 +99,37 @@ const AuthForm = ({ mutateUser }) => {
     }
 
     return (
-        <div className='bg-white md:p-20 py-20 px-10 rounded-md w-full md:w-auto bg-opacity-90' >
-            <label>
-                <h3 className="my-1 font-bold text-sm">Phone Number</h3>
-                <input readOnly={acessblity.optInput} pattern="[0-9]" minLength={10} maxLength={10} onChange={onChangeInputs} name="phone" type="number" value={input.phone} className="border border-gray-300 px-2 rounded-md w-full py-1" style={{ borderWidth: '2px' }} placeholder="Phone Number" />
-                <p className="text-xs text-gray-500 my-2">Please do not include +91 (country code)</p>
-            </label>
-            {acessblity.optInput
-                && <label>
-                    <h3 className="my-1 font-bold text-sm">OTP <sub className="text-gray">(One Time Password)</sub></h3>
-                    <input minLength={10} maxLength={6} className="border border-gray-300 px-2 rounded-md mb-2 w-full py-1" onChange={onChangeInputs} name="otp" placeholder="OTP goes here..." style={{ borderWidth: '2px' }} type="text" value={input.otp} />
+        <div className='md:flex md:bg-blue-200 bg-white  md:p-20 py-10 pt-20 px-10 md:rounded-md  md:w-auto w-full  bg-opacity-90 '>
 
-                </label>
-            }
+            <div className="md:flex-1 md:flex flex-col justify-center">
+                <h2 className="text-2xl font-bold">Hey, <br /> Login Now.</h2>
+                <p className="text-xs text-gray-500 py-1">Secured with  Google Firebase Authentication</p>
+                <h5 className="text-xs flex items-center text-black font-bold  tracking-wide"><Image loader={() => "/google-logo.png"} src="/google-logo.png" alt="n" width={20} height={20} />Google Secured</h5>
+            </div>
 
-            {acessblity.optInput && <button onClick={verifyOTP} className="flex justify-center w-full p-2 bg-black font-normal rounded-md text-gray-50 text-sm"> {acessblity.pending ? spinner : "Verify OTP"} </button>}
+            <div className="md:flex-1">
 
-            {!acessblity.optInput && <button onClick={getOtp} className="flex justify-center w-full p-2 bg-black font-normal rounded-md text-gray-50 text-sm"> {acessblity.pending ? spinner : <FiChevronsRight />} </button>}
+                {!acessblity.optInput &&
+                    (<label>
+                        <input readOnly={acessblity.optInput} pattern="[0-9]" minLength={10} maxLength={10} onChange={onChangeInputs} name="phone" type="number" value={input.phone} className="border border-gray-300 px-2 rounded-md w-full py-4 text-xs mt-5" style={{ borderWidth: '2px' }} placeholder="Phone Number" />
+                        <p className="text-xs text-gray-500 my-2">Please do not include +91 ( country code )</p>
+                    </label>)
+                }
+
+                {acessblity.optInput &&
+                    (<label>
+                        <input pattern="[0-9]" minLength={6} maxLength={6} onChange={onChangeInputs} name="otp" type="password" value={input.otp} className="border border-gray-300 px-2 rounded-md w-full py-4 text-xs mt-5" style={{ borderWidth: '2px' }} placeholder="OTP" />
+                        <p className="text-xs text-gray-500 my-2">Enter the otp sent to the +91 {input.phone}</p>
+                    </label>)
+                }
+
+                {!acessblity.optInput && (<button onClick={getOtp} style={{ height: '50px', transition: 'all .5' }} className={` text-md text-white flex items-center justify-center w-full  rounded  ${input.phone.length !== 10 ? `bg-blue-100` : `bg-blue-500`}`}>{acessblity.pending ? spinner : 'Send OTP'}</button>)}
+
+                {acessblity.optInput && (<button onClick={verifyOTP} style={{ height: '50px', transition: 'all .5' }} className={` text-md text-white flex items-center justify-center w-full  rounded  ${input.otp.length !== 6 ? `bg-blue-100` : `bg-blue-500`}`}>{acessblity.pending ? spinner : 'Verify OTP'}</button>)}
+            </div>
 
             <div className="fixed bottom-0 right-0" id={"recapcha-container"}></div>
+
         </div>
     )
 }

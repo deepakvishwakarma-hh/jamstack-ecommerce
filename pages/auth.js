@@ -11,12 +11,15 @@ function Auth() {
     })
 
     return (
-        <div>
+        <div >
             <Head>
                 <title>Authentication</title>
+                <meta name="theme-color" content="blue" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
-            <main className='flex items-center justify-center w-full py-5 bg-contain bg-no-repeat bg-center ' style={{ backgroundImage: 'url("/undraw_login_re_4vu2.svg")' }}>
+            <main className=' fixed top-0 left-0 z-50 w-screen h-screen flex items-center justify-center py-5 bg-no-repeat bg-blue-500'
+            // style={{ backgroundImage: 'linear-gradient(45deg,purple,blue)' }}
+            >
                 <AuthenticationForm mutateUser={mutateUser} />
             </main>
         </div>
