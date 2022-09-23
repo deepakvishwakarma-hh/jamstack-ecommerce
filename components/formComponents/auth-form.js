@@ -111,21 +111,21 @@ const AuthForm = ({ mutateUser }) => {
 
                 {!acessblity.optInput &&
                     (<label>
-                        <input readOnly={acessblity.optInput} pattern="[0-9]" minLength={10} maxLength={10} onChange={onChangeInputs} name="phone" type="number" value={input.phone} className="border border-gray-300 px-2 rounded-md w-full py-4 text-xs mt-5" style={{ borderWidth: '2px' }} placeholder="Phone Number" />
+                        <input readOnly={acessblity.optInput} pattern="[0-9]" minLength={10} maxLength={10} onChange={onChangeInputs} name="phone" type="number" value={input.phone} className="border border-gray-300 px-2 rounded-md w-full py-3 text-xs mt-5" style={{ borderWidth: '2px' }} placeholder="Phone Number" />
                         <p className="text-xs text-gray-500 my-2">Please do not include +91 ( country code )</p>
                     </label>)
                 }
 
                 {acessblity.optInput &&
                     (<label>
-                        <input pattern="[0-9]" minLength={6} maxLength={6} onChange={onChangeInputs} name="otp" type="password" value={input.otp} className="border border-gray-300 px-2 rounded-md w-full py-4 text-xs mt-5" style={{ borderWidth: '2px' }} placeholder="OTP" />
+                        <input pattern="[0-9]" minLength={6} maxLength={6} onChange={onChangeInputs} name="otp" type="password" value={input.otp} className="border border-gray-300 px-2 rounded-md w-full py-3 text-xs mt-5" style={{ borderWidth: '2px' }} placeholder="OTP" />
                         <p className="text-xs text-gray-500 my-2">Enter the otp sent to the +91 {input.phone}</p>
                     </label>)
                 }
 
-                {!acessblity.optInput && (<button onClick={getOtp} style={{ height: '50px', transition: 'all .5' }} className={` text-md text-white flex items-center justify-center w-full  rounded  ${input.phone.length !== 10 ? `bg-blue-100` : `bg-blue-500`}`}>{acessblity.pending ? spinner : 'Send OTP'}</button>)}
+                {!acessblity.optInput && (<button onClick={getOtp} style={{ height: '35px', transition: 'all .5' }} className={` text-md text-white flex items-center justify-center w-full  rounded  ${input.phone.length !== 10 ? `bg-blue-100` : `bg-blue-500`}`}>{acessblity.pending ? spinner : 'Send OTP'}</button>)}
 
-                {acessblity.optInput && (<button onClick={verifyOTP} style={{ height: '50px', transition: 'all .5' }} className={` text-md text-white flex items-center justify-center w-full  rounded  ${input.otp.length !== 6 ? `bg-blue-100` : `bg-blue-500`}`}>{acessblity.pending ? spinner : 'Verify OTP'}</button>)}
+                {acessblity.optInput && (<button onClick={verifyOTP} style={{ height: '35px', transition: 'all .5' }} className={` text-md text-white flex items-center justify-center w-full  rounded  ${input.otp.length !== 6 ? `bg-blue-100` : `bg-blue-500`}`}>{acessblity.pending ? spinner : 'Verify OTP'}</button>)}
             </div>
 
             <div className="fixed bottom-0 right-0" id={"recapcha-container"}></div>
