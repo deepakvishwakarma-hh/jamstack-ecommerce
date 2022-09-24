@@ -7,9 +7,13 @@ import { navItemLength } from '../ecommerce.config'
 import { FiShoppingCart, FiUser, FiMenu, FiX, FiHome, FiLayers, FiTruck } from "react-icons/fi";
 
 export default function Layout({ children, categories = [], prohibitRoutes }) {
+
+
   const { user } = useUser()
   const router = useRouter()
   const [isMenuVisible, setMenuVisiblity] = useState(false)
+
+  // console.log(router)
 
   function onMenuClick() {
     setMenuVisiblity(prev => !prev)
@@ -20,8 +24,8 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
   }
 
   // do not try : not tested yet
-  if (prohibitRoutes.includes(router.asPath)) {
-    return <main className="w-fw">{children}</main>
+  if (prohibitRoutes.includes(router.pathname)) {
+    return <main className="w-full">{children}</main>
   }
 
   function activeClass(route) {
