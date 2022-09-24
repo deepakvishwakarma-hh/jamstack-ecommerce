@@ -179,3 +179,66 @@ await Promise.all(
 To see an example of how to process payments server-side with stripe, check out the [Lambda function in the snippets folder](https://github.com/jamstack-cms/jamstack-ecommerce/blob/next/snippets/lambda.js).
 
 Also, consider verifying totals by passing in an array of IDs into the function, calculating the total on the server, then comparing the totals to check and make sure they match.
+
+old authentication functions
+
+    // function getOtp(event) {
+    //     event.preventDefault()
+    //     // basic phone number validation
+    //     if (input.phone?.length == 10) {
+    //         // start [ loading effect on btn]
+    //         startPending()
+    //         generateRecaptcha()
+    //         let appVerifier = window.recaptchaVerifier
+    //         signInWithPhoneNumber(authentication, `+91${input.phone}`, appVerifier)
+    //             .then((result) => {
+    //                 window.confirmationResult = result;
+    //                 showOtpInput()
+    //                 // stop [ loading effect on btn]
+    //                 stopPending()
+    //             })
+    //             .catch((err) => {
+    //                 alert(err);
+    //                 Router.reload()
+    //             })
+    //     } else {
+    //         alert('Please put valid phone number!')
+    //     }
+    // }
+
+    // verify opt by user
+    // async function verifyOTP() {
+    //     // basic otp validation
+    //     if (input.otp?.length == 6) {
+    //         // start [ loading effect on btn]
+    //         startPending()
+    //         let confirmationResult = window.confirmationResult;
+    //         confirmationResult.confirm(input.otp)
+    //             .then(async (result) => {
+    //                 if (result.user) {
+    //                     try {
+    //                         const body = {
+    //                             id: result.user.phoneNumber,
+    //                             uid: result.user.uid,
+    //                         }
+
+    //                         mutateUser(
+    //                             await fetchJson('/api/user/login', {
+    //                                 method: 'POST',
+    //                                 headers: { 'Content-Type': 'application/json' },
+    //                                 body: JSON.stringify(body),
+    //                             })
+    //                         )
+    //                     } catch (error) {
+    //                         alert(error)
+    //                         Router.reload()
+    //                     }
+    //                 }
+    //             }).catch((err) => {
+    //                 alert(err)
+    //                 Router.reload()
+    //             })
+    //     } else {
+    //         alert('OTP must be 6 number long!')
+    //     }
+    // }

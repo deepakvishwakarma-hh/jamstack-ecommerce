@@ -18,8 +18,6 @@ import RouteUnavailable from './route-unavailable'
 import InvalidUserAleart from './invalid-user-aleart'
 import DisplaySmall from './heroComponents/DisplaySmall'
 import DisplayMedium from './heroComponents/DisplayMedium'
-import AuthenticationForm from "./formComponents/auth-form"
-
 export {
   Tag,
   Image,
@@ -39,6 +37,5 @@ export {
   CheackoutProduct,
   RouteUnavailable,
   InvalidUserAleart,
-  AuthenticationForm,
   Product, QuantityPicker
 }
