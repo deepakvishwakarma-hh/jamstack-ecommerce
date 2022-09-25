@@ -59,10 +59,7 @@ html {
   background: #555;
 }
 
-
-
 .lsd:nth-child(even) {background: rgba(204, 204, 204, 0.445)}
-
 
 .mediabg {
  background-color: whitesmoke ;
@@ -72,4 +69,12 @@ html {
   .mediabg {
     background-color: white ;
     }
+}
+
+.multiple-colors {
+  font-size: 11px;
+  background: -webkit-linear-gradient(45deg,red, green, blue);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

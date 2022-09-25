@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import useUser from "../utils/lib/userUser"
 import { navItemLength } from '../ecommerce.config'
 import { FiShoppingCart, FiUser, FiMenu, FiX, FiHome, FiLayers, FiTruck } from "react-icons/fi";
-
 export default function Layout({ children, categories = [], prohibitRoutes }) {
 
 
@@ -29,7 +28,7 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
   }
 
   function activeClass(route) {
-    return route == router.pathname ? { textDecoration: 'underline' } : {}
+    return route == router.pathname ? { color: "blue" } : {}
   }
 
   function setMenuDiseble() {
