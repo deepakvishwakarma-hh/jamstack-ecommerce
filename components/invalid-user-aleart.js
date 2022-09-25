@@ -1,5 +1,5 @@
 import { BsX } from 'react-icons/bs'
-import Auth from "./formComponents/auth-form"
+import Auth from "./formComponents/authentication"
 const InvalidUserAleart = ({ close }) => {
     return (
         <div className="transition-all fixed w-screen h-screen bg-black bg-opacity-50 flex justify-center items-end md:items-center top-0 left-0">
