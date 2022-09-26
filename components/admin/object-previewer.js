@@ -10,7 +10,6 @@ const ObjectPreviewer = ({ object }) => {
         <div className=' flex flex-col'>
 
             {keys.map((key) => {
-                console.log(typeof object[key] === "object")
                 return (
                     <div key={key} className="flex lsd p-1"  >
                         <span className='font-medium capitalize flex-1 font-mono text-sm pl-2'>{key} →</span>

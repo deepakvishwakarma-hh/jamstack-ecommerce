@@ -1,10 +1,10 @@
 import Link from 'next/link'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
 import useUser from "../utils/lib/userUser"
+import { useState, useEffect } from 'react'
+import { QuantityPicker } from '../components'
 import DENOMINATION from '../utils/currencyProvider'
-import { Image, QuantityPicker } from '../components'
 import { FaTimes, FaLongArrowAltRight } from 'react-icons/fa'
 import { SiteContext, ContextProviderComponent } from '../context/mainContext'
 
@@ -67,7 +67,7 @@ const Cart = ({ context }) => {
                           <div className=" items-center hidden md:flex">
                             <Link href={`${item.url}`}>
                               <a aria-label={item.name}>
-                                <Image className="w-32 m-0" src={item.image} alt={item.name} />
+                                <img className="w-32 m-0" src={item.image} alt={item.name} />
                               </a>
                             </Link>
                             <Link href={`${item.url}`}>
@@ -106,7 +106,7 @@ const Cart = ({ context }) => {
                           <div className="flex items-center  md:hidden">
                             <Link href={`${item.url}`}>
                               <a>
-                                <Image className="w-32 m-0" src={item.image} alt={item.name} />
+                                <img className="w-32 m-0" src={item.image} alt={item.name} />
                               </a>
                             </Link>
                             <div>

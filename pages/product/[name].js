@@ -6,8 +6,8 @@ import { client, urlFor } from "../../utils/lib/client"
 import BlockContent from "@sanity/block-content-to-react"
 import getVarientByKey from '../../utils/getVarientByKey'
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { Varients, QuantityPicker, RouteUnavailable } from '../../components'
 import { SiteContext, ContextProviderComponent } from '../../context/mainContext'
-import { Image, Button, Varients, QuantityPicker, RouteUnavailable } from '../../components'
 
 import dynamic from 'next/dynamic'
 
@@ -84,7 +84,7 @@ const ItemView = (props) => {
         <div className='flex-1 flex-col hidden md:block'>
           <div className='sticky top-0'>
             <div id="image" className="p10 flex flex-1 justify-center items-center ">
-              <Image src={image} alt="Inventory item" className="md:max-w-104 max-h-104 " />
+              <img src={image} alt="Inventory item" className="md:max-w-104 max-h-104 " />
             </div>
             <div className="flex flex-2 justify-center flex-wrap items-center bg-gray-100 py-5">
               {currentVarient?.image.map((item, i) => (
@@ -149,10 +149,14 @@ const ItemView = (props) => {
               numberOfitems={numberOfitems} />
           </section>
 
-          <Button full title="Add to Cart" onClick={() => addItemToCart(payload_for_addtocart)} />
+          <button className='text-sm font-bold tracking-wider bg-transparent hover:bg-black text-black font-semibold hover:text-white py-4 px-12 border-2 border-black hover:border-transparent my-1 w-full ' onClick={() => addItemToCart(payload_for_addtocart)}>
+            <div>
+              Add to Cart
+            </div>
+          </button>
 
           <button onClick={onWhatsappQueryHandler} className='text-sm w-full bg-transparent font-bold  py-2 px-12  my-1 flex  items-center bg-green-500 rounded md:w-auto justify-center'>
-            <Image className="mx-2" width="27px" height="27px" src="/WhatsApp.svg" alt="WhatsApp logo" /> <div className='text-left'>
+            <img className="mx-2" width="27px" height="27px" src="/WhatsApp.svg" alt="WhatsApp logo" /> <div className='text-left'>
               <h3 className='text-white tracking-wider font-bold'>WhatsApp Us</h3>
               <p className='text-white text-xs font-thin tracking-wide'>Send product link, ask query.</p>
             </div>

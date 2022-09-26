@@ -1,14 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
-import React, { useEffect, useState } from 'react'
+import Link from 'next/link';
 import { firestore } from "../../../firebase"
 import { getDoc, doc } from 'firebase/firestore'
-import { FiChevronDown, FiChevronUp } from "react-icons/fi";
-import Link from 'next/link';
-import { client, urlFor } from ".././../../utils/lib/client"
-
-
 import ObjectPreviewer from "../object-previewer"
-
+import React, { useEffect, useState } from 'react'
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
+import { client, urlFor } from ".././../../utils/lib/client"
 
 export default function Delivery({ id }) {
     const [document, setDoc] = React.useState(null)
@@ -21,8 +18,6 @@ export default function Delivery({ id }) {
         })
     }, [id])
 
-    console.log(document)
-
     const signBorderStyles = { borderWidth: '2px', borderStyle: 'solid', borderLeftColor: document == undefined ? 'red' : document == null ? 'blue' : 'green' }
 
     return (
@@ -31,26 +26,21 @@ export default function Delivery({ id }) {
             <div onClick={onClickHandler} className='flex justify-between items-center p-2'>
                 <h1>{id}</h1>
                 <i>{isOpen ? <FiChevronUp /> : <FiChevronDown />}</i>
-
             </div>
 
-            {
-                isOpen &&
-                <div className=''>
-
-
-
-                    <div className='  mb-2 rounded'>
+            {isOpen &&
+                (<div>
+                    <div className='mb-2 rounded'>
                         <h2 className='font-medium bg-black text-white px-2 py-2'>Address</h2>
                         <ObjectPreviewer object={document.address} />
                     </div>
 
-                    <div className='  mb-2 rounded'>
+                    <div className='mb-2 rounded'>
                         <h2 className='font-medium bg-black text-white px-2 py-2'>User</h2>
                         <ObjectPreviewer object={document.user} />
                     </div>
 
-                    <div className=" rounded">
+                    <div className="rounded">
                         <h2 className='font-medium bg-black text-white px-2 py-2'>Products </h2>
                         {document.products.map((product, index) => {
                             return (
@@ -59,7 +49,7 @@ export default function Delivery({ id }) {
                         })}
                     </div>
 
-                </div>
+                </div>)
             }
 
 
@@ -100,9 +90,6 @@ const ProductDataPreviewer = ({ product, id }) => {
         fetchIt()
 
     }, [product.productId, product.productVarientKey])
-
-
-    console.log(product.varient)
 
     return (
 

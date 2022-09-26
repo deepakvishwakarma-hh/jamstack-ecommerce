@@ -6,6 +6,8 @@ import DENOMINATION from '../utils/currencyProvider';
 import useElementSize from "../utils/hooks/useElementSize"
 import { configuredSanityClient } from '../utils/lib/client'
 const DualGridShow = ({ item }) => {
+
+
     const varient = item.varients[0];
     const [squareRef, { width }] = useElementSize()
     const imageProps = useNextSanityImage(

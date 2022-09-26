@@ -1,5 +1,6 @@
 import React from 'react'
 import { states, addressInitialState } from '../../ecommerce.config'
+
 class Address extends React.Component {
 
   clearForm = () => {
@@ -12,8 +13,7 @@ class Address extends React.Component {
 
   render() {
     const {
-      name, mobile, pincode, minAddress, maxAdress, landmark, place, state
-    } = this.props.address
+      name, mobile, pincode, minAddress, maxAdress, landmark, place } = this.props.address;
     return (
       <div className='md:flex-1'>
         <h3 className="text-3xl py-5">Delivery Address</h3>
@@ -77,7 +77,6 @@ class Address extends React.Component {
                   onChange={this.onChange}
                   value={place} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="place" placeholder="place" name="place" />
               </div>
-
 
               <div className="mb-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="state">
