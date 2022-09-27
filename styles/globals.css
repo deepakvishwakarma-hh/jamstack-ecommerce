@@ -59,7 +59,7 @@ html {
   background: #555;
 }
 
-.lsd:nth-child(even) {background: rgba(204, 204, 204, 0.445)}
+.lsd:nth-child(odd) {background: rgba(186, 185, 255, 0.192)}
 
 .mediabg {
  background-color: whitesmoke ;

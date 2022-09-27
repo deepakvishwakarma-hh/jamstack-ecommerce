@@ -42,7 +42,7 @@ const makePayment = async (amount, phoneNumber, address, products, clearCart) =>
     const DocId = + new Date()
 
     // store delivery-prodct
-    await setDoc(doc(firestore, "delivery", `${DocId}`), {
+    await setDoc(doc(firestore, "orders", `${DocId}`), {
         address: address,
         products: products,
         status: "failed",

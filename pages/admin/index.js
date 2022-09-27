@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
 
 const DynamicComponentWithNoSSR = dynamic(
-    () => import('../../components/admin/delivery-details'),
+    () => import('../../components/admin/dashboard'),
     { ssr: false }
 )
 

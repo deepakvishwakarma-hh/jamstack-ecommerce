@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     if (req.method === "POST") {
         const { id } = JSON.parse(req.body)
 
-        const docRef = doc(firestore, "delivery", `${id}`);
+        const docRef = doc(firestore, "orders", `${id}`);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
