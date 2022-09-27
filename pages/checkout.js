@@ -2,13 +2,12 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import useUser from '../utils/lib/userUser'
-import makePayment from '../utils/razor-payment'
+import makePayment from '../utils/payment'
 import DENOMINATION from '../utils/currencyProvider'
 import { addressInitialState } from "../ecommerce.config"
 import { Address, CheackoutProduct } from '../components'
-import { SiteContext, ContextProviderComponent } from '../context/mainContext'
 import { withSessionSsr } from "../utils/lib/withSession"
-
+import { SiteContext, ContextProviderComponent } from '../context/mainContext'
 
 const Cheakout = ({ userSSR, context }) => {
 

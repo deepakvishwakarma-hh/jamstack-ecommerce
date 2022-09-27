@@ -18,6 +18,9 @@ const DeliveryDetails = () => {
     })
 
 
+    console.log(deliveries)
+
+
     const [inputValues, setInputValues] = useState({
         search: '',
         select: 'all'
@@ -66,16 +69,8 @@ const DeliveryDetails = () => {
                 })
             });
 
-            // get perfact deliveries 
-            razorQuerySnapshot.forEach((razor) => {
-                const _id = razor.data().payload.payment.entity.description;
-                cancelledQuerySnapshot.forEach((cancel) => {
-                    const _id2 = cancel.id
-                    if (_id !== _id2) setDeliveries(prev => {
-                        return { ...prev, perfact: [...prev.perfact, _id] }
-                    })
-                })
-            })
+
+
 
         }
 

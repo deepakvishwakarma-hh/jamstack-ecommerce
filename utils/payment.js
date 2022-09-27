@@ -5,7 +5,7 @@ import { doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore"
 
 const makePayment = async (amount, phoneNumber, address, products, clearCart) => {
 
-    const res = await initializeRazorpay();
+    const res = await initializeRazorpay()
 
     if (!res) {
         alert("Razorpay SDK Failed to load");
@@ -45,6 +45,7 @@ const makePayment = async (amount, phoneNumber, address, products, clearCart) =>
     await setDoc(doc(firestore, "delivery", `${DocId}`), {
         address: address,
         products: products,
+        status: "failed",
         user: { phoneNumber: phoneNumber }// we need to change to cokkies
     }).then(() => {
         const paymentObject = new window.Razorpay({

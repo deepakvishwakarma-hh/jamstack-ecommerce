@@ -1,10 +1,7 @@
 // const crypto = require('crypto')
-import { doc, setDoc } from "firebase/firestore"
-
-import { firestore } from "../../firebase"
-
-
 import crypto from "crypto"
+import { firestore } from "../../firebase"
+import { doc, setDoc, updateDoc } from "firebase/firestore"
 
 export default async function handler(req, res) {
     if (req.method === "POST") {
@@ -13,7 +10,9 @@ export default async function handler(req, res) {
         shasum.update(JSON.stringify(req.body))
         const digest = shasum.digest('hex')
         if (digest === req.headers['x-razorpay-signature']) {
-            setDoc(doc(firestore, "razor-payments", req.body.payload.payment.entity.id), req.body).catch((err) => console(err))
+            const newPaymentRef = doc(firestore, "razor-payments", req.body.payload.payment.entity.id)
+            const deliveryRef = doc(firestore, 'delivery', req.body.payload.payment.entity.discription)
+            setDoc(newPaymentRef, req.body).then(async () => { updateDoc(deliveryRef, { status: 'paid' }) }).catch((err) => console(err))
         } else {
             // pass it
         }
