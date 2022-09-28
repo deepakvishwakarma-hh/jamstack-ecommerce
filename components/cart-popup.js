@@ -7,7 +7,7 @@ const CartPopop = ({ close }) => {
     function view() { router.push('/cart') }
 
     return (
-        <div className="bg-black w-screen h-screen fixed top-0 left-0 z-50 bg-opacity-30 flex items-end md:items-center  justify-center">
+        <div className="bg-black w-full h-full fixed top-0 left-0 z-50 bg-opacity-30 flex items-end md:items-center  justify-center">
 
             <div className="bg-white shadow-md p-10 rounded w-104">
                 <h1 className="capiatalize  text-xl font-bold my-5 tracking-wide">Sucessfully 👍 <br /> Product added to cart 🛒.</h1>
