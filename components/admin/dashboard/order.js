@@ -9,7 +9,7 @@ const Order = ({ children }) => {
     }
 
     return (
-        <div className="px-2 grid grid-cols-6 gap-2 py-3">
+        <div className="px-2 grid grid-cols-5 gap-2 py-3">
             <h3>{new Date(id).toLocaleDateString()}</h3>
             <h3 className="font-bold  capitalize" style={styleBasedUponStatus}>{status}</h3>
             <h3>{id}</h3>
