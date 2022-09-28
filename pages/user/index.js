@@ -6,7 +6,39 @@ import fetchJson from "../../utils/lib/fetchJson";
 import { withSessionSsr } from "../../utils/lib/withSession"
 import { BiChevronRight, BiLogOutCircle } from "react-icons/bi";
 
+
+import React from "react";
+import { firestore } from "../../firebase"
+import { FiRotateCw } from "react-icons/fi";
+import { Orderitem } from "../../components";
+import { doc, getDoc, onSnapshot } from "firebase/firestore"
 const Userpage = ({ SSR }) => {
+
+    const [orders, setOrders] = React.useState(SSR.doc.orders)
+
+
+    React.useEffect(() => {
+        let isActive = true;
+        function getUserData(phoneNumber) {
+            try {
+                onSnapshot(doc(firestore, "users", phoneNumber), (doc) => {
+                    if (isActive) {
+                        if (doc.data().orders?.length) {
+                            setOrders(doc.data().orders)
+                        } else {
+                            setOrders(false)
+                        }
+                    }
+                });
+            } catch (err) {
+                console.log(err)
+            }
+        }
+
+        if (SSR) getUserData(SSR.user.phoneNumber)
+        return () => { isActive = false };
+    }, [SSR])
+
 
     const router = useRouter()
 
@@ -33,12 +65,33 @@ const Userpage = ({ SSR }) => {
 
             <div className="mt-10 flex flex-col mx-auto" style={{ maxWidth: '600px' }}>
 
-                <Link href="/user/orders" passHref>
-                    <div className="bg-gray-100 py-2 rounded  flex justify-between items-center px-4 my-1 ">
-                        <h1 className="text-md font-bold" >Orders</h1>
-                        <BiChevronRight size={20} />
-                    </div>
-                </Link>
+                <section id="orders" className=" border-2 rounded  bg-purple-50 border-purple-100 overflow-hidden">
+
+                    <h1 className="p-2 text-lg">Orders</h1>
+
+                    {SSR && (
+                        <div className="p-1" >
+                            {orders == null && <div className="flex items-center justify-center w-full p-5 ">
+                                <h5>Loading...</h5>
+                            </div>}
+
+                            {orders == false && <div className="flex items-center justify-center flex-col w-full p-5  rounded">
+                                <h2 className="capitalize  text-center py-2">😾 Have you ordered anything yet?</h2>
+                            </div>}
+
+                            {orders && orders.map((id) => <Orderitem phoneNumber={SSR.user.phoneNumber} key={id} id={id} />)}
+
+                        </div>
+                    )}
+
+
+                </section>
+
+
+
+
+
+
                 <div onClick={logoutHandler} className="bg-black text-white py-2 rounded  flex justify-between items-center px-4 my-1">
                     <h1 className="text-md font-medium text-white">Logout  </h1>
                     <BiLogOutCircle size={20} />
@@ -65,7 +118,16 @@ export const getServerSideProps = withSessionSsr(async function ({ req, res }) {
             },
         };
     }
+
+
+    let userData
+
+    await getDoc(doc(firestore, 'users', req.session.user.phoneNumber)).then((userDoc) => {
+        userData = userDoc.data()
+    })
+
     return {
-        props: { SSR: { ...req.session } },
+        props: { SSR: { ...req.session, doc: userData } },
+
     };
 })

@@ -46,10 +46,6 @@ export default function Layout({ children, categories = [], prohibitRoutes }) {
             <p onClick={() => { setMenuDiseble() }} style={activeClass('/user')} className="text-center text-md py-3  w-full font-bold"> Account</p>
           </Link>
 
-          <Link passHref href={user?.isLoggedIn ? '/user/orders' : '/auth?redirect=/user/orders'}>
-            <p onClick={setMenuDiseble} style={activeClass('/user/orders')} className="text-center text-md py-3  w-full font-bold"> My Orders </p>
-          </Link>
-
           <Link passHref href={`/categories`}>
             <p onClick={setMenuDiseble} style={activeClass('/categories')} className="text-center text-md py-3  w-full font-bold">Categories</p>
           </Link>
