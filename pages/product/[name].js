@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Head from 'next/head'
 import { useState } from 'react'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { client, urlFor } from "../../utils/lib/client"
 import BlockContent from "@sanity/block-content-to-react"
@@ -9,12 +10,11 @@ import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { Varients, QuantityPicker, RouteUnavailable } from '../../components'
 import { SiteContext, ContextProviderComponent } from '../../context/mainContext'
 
-import dynamic from 'next/dynamic'
 
-const DynamicComponentWithNoSSR = dynamic(
-  () => import('../../components/related-products'),
-  { ssr: false }
-)
+
+const CartPopop = dynamic(() => import("../../components/cart-popup"))
+const DynamicComponentWithNoSSR = dynamic(() => import('../../components/related-products'), { ssr: false })
+
 
 const ItemView = (props) => {
 
@@ -24,6 +24,9 @@ const ItemView = (props) => {
   const { product } = props
   const { product: { price, name, briefDetail, hugeDetails, varients, sizes, _id, brand },
     context: { addToCart } } = props;
+
+
+  const [isCartPopupEnabled, EnableCartPopup] = useState(false)
 
   const [size, setSize] = useState(sizes[0].name)
   const [subImageIndex, setSubImageIndex] = useState(0)
@@ -67,9 +70,17 @@ const ItemView = (props) => {
 
   const title = `${name.trim()} - ${currentVarient.name.trim()} | Squareshop`;
 
+  const onAddToCartHandler = () => {
+    addItemToCart(payload_for_addtocart)
+    EnableCartPopup(true)
+  }
+
+
 
   return (
     <>
+
+      {isCartPopupEnabled && <CartPopop close={() => EnableCartPopup(false)} />}
       <Head>
         <title>{title}</title>
         <meta property="og:type" content="website" />
@@ -149,7 +160,7 @@ const ItemView = (props) => {
               numberOfitems={numberOfitems} />
           </section>
 
-          <button className='text-sm font-bold tracking-wider bg-transparent hover:bg-black text-black font-semibold hover:text-white py-4 px-12 border-2 border-black hover:border-transparent my-1 w-full ' onClick={() => addItemToCart(payload_for_addtocart)}>
+          <button className='text-sm font-bold tracking-wider bg-transparent hover:bg-black text-black font-semibold hover:text-white py-4 px-12 border-2 border-black hover:border-transparent my-1 w-full ' onClick={onAddToCartHandler}>
             <div>
               Add to Cart
             </div>
