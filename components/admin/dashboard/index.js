@@ -28,7 +28,6 @@ const Dashboard = () => {
             {realtimeOrderSnapshot !== null && (
                 <div id="wrapper" >
                     <div className=" capitalize px-2 grid grid-cols-6 gap-2  bg-black text-white py-2 ">
-                        <div>products contains</div>
                         <div>date</div>
                         <div>status</div>
                         <div>order id</div>
