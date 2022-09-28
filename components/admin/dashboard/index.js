@@ -1,7 +1,8 @@
 import React from "react"
-import { onSnapshot, collection } from "firebase/firestore";
-import { firestore } from "../../../firebase"
 import Order from "./order";
+import { firestore } from "../../../firebase"
+import { onSnapshot, collection } from "firebase/firestore";
+
 const Dashboard = () => {
 
     const [realtimeOrderSnapshot, setRealtimeOrderSnapshot] = React.useState(null)
@@ -18,27 +19,22 @@ const Dashboard = () => {
                     setRealtimeOrderSnapshot(requiredDataArr)
                 });
         }
-
         fetchRealtimeOrders()
-
     }, [])
-
-
-
-
 
     return (
         <div>
-
-
+            {realtimeOrderSnapshot == null && (<div>Loading...</div>)}
             {realtimeOrderSnapshot !== null && (
                 <div id="wrapper" >
-                    <div className=" capitalize px-2 grid grid-cols-5 gap-2  bg-black text-white py-2 ">
-                        <div>products</div>
+                    <div className=" capitalize px-2 grid grid-cols-6 gap-2  bg-black text-white py-2 ">
+                        <div>products contains</div>
                         <div>date</div>
                         <div>status</div>
                         <div>order id</div>
                         <div>delivery place</div>
+                        <div>visit </div>
+
                     </div>
                     {realtimeOrderSnapshot.map((order, index) => {
                         return (
@@ -46,12 +42,7 @@ const Dashboard = () => {
                         )
                     })}
                 </div>
-            )
-            }
-
-
-
-
+            )}
         </div>
     )
 }

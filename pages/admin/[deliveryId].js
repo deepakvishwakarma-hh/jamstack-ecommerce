@@ -1,17 +1,15 @@
 import { firestore } from "../../firebase"
 import { client, urlFor } from "../../utils/lib/client"
-import { getDoc, doc, getDocs, collection } from "firebase/firestore"
+import { getDoc, doc } from "firebase/firestore"
 import ObjectPreviewer from "../../components/admin/object-previewer"
 
-const Delivery = ({ address, products, isPerfact }) => {
+const Delivery = ({ address, products, status }) => {
 
-    if ((address || products) == undefined) return <div className="absolute w-screen h-screen top-0 left-0 z-50 bg-white"> delivery not found  </div >
-
-    if (!isPerfact) return <div className="absolute w-screen h-screen top-0 left-0 z-50 bg-white"> sorry this delivery cancelled  </div >
+    if ((address || products) == undefined) return <div className="absolute w-screen h-screen top-0 left-0 z-50 bg-white"> order not found  </div >
 
     return (
         <div className="absolute w-screen h-screen top-0 left-0 z-50 bg-white">
-
+            <h1 className="p-2 text-center">status : {status}</h1>
             <div className="p-2">
                 <h2 className='font-medium bg-black text-white px-2 py-2'>Address</h2>
                 <ObjectPreviewer object={address} />
@@ -33,12 +31,12 @@ export default Delivery
 
 export async function getServerSideProps(ctx) {
 
-    let productsArr = [], isPerfact = false
+    let productsArr = []
 
     const id = ctx.params.deliveryId
 
     try {
-        const ref = doc(firestore, 'delivery', id)
+        const ref = doc(firestore, 'orders', id)
         const document = await getDoc(ref)
         const filteredDocument = document.data()
 
@@ -62,21 +60,13 @@ export async function getServerSideProps(ctx) {
             })
         })
 
-        const cancelledQuerySnapshot = await getDocs(collection(firestore, "cancelled-delivery"));
-        const razorQuerySnapshot = await getDocs(collection(firestore, "razor-payments"));
-        razorQuerySnapshot?.forEach((razor) => {
-            cancelledQuerySnapshot?.forEach((cancel) => {
-                if (razor.data().payload.payment.entity.description !== cancel.id) {
-                    isPerfact = true;
-                }
-            })
-        })
+
 
         return {
             props: {
                 address: filteredDocument.address,
                 products: productsArr,
-                isPerfact
+                status: filteredDocument.status
             }
         }
     } catch {
