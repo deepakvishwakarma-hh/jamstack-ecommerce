@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
             // varify paid deliveries
             async function makeStatusPaid() {
-                await updateDoc(deliveryRef, { status: "paid" })
+                await updateDoc(deliveryRef, { status: "paid", paymentId: req.body.payload.payment.entity.id })
             }
             // updating to furebase doc
             setDoc(newPaymentRef, req.body)
